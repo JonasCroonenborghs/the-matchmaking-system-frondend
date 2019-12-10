@@ -1,0 +1,31 @@
+<div class="card col-lg-4 col-sm-10 col-m-10 mt-3 myCard container justify-content-center">
+  <div class="card-body">
+    <div class=" pt-5">
+      <form (ngSubmit)="onSubmit()" [formGroup]="tagForm">
+        <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
+        <h1>Tag toevoegen:</h1>
+        <div class="form-group">
+          <label for="description">Beschrijving:</label>
+          <input type="text" class="form-control" id="description" placeholder="Beschrijving"
+                 formControlName="description"/>
+        </div>
+        <button type="submit" class="btn btn-success mt-3" [disabled]="!tagForm.valid || submitted">Voeg tag toe
+        </button>
+      </form>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">tagID</th>
+          <th scope="col">Naam</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Hier moet de tagID komen</td>
+          <td>Hier moet de tagName komen</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

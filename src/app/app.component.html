@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/" routerLinkActive="active"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login" routerLinkActive="active">Inloggen</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/registreren" routerLinkActive="active">Registreren</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/bedrijf-profiel" routerLinkActive="active">Bedrijf profiel(read)</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/maker-profiel" routerLinkActive="active">Maker profiel(read)</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/profiel" routerLinkActive="active">Mijn profiel(edit)</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/gebruiker-review" routerLinkActive="active">Gebruiker Reviews</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/bedrijf-review" routerLinkActive="active">Bedrijf Reviews</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/review" routerLinkActive="active">Review maken</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

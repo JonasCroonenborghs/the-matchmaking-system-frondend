@@ -1,0 +1,179 @@
+<div class="card col-lg-4 col-sm-10 col-m-10 mt-3 myCard container justify-content-center">
+  <div class="card-body">
+    <div class=" pt-5">
+      <h1>Gebruikers beheren</h1>
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Makers</h5>
+          <div class="card-text">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">MakerID</th>
+                <th scope="col">GebruikerID</th>
+                <th scope="col">TypeID</th>
+                <th scope="col">Nickname</th>
+                <th scope="col">Geboortedatum</th>
+                <th scope="col">Biografie</th>
+                <th scope="col">LinkedIn</th>
+                <th scope="col">Ervaring</th>
+                <th scope="col">Contact info</th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Hier moet de MakerID komen</td>
+                <td>Hier moet de TypeID komen</td>
+                <td>Hier moet de UserID komen</td>
+                <td>Hier moet de Nickname komen</td>
+                <td>Hier moet de Birthdate komen</td>
+                <td>Hier moet de Biography komen</td>
+                <td>Hier moet de LinkedIn komen</td>
+                <td>Hier moet de Experience komen</td>
+                <td>Hier moet de Contact info komen</td>
+                <td>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#makerModal"
+                          data-whatever="@mdo">Bewerk
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#makerModal"
+                          data-whatever="@mdo">Voeg toe
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Bedrijven</h5>
+          <div class="card-text">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">CompanyID</th>
+                <th scope="col">GebruikerID</th>
+                <th scope="col">Naam</th>
+                <th scope="col">Locatie</th>
+                <th scope="col">Biografie</th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Hier moet de CompanyID komen</td>
+                <td>Hier moet de UserID komen</td>
+                <td>Hier moet de Name komen</td>
+                <td>Hier moet de Location komen</td>
+                <td>Hier moet de Biography komen</td>
+                <td>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedrijfModal"
+                          data-whatever="@mdo">Bewerk
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedrijfModal"
+                          data-whatever="@mdo">Voeg toe
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="makerModal" tabindex="-1" role="dialog" aria-labelledby="makerModalLabel"
+           aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="makerModalLabel">Hier komt de maker naam</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="typeID" class="col-form-label">TypeID:</label>
+                  <input type="text" class="form-control" id="typeID">
+                </div>
+                <div class="form-group">
+                  <label for="nickname" class="col-form-label">Nickname:</label>
+                  <textarea class="form-control" id="nickname"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="birthdate" class="col-form-label">Geboortedatum:</label>
+                  <textarea class="form-control" id="birthdate"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="biography" class="col-form-label">Biografie:</label>
+                  <textarea class="form-control" id="biography"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="linkedIn" class="col-form-label">LinkedIn:</label>
+                  <textarea class="form-control" id="linkedIn"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="experience" class="col-form-label">Ervaring:</label>
+                  <textarea class="form-control" id="experience"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="contactInfo" class="col-form-label">Contact info:</label>
+                  <textarea class="form-control" id="contactInfo"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+              <button type="button" class="btn btn-primary">Opslaan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="bedrijfModal" tabindex="-1" role="dialog" aria-labelledby="bedrijfModalLabel"
+           aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="bedrijfModalLabel">Hier komt de bedrijfs naam</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="name" class="col-form-label">Naam:</label>
+                  <textarea class="form-control" id="name"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="location" class="col-form-label">Locatie:</label>
+                  <textarea class="form-control" id="location"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="biographyCompany" class="col-form-label">Biografie:</label>
+                  <textarea class="form-control" id="biographyCompany"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+              <button type="button" class="btn btn-primary">Opslaan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

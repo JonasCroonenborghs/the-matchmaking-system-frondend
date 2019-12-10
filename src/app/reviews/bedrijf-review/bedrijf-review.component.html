@@ -1,0 +1,12 @@
+<div class="container mt-3">
+  <h1>Reviews van makers: </h1>
+  <div class="card" *ngFor="let review of (reviews | async)">
+    <div class="card-header">MakerID: {{review.reviewerID}}</div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>{{review.description}}</p>
+        <footer class="blockquote-footer">{{review.like}}</footer>
+      </blockquote>
+    </div>
+  </div>
+</div>
