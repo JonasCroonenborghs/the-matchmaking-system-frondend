@@ -19,4 +19,8 @@ export class TagService {
   getTag(tagID: number) {
     return this.http.get<Tag>('https://localhost:5001/api/Tag/' + tagID);
   }
+
+  addTag(tag: Tag) {
+    return this.http.post('https://localhost:5001/api/Tag/', tag);
+  }
 }

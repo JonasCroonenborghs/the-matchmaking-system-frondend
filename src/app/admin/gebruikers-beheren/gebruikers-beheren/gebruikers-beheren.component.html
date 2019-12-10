@@ -23,19 +23,19 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>Hier moet de MakerID komen</td>
-                <td>Hier moet de TypeID komen</td>
-                <td>Hier moet de UserID komen</td>
-                <td>Hier moet de Nickname komen</td>
-                <td>Hier moet de Birthdate komen</td>
-                <td>Hier moet de Biography komen</td>
-                <td>Hier moet de LinkedIn komen</td>
-                <td>Hier moet de Experience komen</td>
-                <td>Hier moet de Contact info komen</td>
+              <tr *ngFor="let maker of (makers | async)">
+                <td>{{maker.makerID}}</td>
+                <td>{{maker.typeID}}</td>
+                <td>{{maker.userID}}</td>
+                <td>{{maker.nickname}}</td>
+                <td>{{maker.birthDate}}</td>
+                <td>{{maker.biography}}</td>
+                <td>{{maker.linkedIn}}</td>
+                <td>{{maker.experience}}</td>
+                <td>{{maker.contactInfo}}</td>
                 <td>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#makerModal"
-                          data-whatever="@mdo">Bewerk
+                          data-whatever="@mdo" (click)="onClickBewerkMaker(maker.makerID)">Bewerk
                   </button>
                 </td>
                 <td>
@@ -67,15 +67,15 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>Hier moet de CompanyID komen</td>
-                <td>Hier moet de UserID komen</td>
-                <td>Hier moet de Name komen</td>
-                <td>Hier moet de Location komen</td>
-                <td>Hier moet de Biography komen</td>
+              <tr *ngFor="let bedrijf of (bedrijven | async)">
+                <td>{{bedrijf.companyID}}</td>
+                <td>{{bedrijf.userID}}</td>
+                <td>{{bedrijf.name}}</td>
+                <td>{{bedrijf.location}}</td>
+                <td>{{bedrijf.biography}}</td>
                 <td>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedrijfModal"
-                          data-whatever="@mdo">Bewerk
+                          data-whatever="@mdo" (click)="onClickBewerkBedrijf(bedrijf.companyID)">Bewerk
                   </button>
                 </td>
                 <td>
@@ -96,47 +96,55 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="makerModalLabel">Hier komt de maker naam</h5>
+              <h5 class="modal-title" id="makerModalLabel">{{maker.nickname}}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <form>
+            <form (ngSubmit)="onSubmitOpslaanMaker()" [formGroup]="makerForm">
+              <div class="modal-body">
                 <div class="form-group">
                   <label for="typeID" class="col-form-label">TypeID:</label>
-                  <input type="text" class="form-control" id="typeID">
+                  <input type="text" class="form-control" id="typeID" content="{{maker.typeID}}"
+                         formControlName="typeID">
                 </div>
                 <div class="form-group">
                   <label for="nickname" class="col-form-label">Nickname:</label>
-                  <textarea class="form-control" id="nickname"></textarea>
+                  <input type="text" class="form-control" id="nickname" content="{{maker.nickname}}"
+                         formControlName="nickname">
                 </div>
                 <div class="form-group">
                   <label for="birthdate" class="col-form-label">Geboortedatum:</label>
-                  <textarea class="form-control" id="birthdate"></textarea>
+                  <input type="text" class="form-control" id="birthdate" content="{{maker.birthDate}}"
+                         formControlName="birthdate">
                 </div>
                 <div class="form-group">
                   <label for="biography" class="col-form-label">Biografie:</label>
-                  <textarea class="form-control" id="biography"></textarea>
+                  <input type="text" class="form-control" id="biography" content="{{maker.biography}}"
+                         formControlName="biography">
                 </div>
                 <div class="form-group">
                   <label for="linkedIn" class="col-form-label">LinkedIn:</label>
-                  <textarea class="form-control" id="linkedIn"></textarea>
+                  <input type="text" class="form-control" id="linkedIn" content="{{maker.linkedIn}}"
+                         formControlName="linkedIn">
                 </div>
                 <div class="form-group">
                   <label for="experience" class="col-form-label">Ervaring:</label>
-                  <textarea class="form-control" id="experience"></textarea>
+                  <input type="text" class="form-control" id="experience" content="{{maker.experience}}"
+                         formControlName="experience">
                 </div>
                 <div class="form-group">
                   <label for="contactInfo" class="col-form-label">Contact info:</label>
-                  <textarea class="form-control" id="contactInfo"></textarea>
+                  <input type="text" class="form-control" id="contactInfo" content="{{maker.contactInfo}}"
+                         formControlName="contactInfo">
                 </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-              <button type="button" class="btn btn-primary">Opslaan</button>
-            </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!makerForm.valid || submitted">Opslaan
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -146,31 +154,35 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="bedrijfModalLabel">Hier komt de bedrijfs naam</h5>
+              <h5 class="modal-title" id="bedrijfModalLabel">{{bedrijf.name}}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <form>
+            <form (ngSubmit)="onSubmitOpslaanBedrijf()" [formGroup]="bedrijfForm">
+              <div class="modal-body">
                 <div class="form-group">
                   <label for="name" class="col-form-label">Naam:</label>
-                  <textarea class="form-control" id="name"></textarea>
+                  <input type="text" class="form-control" id="name" content="{{bedrijf.name}}"
+                         formControlName="name">
                 </div>
                 <div class="form-group">
                   <label for="location" class="col-form-label">Locatie:</label>
-                  <textarea class="form-control" id="location"></textarea>
+                  <input type="text" class="form-control" id="location" content="{{bedrijf.location}}"
+                         formControlName="location">
                 </div>
                 <div class="form-group">
                   <label for="biographyCompany" class="col-form-label">Biografie:</label>
-                  <textarea class="form-control" id="biographyCompany"></textarea>
+                  <input type="text" class="form-control" id="biographyCompany" content="{{bedrijf.biography}}"
+                         formControlName="biographyCompany">
                 </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-              <button type="button" class="btn btn-primary">Opslaan</button>
-            </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!bedrijfForm.valid || submitted">Opslaan
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

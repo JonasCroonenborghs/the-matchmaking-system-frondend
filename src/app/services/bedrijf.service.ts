@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Assignment} from '../models/assignment.model';
 import {Company} from '../models/company.model';
+import {Tag} from '../models/tag.model';
+import {Maker} from '../models/maker.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,13 @@ export class BedrijfService {
 
   getCompany(companyID: number) {
     return this.http.get<Company>('https://localhost:5001/api/Company/' + companyID);
+  }
+
+  updateCompany(companyID: number, company: Company) {
+    return this.http.put('https://localhost:5001/api/Maker/' + companyID, company);
+  }
+
+  addCompany(company: Company) {
+    return this.http.post('https://localhost:5001/api/Company/', company);
   }
 }

@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {Assignment} from '../../models/assignment.model';
+import {Tag} from '../../models/tag.model';
+import {TagService} from '../../services/tag.service';
 
 @Component({
   selector: 'app-tag',
@@ -12,18 +16,21 @@ export class TagComponent implements OnInit {
   errorBool: boolean = false;
   submitted: boolean = false;
   errorMessage: string = '';
+  tags: Observable<Tag[]>;
 
-  constructor() {
+  constructor(private _tagService: TagService) {
     this.tagForm = new FormGroup({
       name: new FormControl('', {validators: [Validators.required]})
     });
-  }
 
-  ngOnInit() {
+    this.tags = this._tagService.getTags();
   }
 
   onSubmit() {
     this.submitted = true;
+    this._tagService.addTag(this.tagForm.value).subscribe();
   }
 
+  ngOnInit() {
+  }
 }
