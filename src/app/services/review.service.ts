@@ -1,4 +1,6 @@
+// @ts-ignore
 import {Injectable} from '@angular/core';
+// @ts-ignore
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Assignment} from '../models/assignment.model';

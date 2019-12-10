@@ -1,3 +1,4 @@
+// @ts-ignore
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -10,6 +11,14 @@ import {User} from '../models/user.model';
 export class GebruikerService {
 
   constructor(private http: HttpClient) {
+  }
+
+  createUser(user : User){
+    return this.http.post('https://localhost:5001/api/User/register', user)
+  }
+
+  getUserRoles(){
+    return this.http.get('https://localhost:5001/api/Role');
   }
 
   // getUsers(): Observable<User[]> {

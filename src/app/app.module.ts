@@ -1,11 +1,14 @@
 // @ts-ignore
 import { BrowserModule } from '@angular/platform-browser';
+// @ts-ignore
 import { NgModule } from '@angular/core';
 
+// @ts-ignore
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+// @ts-ignore
 import {RouterModule, Routes} from "@angular/router";
 import {LoginComponent} from "./gebruiker/login/login.component";
 import {DashboardComponent} from "./dashboard/dashboard/dashboard.component";
@@ -41,6 +44,7 @@ const appRoutes: Routes = [
    { path: 'review', component: ReviewComponent }, //review maken
 ];
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
