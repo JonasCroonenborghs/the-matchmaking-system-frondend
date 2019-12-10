@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {UserLogin} from "../../models/user-login.model";
+import {UserLogin} from '../../models/user-login.model';
+import {AuthenticateService} from '../../services/authenticate.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,8 @@ import {UserLogin} from "../../models/user-login.model";
 export class LoginComponent implements OnInit {
   model : UserLogin = new UserLogin("","");
   submitted : Boolean = false;
-  constructor() { }
+  hide = true;
+  constructor(private router: Router,private authenticateService: AuthenticateService) { }
 
   ngOnInit() {
 
@@ -17,5 +20,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    console.log(this.model);
+    this.authenticateService.authenticate(this.model).subscribe(result => {
+      console.log(result);
+      this.authenticateService.isLoggedin.next(result.token ? true : false);
+      localStorage.setItem('token', result.token);
+      this.router.navigate(['/dashboard']);
+    });
   }
 }

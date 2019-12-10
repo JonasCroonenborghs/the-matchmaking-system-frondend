@@ -7,7 +7,7 @@ export class User {
     public password: string,
     public creationDate: string,
     public token: string,
-    public roleID: number
+    public Role: string
   ) {
   }
 }
