@@ -15,7 +15,6 @@ export class AuthenticateService {
   logout() {
     // remove user from local storage and set current user to null
      localStorage.removeItem("token");
-
     this.isLoggedin = new BehaviorSubject(localStorage.getItem('token') ? true : false);
   }
 

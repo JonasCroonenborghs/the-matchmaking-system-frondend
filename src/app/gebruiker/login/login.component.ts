@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
   model: UserLogin = new UserLogin('', '');
   submitted: Boolean = false;
   hide = true;
+  errormessage : string = "";
+  errorBool : boolean = false;
 
   constructor(private router: Router, private authenticateService: AuthenticateService) {
   }
@@ -25,9 +27,14 @@ export class LoginComponent implements OnInit {
     console.log(this.model);
     this.authenticateService.authenticate(this.model).subscribe(result => {
       console.log(result);
-      // this.authenticateService.isLoggedin.next(result.token ? true : false);
+       this.authenticateService.isLoggedin.next(true);
       // localStorage.setItem('token', result.token);
       this.router.navigate(['/dashboard']);
+    },error=>{
+      this.submitted = false;
+      this.errorBool = true;
+      //this.errormessage = JSON.stringify(error);
+      this.errormessage = error.error.message;
     });
   }
 }

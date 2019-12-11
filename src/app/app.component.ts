@@ -13,13 +13,16 @@ export class AppComponent {
   constructor(private authenticateService : AuthenticateService){
     this.authenticateService.isLoggedin.subscribe(result=>{
       this.aangemeld=result
+      console.log("AANGEMELD: "+result);
     })
   }
+
 
   logOut(){
     this.authenticateService.logout()
     this.authenticateService.isLoggedin.subscribe(result=>{
       this.aangemeld=result
+      console.log("AANGEMELD: "+result);
     })
   }
 }

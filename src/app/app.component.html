@@ -45,7 +45,7 @@
       <li *ngIf="aangemeld" class="nav-item">
         <a class="nav-link link-1" routerLink="/reviewsBeheren" routerLinkActive="active">ADMIN review</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="aangemeld" class="nav-item">
         <a class="nav-link link-1" routerLink="/" routerLinkActive="active" (click)="logOut()">Uitloggen</a>
       </li>
     </ul>
