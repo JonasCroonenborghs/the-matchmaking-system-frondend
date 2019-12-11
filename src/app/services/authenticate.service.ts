@@ -14,13 +14,13 @@ export class AuthenticateService {
 
   logout() {
     // remove user from local storage and set current user to null
-    // localStorage.removeItem("token");
-    localStorage.clear();
+     localStorage.removeItem("token");
+
     this.isLoggedin = new BehaviorSubject(localStorage.getItem('token') ? true : false);
   }
 
-  authenticate(userLogin: UserLogin): Observable<User> {
-    return this.httpClient.post<User>("https://localhost:5001/api/User/login", userLogin);
+  authenticate(userLogin: UserLogin): Observable<UserLogin> {
+    return this.httpClient.post<UserLogin>("https://localhost:5001/api/User/login", userLogin);
   }
 
   isLoggedIn() {
