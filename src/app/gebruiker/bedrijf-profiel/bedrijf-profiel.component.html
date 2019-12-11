@@ -1,9 +1,12 @@
 <div class="container mt-3">
   <div class="card">
     <div class="card-body">
-      <div class="mt-1"><strong>Naam: {{bedrijf.name}}</strong><br/></div>
-      <div class="mt-3"><strong>Biografie: {{bedrijf.biography}}</strong><br/></div>
-      <div class="mt-3"><strong>Locatie: {{bedrijf.location}}</strong><br/></div>
+      <div class="mt-1"><strong>Naam: {{bedrijf?.name}}</strong><br/></div>
+      <div class="mt-3"><strong>Biografie: {{bedrijf?.biography}}</strong><br/></div>
+      <div class="mt-3"><strong>Locatie: {{bedrijf?.location}}</strong><br/></div>
+      <div class="mt3">
+        <span *ngFor="let tag of (tags | async)" class="badge badge-pill badge-primary">{{tag.name}}</span>
+      </div>
     </div>
   </div>
 </div>

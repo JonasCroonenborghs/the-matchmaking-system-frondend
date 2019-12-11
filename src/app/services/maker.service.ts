@@ -23,11 +23,15 @@ export class MakerService {
     return this.http.get<Maker>('https://localhost:5001/api/Maker/' + makerID);
   }
 
-  updateMaker(makerID: number, maker: Maker) {
-    return this.http.put('https://localhost:5001/api/Maker/' + makerID, maker);
+  getTagsByMakerID(makerID: number) {
+    return this.http.get<Tag[]>('https://localhost:5001/api/Tag/byMakerID/' + makerID);
   }
 
   addMaker(maker: Maker) {
     return this.http.post('https://localhost:5001/api/Maker/', maker);
+  }
+
+  updateMaker(makerID: number, maker: Maker) {
+    return this.http.put('https://localhost:5001/api/Maker/' + makerID, maker);
   }
 }

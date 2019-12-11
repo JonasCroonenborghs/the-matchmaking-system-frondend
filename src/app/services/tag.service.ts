@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Assignment} from '../models/assignment.model';
 import {Tag} from '../models/tag.model';
+import {Review} from '../models/review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,10 @@ export class TagService {
 
   getTag(tagID: number) {
     return this.http.get<Tag>('https://localhost:5001/api/Tag/' + tagID);
+  }
+
+  GetTagsByAssignmentID(opdrachtID: number) {
+    return this.http.get<Tag[]>('https://localhost:5001/api/Tag/byAssignmentID/' + opdrachtID);
   }
 
   addTag(tag: Tag) {

@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Assignment} from '../models/assignment.model';
 import {Review} from '../models/review.model';
+import {Maker} from '../models/maker.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,11 @@ export class ReviewService {
   }
 
   getReviews(): Observable<Review[]> {
-    return this.http.get<Review[]>('https://localhost:5001/api/Review');
+    return this.http.get<Review[]>('https://localhost:5001/api/Reviews');
   }
 
   getReview(reviewID: number) {
-    return this.http.get<Review>('https://localhost:5001/api/Review/' + reviewID);
+    return this.http.get<Review>('https://localhost:5001/api/Reviews/' + reviewID);
   }
 
   getReviewsByMakerID(makerID: number) {
@@ -28,5 +29,9 @@ export class ReviewService {
 
   getReviewsByCompanyID(companyID: number) {
     return this.http.get<Review[]>('https://localhost:5001/api/Reviews/ByCompanyID/' + companyID);
+  }
+
+  updateReview(reviewID: number, review: Review) {
+    return this.http.put('https://localhost:5001/api/Reviews/' + reviewID, review);
   }
 }

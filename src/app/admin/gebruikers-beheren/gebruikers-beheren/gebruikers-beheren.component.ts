@@ -14,10 +14,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class GebruikersBeherenComponent implements OnInit {
 
+  submitted: boolean = false;
+
   makerForm: FormGroup;
   bedrijfForm: FormGroup;
-
-  submitted: boolean = false;
 
   makers: Observable<Maker[]>;
   bedrijven: Observable<Company[]>;
@@ -58,31 +58,39 @@ export class GebruikersBeherenComponent implements OnInit {
     });
   }
 
-  onClickBewerkMaker(gekozenMakerID: number) {
-    this.makerID = gekozenMakerID;
+  onClickBewerkMaker(gekozenMaker: Maker) {
+    this.maker = gekozenMaker;
   }
 
-  onClickBewerkBedrijf(gekozenBedrijfID: number) {
-    this.companyID = gekozenBedrijfID;
+  onCLickToevoegenMaker() {
+    this.maker = null;
   }
 
   onSubmitOpslaanMaker() {
     this.submitted = true;
 
-    if (this.makerID == null) {
-      this._makerService.addMaker(this.makerForm.value);
+    if (this.maker == null) {
+      this._makerService.addMaker(this.makerForm.value).subscribe();
     } else {
-      this._makerService.updateMaker(this.makerID, this.makerForm.value);
+      this._makerService.updateMaker(this.makerID, this.makerForm.value).subscribe();
     }
+  }
+
+  onClickBewerkBedrijf(gekozenBedrijf: Company) {
+    this.bedrijf = gekozenBedrijf;
+  }
+
+  onCLickToevoegenBedrijf() {
+    this.bedrijf = null;
   }
 
   onSubmitOpslaanBedrijf() {
     this.submitted = true;
 
     if (this.companyID == null) {
-      this._bedrijfService.addCompany(this.bedrijfForm.value);
+      this._bedrijfService.addCompany(this.bedrijfForm.value).subscribe();
     } else {
-      this._bedrijfService.updateCompany(this.companyID, this.bedrijfForm.value);
+      this._bedrijfService.updateCompany(this.companyID, this.bedrijfForm.value).subscribe();
     }
   }
 

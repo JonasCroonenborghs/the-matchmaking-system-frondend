@@ -22,11 +22,15 @@ export class BedrijfService {
     return this.http.get<Company>('https://localhost:5001/api/Company/' + companyID);
   }
 
-  updateCompany(companyID: number, company: Company) {
-    return this.http.put('https://localhost:5001/api/Maker/' + companyID, company);
+  getTagsByCompanyID(bedrijfID: number) {
+    return this.http.get<Tag[]>('https://localhost:5001/api/Tag/byCompanyID/' + bedrijfID);
   }
 
   addCompany(company: Company) {
     return this.http.post('https://localhost:5001/api/Company/', company);
+  }
+
+  updateCompany(companyID: number, company: Company) {
+    return this.http.put('https://localhost:5001/api/Maker/' + companyID, company);
   }
 }

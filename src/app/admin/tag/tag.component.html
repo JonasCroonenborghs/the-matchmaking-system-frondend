@@ -5,9 +5,9 @@
         <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
         <h1>Tag toevoegen:</h1>
         <div class="form-group">
-          <label for="description">Beschrijving:</label>
-          <input type="text" class="form-control" id="description" placeholder="Beschrijving"
-                 formControlName="description"/>
+          <label for="name">Naam:</label>
+          <input type="text" class="form-control" id="name" placeholder="Naam"
+                 formControlName="name"/>
         </div>
         <button type="submit" class="btn btn-success mt-3" [disabled]="!tagForm.valid || submitted">Voeg tag toe
         </button>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserLogin} from '../../models/user-login.model';
 import {AuthenticateService} from '../../services/authenticate.service';
 import {Router} from '@angular/router';
@@ -9,10 +9,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  model : UserLogin = new UserLogin("","");
-  submitted : Boolean = false;
+  model: UserLogin = new UserLogin('', '');
+  submitted: Boolean = false;
   hide = true;
-  constructor(private router: Router,private authenticateService: AuthenticateService) { }
+
+  constructor(private router: Router, private authenticateService: AuthenticateService) {
+  }
 
   ngOnInit() {
 
@@ -23,8 +25,8 @@ export class LoginComponent implements OnInit {
     console.log(this.model);
     this.authenticateService.authenticate(this.model).subscribe(result => {
       console.log(result);
-      this.authenticateService.isLoggedin.next(result.token ? true : false);
-      localStorage.setItem('token', result.token);
+      // this.authenticateService.isLoggedin.next(result.token ? true : false);
+      // localStorage.setItem('token', result.token);
       this.router.navigate(['/dashboard']);
     });
   }
