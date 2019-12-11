@@ -14,9 +14,9 @@
 
           <div class="mt-4 form-group">
             <label for="wachtwoord">Wachtwoord:</label>
-            <input type="wachtwoord" class="form-control" id="wachtwoord" placeholder="Wachtwoord"
+            <input type="password" class="form-control" id="wachtwoord" placeholder="Wachtwoord"
                    [(ngModel)]="model.Password" name="wachtwoord" [type]="hide ? 'password' : 'text'" required>
-            
+
           </div>
 
           <button type="submit" class="btn btn-success kleur mt-4" [disabled]="!loginForm.form.valid || submitted">Inloggen</button>
