@@ -26,7 +26,7 @@ export class RegistrerenComponent implements OnInit {
       FirstName: new FormControl('', {validators: [Validators.required]}),
       LastName: new FormControl('', {validators: [Validators.required]}),
       Email: new FormControl('', {validators: [Validators.required, Validators.email]}),
-      Password: new FormControl('', {validators: [Validators.required, Validators.minLength(5)]}),
+      Password: new FormControl('', {validators: [Validators.required, Validators.minLength(4)]}),
       ControlPassword: new FormControl('', {validators: [Validators.required]})
     });
   }
