@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   searchText: string = '';
   filterOpdrachten : any;
   selectedCompanyID : number;
+  selectedCompany : boolean = false;
 
   constructor(private _opdrachtService: OpdrachtService) {
   }
@@ -34,9 +35,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.opdrachten = this._opdrachtService.getAssignments();
+    this.selectedCompany = false;
   }
 
   showBedrijfInfo(opdracht : Assignment) {
+    this.selectedCompany = true;
     this.selectedCompanyID = opdracht.companyID;
     console.log(opdracht.companyID);
   }

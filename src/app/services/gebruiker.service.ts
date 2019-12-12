@@ -31,7 +31,7 @@ export class GebruikerService {
   }
 
   updateGebruiker(gebruikerID: number, gebruiker: User) {
-    return this.http.put<User>("https://localhost:44350/api/User/" + gebruikerID, gebruiker);
+    return this.http.put<User>("https://localhost:5001/api/User/" + gebruikerID, gebruiker);
   }
 
   //ingelogde gebruiker ID opvragen
