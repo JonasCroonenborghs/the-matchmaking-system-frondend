@@ -25,6 +25,10 @@ export class OpdrachtService {
     return this.http.post('https://localhost:5001/api/Assignment/', assignment);
   }
 
+  addAssignmentRequest(assignmentID: number, makerID : number) {
+    return this.http.post('https://localhost:5001/api/AssignmentRequest/' , {AssignmentRequestID : 0, AssignmentID: assignmentID, MakerID : makerID});
+  }
+
   updateAssignment(assignmentID: number, assignment: Assignment) {
     return this.http.put<Assignment>('https://localhost:5001/api/Assignment/' + assignmentID, assignment);
   }

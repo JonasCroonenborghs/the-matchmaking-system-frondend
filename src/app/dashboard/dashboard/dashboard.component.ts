@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Assignment} from '../../models/assignment.model';
 import {OpdrachtService} from '../../services/opdracht.service';
+import {GebruikerService} from '../../services/gebruiker.service';
+import {TagService} from '../../services/tag.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,13 +12,15 @@ import {OpdrachtService} from '../../services/opdracht.service';
 })
 export class DashboardComponent implements OnInit {
 
-  public opdrachten: Observable<Assignment[]>;
+  public opdrachten: Assignment[];
   searchText: string = '';
   filterOpdrachten : any;
   selectedCompanyID : number;
   selectedCompany : boolean = false;
+  makerID : number;
+  tags : any;
 
-  constructor(private _opdrachtService: OpdrachtService) {
+  constructor(private _opdrachtService: OpdrachtService, private _gebruikerService : GebruikerService, private _tagService : TagService) {
   }
 
   // assignCopy(){
@@ -34,8 +38,10 @@ export class DashboardComponent implements OnInit {
   // }
 
   ngOnInit() {
-    this.opdrachten = this._opdrachtService.getAssignments();
+    this._opdrachtService.getAssignments().subscribe(res=> this.opdrachten = res);
     this.selectedCompany = false;
+    this._gebruikerService.getCurrentUser().subscribe(res=> this.makerID = res.userID);
+    this._tagService.getTags().subscribe(res=>this.tags = res);
   }
 
   showBedrijfInfo(opdracht : Assignment) {
@@ -44,7 +50,9 @@ export class DashboardComponent implements OnInit {
     console.log(opdracht.companyID);
   }
 
-  assignmentAanvragen() {
-
+  assignmentAanvragen(opdracht : Assignment) {
+    this._opdrachtService.addAssignmentRequest(opdracht.assignmentID,this.makerID).subscribe();
+    console.log("ASSIGNMENT ID: "+opdracht.assignmentID + "  MAKER ID: " + this.makerID);
+    window.location.reload();
   }
 }
