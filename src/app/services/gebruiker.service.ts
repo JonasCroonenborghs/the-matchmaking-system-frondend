@@ -25,6 +25,10 @@ export class GebruikerService {
     return this.http.get('https://localhost:5001/api/Role');
   }
 
+  updateGebruiker(gebruikerID: number, gebruiker: User) {
+    return this.http.put<User>("https://localhost:44350/api/User/" + gebruikerID, gebruiker);
+  }
+
   //ingelogde gebruiker ID opvragen
   getCurrentGebruiker() {
     if (localStorage.getItem('token') != null) {
