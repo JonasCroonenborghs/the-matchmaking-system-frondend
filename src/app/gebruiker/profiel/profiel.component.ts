@@ -23,7 +23,8 @@ export class ProfielComponent implements OnInit {
       firstName: new FormControl('', {validators: [Validators.required]}),
       lastName: new FormControl('', {validators: [Validators.required]}),
       email: new FormControl('', {validators: [Validators.required, Validators.email]}),
-      password: new FormControl('', {validators: [Validators.required, Validators.minLength(4)]})
+      password: new FormControl('', {validators: [Validators.required, Validators.minLength(4)]}),
+      oldPassword: new FormControl('', {validators: [Validators.required, Validators.minLength(4)]})
     });
   }
 
@@ -43,8 +44,15 @@ export class ProfielComponent implements OnInit {
     this.submitted = true;
     const form = this.registrationForm.value;
     const user : User = new User(this.myUser.userID,form.email, form.password, form.firstName, form.lastName, form.role);
-    this._gebruikerService.updateGebruiker(user.userID, user).subscribe();
-    console.log(JSON.stringify(user));
+    this._gebruikerService.updateGebruiker(form.oldPassword, user).subscribe(result => {
+      console.log(result);
+    }, error => {
+      this.submitted = false;
+      this.errorBool = true;
+      //this.errormessage = JSON.stringify(error);
+      //this.errormessage = error.error.message;
+      this.errorMessage = "Verkeerd wachtwoord, probeer opnieuw.";
+    });
   }
 
 }

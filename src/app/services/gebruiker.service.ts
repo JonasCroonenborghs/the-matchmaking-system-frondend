@@ -30,8 +30,8 @@ export class GebruikerService {
     return this.http.get('https://localhost:5001/api/Role');
   }
 
-  updateGebruiker(gebruikerID: number, gebruiker: User) {
-    return this.http.put<User>("https://localhost:5001/api/User/" + gebruikerID, gebruiker);
+  updateGebruiker(oldPassword: string, user: User) {
+    return this.http.put<User>("https://localhost:5001/api/User/", { oldPassword : oldPassword, user : user});
   }
 
   //ingelogde gebruiker ID opvragen
