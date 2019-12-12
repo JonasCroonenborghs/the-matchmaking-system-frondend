@@ -1,9 +1,9 @@
 // @ts-ignore
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Assignment} from '../models/assignment.model';
-import {User} from '../models/user.model';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Assignment } from '../models/assignment.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +22,11 @@ export class GebruikerService {
     return this.http.get<User>('https://localhost:5001/api/User/myUser');
   }
 
-  createUser(user : User){
+  createUser(user: User) {
     return this.http.post('https://localhost:5001/api/User/register', user)
   }
 
-  getUserRoles(){
+  getUserRoles() {
     return this.http.get('https://localhost:5001/api/Role');
   }
 
@@ -52,4 +52,8 @@ export class GebruikerService {
   // getUser(userID: number) {
   //   return this.http.get<User>('https://localhost:5001/api/Assignment/' + assignmentID);
   // }
+
+  controleerActivatieGebruiker(activationcode: any) {
+    return this.http.post<any>("https://localhost:5001/api/user/confirmEmail/" + activationcode, null);
+  }
 }

@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ProfielComponent } from './profiel/profiel.component';
 import { BedrijfProfielComponent } from './bedrijf-profiel/bedrijf-profiel.component';
 import { MakerProfielComponent } from './maker-profiel/maker-profiel.component';
+import { AccountActivatieComponent } from './account-activatie/account-activatie.component';
 
 
 
