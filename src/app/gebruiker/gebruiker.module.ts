@@ -11,7 +11,7 @@ import { AccountActivatieComponent } from './account-activatie/account-activatie
 
 
 @NgModule({
-  declarations: [LoginComponent, RegistrerenComponent, ProfielComponent, BedrijfProfielComponent, MakerProfielComponent],
+  declarations: [LoginComponent, RegistrerenComponent, ProfielComponent, BedrijfProfielComponent, MakerProfielComponent, AccountActivatieComponent],
   exports: [
     BedrijfProfielComponent
   ],
