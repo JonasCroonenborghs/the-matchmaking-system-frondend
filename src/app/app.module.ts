@@ -26,10 +26,11 @@ import {BedrijfProfielComponent} from './gebruiker/bedrijf-profiel/bedrijf-profi
 import {MakerProfielComponent} from './gebruiker/maker-profiel/maker-profiel.component';
 import {BedrijfReviewComponent} from './reviews/bedrijf-review/bedrijf-review.component';
 import {ReviewsModule} from './reviews/reviews.module';
-import {GebruikersBeherenComponent} from './admin/gebruikers-beheren/gebruikers-beheren/gebruikers-beheren.component';
-import {TagComponent} from './admin/tag/tag.component';
 import {AdminModule} from './admin/admin.module';
+import {GebruikersBeherenComponent} from './admin/gebruikers-beheren/gebruikers-beheren/gebruikers-beheren.component';
+import {TagsBeherenComponent} from './admin/tags-beheren/tags-beheren/tags-beheren.component';
 import {ReviewsBeherenComponent} from './admin/reviews-beheren/reviews-beheren/reviews-beheren.component';
+import {OpdrachtenBeherenComponent} from './admin/opdrachten-beheren/opdrachten-beheren/opdrachten-beheren.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -48,8 +49,9 @@ const appRoutes: Routes = [
   {path: 'review', component: ReviewComponent}, //review maken
   //paths voor admin pagina's te testen
   {path: 'gebruikersBeheren', component: GebruikersBeherenComponent}, //bedrijven en makers beheren
-  {path: 'tag', component: TagComponent}, //tags beheren
-  {path: 'reviewsBeheren', component: ReviewsBeherenComponent}
+  {path: 'tagsBeheren', component: TagsBeherenComponent}, //tags beheren
+  {path: 'reviewsBeheren', component: ReviewsBeherenComponent}, //reviews beheren
+  {path: 'opdrachtenBeheren', component: OpdrachtenBeherenComponent} //reviews beheren
 ];
 
 // @ts-ignore

@@ -1,16 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {Assignment} from '../../models/assignment.model';
-import {Tag} from '../../models/tag.model';
-import {TagService} from '../../services/tag.service';
+import {Tag} from '../../../models/tag.model';
+import {TagService} from '../../../services/tag.service';
 
 @Component({
-  selector: 'app-tag',
-  templateUrl: './tag.component.html',
-  styleUrls: ['./tag.component.scss']
+  selector: 'app-tags-beheren',
+  templateUrl: './tags-beheren.component.html',
+  styleUrls: ['./tags-beheren.component.scss']
 })
-export class TagComponent implements OnInit {
+export class TagsBeherenComponent implements OnInit {
 
   tagForm: FormGroup;
   errorBool: boolean = false;
@@ -33,4 +32,5 @@ export class TagComponent implements OnInit {
 
   ngOnInit() {
   }
+
 }

@@ -58,12 +58,12 @@ export class GebruikersBeherenComponent implements OnInit {
     });
   }
 
-  onClickBewerkMaker(gekozenMaker: Maker) {
-    this.maker = gekozenMaker;
-  }
-
   onCLickToevoegenMaker() {
     this.maker = null;
+  }
+
+  onClickBewerkMaker(gekozenMaker: Maker) {
+    this.maker = gekozenMaker;
   }
 
   onSubmitOpslaanMaker() {
@@ -76,12 +76,12 @@ export class GebruikersBeherenComponent implements OnInit {
     }
   }
 
-  onClickBewerkBedrijf(gekozenBedrijf: Company) {
-    this.bedrijf = gekozenBedrijf;
-  }
-
   onCLickToevoegenBedrijf() {
     this.bedrijf = null;
+  }
+
+  onClickBewerkBedrijf(gekozenBedrijf: Company) {
+    this.bedrijf = gekozenBedrijf;
   }
 
   onSubmitOpslaanBedrijf() {
