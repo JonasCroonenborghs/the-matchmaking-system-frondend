@@ -25,6 +25,6 @@ export class OpdrachtService {
   }
 
   updateAssignment(assignmentID: number, assignment: Assignment) {
-    return this.http.put('https://localhost:5001/api/Assignment/' + assignmentID, assignment);
+    return this.http.put<Assignment>('https://localhost:5001/api/Assignment/' + assignmentID, assignment);
   }
 }

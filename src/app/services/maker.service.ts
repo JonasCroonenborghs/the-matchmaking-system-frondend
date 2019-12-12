@@ -32,6 +32,6 @@ export class MakerService {
   }
 
   updateMaker(makerID: number, maker: Maker) {
-    return this.http.put('https://localhost:5001/api/Maker/' + makerID, maker);
+    return this.http.put<Maker>('https://localhost:5001/api/Maker/' + makerID, maker);
   }
 }

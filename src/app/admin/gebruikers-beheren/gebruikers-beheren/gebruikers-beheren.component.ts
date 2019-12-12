@@ -6,6 +6,10 @@ import {MakerService} from '../../../services/maker.service';
 import {Company} from '../../../models/company.model';
 import {BedrijfService} from '../../../services/bedrijf.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {GebruikerService} from '../../../services/gebruiker.service';
+import {User} from '../../../models/user.model';
+import {MakerType} from '../../../models/makerType';
+import {MakerTypeService} from '../../../services/maker-type.service';
 
 @Component({
   selector: 'app-gebruikers-beheren',
@@ -28,10 +32,16 @@ export class GebruikersBeherenComponent implements OnInit {
   bedrijf: Company;
   companyID: number;
 
-  constructor(private _makerService: MakerService, private _bedrijfService: BedrijfService) {
+  gebruikers: Observable<User[]>;
+  makerTypes: Observable<MakerType[]>;
+
+  constructor(private _makerService: MakerService,
+              private _bedrijfService: BedrijfService,
+              private _gebruikerService: GebruikerService,
+              private _makerTypeService: MakerTypeService) {
     this.makerForm = new FormGroup({
-      typeID: new FormControl('', {validators: [Validators.required]}),
-      userID: new FormControl('', {validators: [Validators.required]}),
+      typeID: new FormControl(''),
+      userID: new FormControl(''),
       nickname: new FormControl('', {validators: [Validators.required]}),
       birthDate: new FormControl('', {validators: [Validators.required]}),
       biography: new FormControl('', {validators: [Validators.required]}),
@@ -48,14 +58,8 @@ export class GebruikersBeherenComponent implements OnInit {
 
     this.makers = _makerService.getMakers();
     this.bedrijven = _bedrijfService.getCompanies();
-
-    _makerService.getMaker(this.makerID).subscribe(result => {
-      this.maker = result;
-    });
-
-    _bedrijfService.getCompany(this.companyID).subscribe(result => {
-      this.bedrijf = result;
-    });
+    this.gebruikers = _gebruikerService.getUsers();
+    this.makerTypes = _makerTypeService.getMakerTypes();
   }
 
   onCLickToevoegenMaker() {
@@ -64,6 +68,7 @@ export class GebruikersBeherenComponent implements OnInit {
 
   onClickBewerkMaker(gekozenMaker: Maker) {
     this.maker = gekozenMaker;
+
   }
 
   onSubmitOpslaanMaker() {
@@ -87,7 +92,7 @@ export class GebruikersBeherenComponent implements OnInit {
   onSubmitOpslaanBedrijf() {
     this.submitted = true;
 
-    if (this.companyID == null) {
+    if (this.bedrijf == null) {
       this._bedrijfService.addCompany(this.bedrijfForm.value).subscribe();
     } else {
       this._bedrijfService.updateCompany(this.companyID, this.bedrijfForm.value).subscribe();

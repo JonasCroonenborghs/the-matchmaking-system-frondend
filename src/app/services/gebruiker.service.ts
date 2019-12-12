@@ -13,6 +13,11 @@ export class GebruikerService {
   constructor(private http: HttpClient) {
   }
 
+  // moet nog gemaakt worden in de API
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>('https://localhost:5001/api/User/');
+  }
+
   getCurrentUser() : Observable<User>{
     return this.http.get<User>('https://localhost:5001/api/User/myUser');
   }
