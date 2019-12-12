@@ -30,6 +30,10 @@ export class TagsBeherenComponent implements OnInit {
     this._tagService.addTag(this.tagForm.value).subscribe();
   }
 
+  onClickVerwijderTag(gekozenTagID: number) {
+    this._tagService.deleteTag(gekozenTagID).subscribe();
+  }
+
   ngOnInit() {
   }
 

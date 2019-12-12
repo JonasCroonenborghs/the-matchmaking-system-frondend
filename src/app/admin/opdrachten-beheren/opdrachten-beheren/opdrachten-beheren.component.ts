@@ -4,6 +4,9 @@ import {OpdrachtService} from '../../../services/opdracht.service';
 import {Observable} from 'rxjs';
 import {Maker} from '../../../models/maker.model';
 import {Assignment} from '../../../models/assignment.model';
+import {BedrijfService} from '../../../services/bedrijf.service';
+import {Company} from '../../../models/company.model';
+import {MakerService} from '../../../services/maker.service';
 
 @Component({
   selector: 'app-opdrachten-beheren',
@@ -20,17 +23,23 @@ export class OpdrachtenBeherenComponent implements OnInit {
   opdrachten: Observable<Assignment[]>;
   opdracht: Assignment;
 
-  constructor(private _opdrachtService: OpdrachtService) {
+  bedrijven: Observable<Company[]>;
+  makers: Observable<Maker[]>;
+
+  constructor(private _opdrachtService: OpdrachtService,
+              private _bedrijfService: BedrijfService,
+              private _makerService: MakerService) {
     this.opdrachtForm = new FormGroup({
-      title: new FormControl('', {validators: [Validators.required]}),
       companyID: new FormControl('', {validators: [Validators.required]}),
+      makerID: new FormControl(''),
+      title: new FormControl('', {validators: [Validators.required]}),
       description: new FormControl('', {validators: [Validators.required]}),
-      deadline: new FormControl('', {validators: [Validators.required]}),
-      location: new FormControl('', {validators: [Validators.required]}),
-      status: new FormControl('', {validators: [Validators.required]})
+      closeDate: new FormControl('')
     });
 
     this.opdrachten = _opdrachtService.getAssignments();
+    this.bedrijven = _bedrijfService.getCompanies();
+    this.makers = _makerService.getMakers();
   }
 
   onCLickToevoegenOpdracht() {
@@ -49,6 +58,10 @@ export class OpdrachtenBeherenComponent implements OnInit {
     } else {
       this._opdrachtService.updateAssignment(this.opdracht.assignmentID, this.opdrachtForm.value).subscribe();
     }
+  }
+
+  onCLickVerwijderOpdracht(gekozenOpdrachtID: number) {
+    this._opdrachtService.deleteAssignment(gekozenOpdrachtID).subscribe();
   }
 
   ngOnInit() {

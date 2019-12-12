@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {Assignment} from '../models/assignment.model';
 import {Maker} from '../models/maker.model';
 import {Tag} from '../models/tag.model';
+import {Review} from '../models/review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,10 @@ export class MakerService {
   }
 
   updateMaker(makerID: number, maker: Maker) {
-    return this.http.put('https://localhost:5001/api/Maker/' + makerID, maker);
+    return this.http.put<Maker>('https://localhost:5001/api/Maker/' + makerID, maker);
+  }
+
+  deleteMaker(makerID: number) {
+    return this.http.delete<Maker>('https://localhost:5001/api/Maker/' + makerID);
   }
 }

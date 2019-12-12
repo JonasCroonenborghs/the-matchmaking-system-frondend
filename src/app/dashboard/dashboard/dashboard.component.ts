@@ -13,30 +13,35 @@ export class DashboardComponent implements OnInit {
   public opdrachten: Observable<Assignment[]>;
   searchText: string = '';
   filterOpdrachten : any;
+  selectedCompanyID : number;
+  selectedCompany : boolean = false;
 
   constructor(private _opdrachtService: OpdrachtService) {
   }
 
-  assignCopy(){
-    //filterlijst maken
-    this.filterOpdrachten = Object.assign([], this.opdrachten);
-  }
-  //filteren lijst
-  filterItem(value){
-    if(!value){
-      this.assignCopy();
-    } // when nothing has typed
-    this.filterOpdrachten = Object.assign([], this.opdrachten).filter(
-      item => item.Gebruikersnaam.toLowerCase().indexOf(value.toLowerCase()) > -1
-    )
-  }
+  // assignCopy(){
+  //   //filterlijst maken
+  //   this.filterOpdrachten = Object.assign([], this.opdrachten);
+  // }
+  // //filteren lijst
+  // filterItem(value){
+  //   if(!value){
+  //     this.assignCopy();
+  //   } // when nothing has typed
+  //   this.filterOpdrachten = Object.assign([], this.opdrachten).filter(
+  //     item => item.Gebruikersnaam.toLowerCase().indexOf(value.toLowerCase()) > -1
+  //   )
+  // }
 
   ngOnInit() {
     this.opdrachten = this._opdrachtService.getAssignments();
+    this.selectedCompany = false;
   }
 
-  showBedrijfInfo() {
-
+  showBedrijfInfo(opdracht : Assignment) {
+    this.selectedCompany = true;
+    this.selectedCompanyID = opdracht.companyID;
+    console.log(opdracht.companyID);
   }
 
   assignmentAanvragen() {

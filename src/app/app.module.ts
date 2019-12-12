@@ -34,6 +34,7 @@ import { OpdrachtenBeherenComponent } from './admin/opdrachten-beheren/opdrachte
 import { SecurityInterceptor } from './security/security-interceptor';
 import { AuthGuard } from './helpers/auth.guard';
 import { Role } from './models/role.model';
+import { AccountActivatieComponent } from './gebruiker/account-activatie/account-activatie.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -54,7 +55,9 @@ const appRoutes: Routes = [
   { path: 'gebruikersBeheren', component: GebruikersBeherenComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } }, //bedrijven en makers beheren
   { path: 'tagsBeheren', component: TagsBeherenComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } }, //tags beheren
   { path: 'reviewsBeheren', component: ReviewsBeherenComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } }, //reviews beheren
-  { path: 'opdrachtenBeheren', component: OpdrachtenBeherenComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } } //reviews beheren
+  { path: 'opdrachtenBeheren', component: OpdrachtenBeherenComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } }, //reviews beheren
+
+  { path: 'activeren/:activatiecode', component: AccountActivatieComponent }
 ];
 
 // @ts-ignore

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Assignment} from '../models/assignment.model';
 import {Tag} from '../models/tag.model';
 import {Review} from '../models/review.model';
+import {Maker} from '../models/maker.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,9 @@ export class TagService {
 
   addTag(tag: Tag) {
     return this.http.post('https://localhost:5001/api/Tag/', tag);
+  }
+
+  deleteTag(tagID: number) {
+    return this.http.delete<Tag>('https://localhost:5001/api/Tag/' + tagID);
   }
 }

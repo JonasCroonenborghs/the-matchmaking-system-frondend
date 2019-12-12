@@ -31,6 +31,10 @@ export class BedrijfService {
   }
 
   updateCompany(companyID: number, company: Company) {
-    return this.http.put('https://localhost:5001/api/Maker/' + companyID, company);
+    return this.http.put('https://localhost:5001/api/Company/' + companyID, company);
+  }
+
+  deleteCompany(companyID: number) {
+    return this.http.delete<Company>('https://localhost:5001/api/Company/' + companyID);
   }
 }
