@@ -32,7 +32,6 @@ export class RegistrerenComponent implements OnInit {
   }
 
   ngOnInit() {
-    //eventueel binnenhalen
     this._gebruikerService.getUserRoles().subscribe(res => {
       this.roles = res;
     });
