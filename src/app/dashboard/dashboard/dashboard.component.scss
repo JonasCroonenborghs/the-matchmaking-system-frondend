@@ -4,4 +4,42 @@
 }
 .filters{
 }
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
 
+.sidebar .mycheckbox {
+  display: block;
+  color: black;
+  padding-top: 16px;
+  text-decoration: none;
+}
+
+
+div.content {
+  margin-left: 150px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar .mycheckbox {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar .mycheckbox {
+    text-align: center;
+    float: none;
+  }
+}

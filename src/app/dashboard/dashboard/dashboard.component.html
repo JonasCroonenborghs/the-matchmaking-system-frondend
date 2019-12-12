@@ -1,26 +1,26 @@
 <div class="ml-3 mr-3 mt-3">
-  <div class="row">
+  <div class="">
     <!--    -->
     <!--    Linkerkant van de pagina-->
     <!--    -->
-    <div>
-      <div class="col-2 filters">
+    <div class="sidebar">
+      <div class="filters">
         <h2>Filters:</h2>
-        <div *ngFor="let tag of tags" class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
+        <div *ngFor="let tag of tags" class="form-check mycheckbox">
+          <input class="form-check-input" type="checkbox" value="" id="tag">
+          <label class="form-check-label" for="tag">
             {{tag.name}}
           </label>
         </div>
       </div>
     </div>
 
-    <div class="border-right"></div>
+<!--    <div class="border-right"></div>-->
 
     <!--    -->
     <!--    Rechterkant van de pagina-->
     <!--    -->
-    <div class="col">
+    <div class="content">
       <h2 class="mb-3">Opdrachten:</h2>
       <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
 
