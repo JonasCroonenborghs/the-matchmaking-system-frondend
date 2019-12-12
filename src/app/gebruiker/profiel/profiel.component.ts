@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {User} from '../../models/user.model';
+import {GebruikerService} from '../../services/gebruiker.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-profiel',
@@ -11,8 +14,10 @@ export class ProfielComponent implements OnInit {
   errorBool: boolean = false;
   errorMessage: string = '';
   submitted: boolean = false;
+  myUser : User;
+  roles :any;
 
-  constructor() {
+  constructor(private _gebruikerService : GebruikerService) {
     this.registrationForm = new FormGroup({
       firstName: new FormControl('', {validators: [Validators.required]}),
       lastName: new FormControl('', {validators: [Validators.required]}),
@@ -23,6 +28,12 @@ export class ProfielComponent implements OnInit {
   }
 
   ngOnInit() {
+     this._gebruikerService.getCurrentUser().subscribe(res=>{
+       this.myUser = res;
+     });
+    this._gebruikerService.getUserRoles().subscribe(res => {
+      this.roles = res;
+    });
   }
 
   onSubmit() {

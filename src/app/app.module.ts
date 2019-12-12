@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 // @ts-ignore
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,31 +33,7 @@ import {GebruikersBeherenComponent} from './admin/gebruikers-beheren/gebruikers-
 import {ReviewsBeherenComponent} from './admin/reviews-beheren/reviews-beheren/reviews-beheren.component';
 import {TagsBeherenComponent} from './admin/tags-beheren/tags-beheren/tags-beheren.component';
 import {OpdrachtenBeherenComponent} from './admin/opdrachten-beheren/opdrachten-beheren/opdrachten-beheren.component';
-=======
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './gebruiker/login/login.component';
-import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
-import { HomeComponent } from './dashboard/home/home.component';
-import { RegistrerenComponent } from './gebruiker/registreren/registreren.component';
-import { ProfielComponent } from './gebruiker/profiel/profiel.component';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { GebruikerModule } from './gebruiker/gebruiker.module';
-import { InzendingenComponent } from './dashboard/inzendingen/inzendingen.component';
-import { GebruikerReviewComponent } from './reviews/gebruiker-review/gebruiker-review.component';
-import { ReviewComponent } from './reviews/review/review.component';
-import { BedrijfOpdrachtenComponent } from './dashboard/bedrijf-opdrachten/bedrijf-opdrachten.component';
-import { GebruikerOpdrachtenComponent } from './dashboard/gebruiker-opdrachten/gebruiker-opdrachten.component';
-import { BedrijfProfielComponent } from './gebruiker/bedrijf-profiel/bedrijf-profiel.component';
-import { MakerProfielComponent } from './gebruiker/maker-profiel/maker-profiel.component';
-import { BedrijfReviewComponent } from './reviews/bedrijf-review/bedrijf-review.component';
-import { ReviewsModule } from './reviews/reviews.module';
-import { GebruikersBeherenComponent } from './admin/gebruikers-beheren/gebruikers-beheren/gebruikers-beheren.component';
-import { TagComponent } from './admin/tag/tag.component';
-import { AdminModule } from './admin/admin.module';
-import { ReviewsBeherenComponent } from './admin/reviews-beheren/reviews-beheren/reviews-beheren.component';
-import { Role } from './models/role.model';
-import { AuthGuard } from './helpers/auth.guard'
->>>>>>> Stashed changes
+import {SecurityInterceptor} from './security/security-interceptor';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -105,7 +81,11 @@ const appRoutes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: SecurityInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
