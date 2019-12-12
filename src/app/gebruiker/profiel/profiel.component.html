@@ -7,32 +7,26 @@
           <h1>Mijn profiel:</h1>
           <div class="form-group">
             <label for="role">Statuut:</label>
-            <select class="form-control" id="role">
-              <option>Werkgever</option>
-              <option>Gebruiker</option>
-              <option>Admin</option>
+            <select class="form-control" id="role" formControlName="role">
+              <option *ngFor="let role of roles" [value]="role">{{role}}</option>
             </select>
           </div>
         </div>
         <div class="form-group">
           <label for="firstName">Voornaam:</label>
-          <input type="text" class="form-control" id="firstName" placeholder="First name" formControlName="firstName" ([ngModel])="myUser.firstName"/>
+          <input type="text" class="form-control" id="firstName" placeholder="First name" formControlName="firstName"/>
         </div>
         <div class="form-group">
           <label for="lastName">Familienaam:</label>
-          <input type="text" class="form-control" id="lastName" placeholder="Last name" formControlName="lastName" ([ngModel])="myUser.lastName"/>
+          <input type="text" class="form-control" id="lastName" placeholder="Last name" formControlName="lastName"/>
         </div>
         <div class="form-group">
           <label for="mail">E-mail:</label>
-          <input type="email" class="form-control" id="mail" placeholder="E-mail" formControlName="email" ([ngModel])="myUser.email"/>
+          <input type="email" class="form-control" id="mail" placeholder="E-mail" formControlName="email"/>
         </div>
         <div class="form-group">
           <label for="password">Nieuw wachtwoord:</label>
-          <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" ([ngModel])="myUser.password">
-        </div>
-        <div class="form-group">
-          <label for="controlpassword">Herhaal wachtwoord:</label>
-          <input type="password" class="form-control" id="controlpassword" placeholder="Repeat password" formControlName="controlPassword" ([ngModel])="myUser.password">
+          <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" >
         </div>
 
         <button type="submit" class="btn btn-success mt-3" [disabled]="!registrationForm.valid || submitted">Bewerken</button>

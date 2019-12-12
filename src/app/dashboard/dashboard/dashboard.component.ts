@@ -35,4 +35,11 @@ export class DashboardComponent implements OnInit {
     this.opdrachten = this._opdrachtService.getAssignments();
   }
 
+  showBedrijfInfo() {
+
+  }
+
+  assignmentAanvragen() {
+
+  }
 }

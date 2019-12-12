@@ -30,7 +30,7 @@
         <li *ngIf="aangemeld && isAdmin || isMaker" class="nav-item">
           <a class="nav-link link-1" routerLink="/gebruiker-review" routerLinkActive="active">Gebruiker Reviews</a>
         </li>
-        <li *ngIf="aangemeld && isComany || isAdmin" class="nav-item">
+        <li *ngIf="aangemeld && isCompany || isAdmin" class="nav-item">
           <a class="nav-link link-1" routerLink="/bedrijf-review" routerLinkActive="active">Bedrijf Reviews</a>
         </li>
         <li *ngIf="aangemeld && !isAdmin" class="nav-item">
@@ -41,7 +41,7 @@
           <a class="nav-link link-1" routerLink="/gebruikersBeheren" routerLinkActive="active">ADMIN gebruikers</a>
         </li>
         <li *ngIf="aangemeld && isAdmin" class="nav-item">
-          <a class="nav-link link-1" routerLink="/tag" routerLinkActive="active">ADMIN tags</a>
+          <a class="nav-link link-1" routerLink="/tagBeheren" routerLinkActive="active">ADMIN tags</a>
         </li>
         <li *ngIf="aangemeld && isAdmin" class="nav-item">
           <a class="nav-link link-1" routerLink="/reviewsBeheren" routerLinkActive="active">ADMIN review</a>

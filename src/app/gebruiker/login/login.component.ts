@@ -36,7 +36,8 @@ export class LoginComponent implements OnInit {
       this.submitted = false;
       this.errorBool = true;
       //this.errormessage = JSON.stringify(error);
-      this.errormessage = error.error.message;
+      //this.errormessage = error.error.message;
+      this.errormessage = "Inloggen mislukt, probeer opnieuw.";
     });
   }
 }

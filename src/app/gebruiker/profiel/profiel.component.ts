@@ -19,18 +19,21 @@ export class ProfielComponent implements OnInit {
 
   constructor(private _gebruikerService : GebruikerService) {
     this.registrationForm = new FormGroup({
+      role : new FormControl('', {validators: [Validators.required]}),
       firstName: new FormControl('', {validators: [Validators.required]}),
       lastName: new FormControl('', {validators: [Validators.required]}),
       email: new FormControl('', {validators: [Validators.required, Validators.email]}),
-      password: new FormControl('', {validators: [Validators.required, Validators.minLength(5)]}),
-      controlPassword: new FormControl('', {validators: [Validators.required]})
+      password: new FormControl('', {validators: [Validators.required, Validators.minLength(4)]})
     });
   }
 
   ngOnInit() {
-     this._gebruikerService.getCurrentUser().subscribe(res=>{
-       this.myUser = res;
-     });
+    this._gebruikerService.getCurrentUser().subscribe(
+      user => this.registrationForm.patchValue(user)
+    );
+    this._gebruikerService.getCurrentUser().subscribe(
+      user => this.myUser = user
+    );
     this._gebruikerService.getUserRoles().subscribe(res => {
       this.roles = res;
     });
@@ -38,6 +41,10 @@ export class ProfielComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    const form = this.registrationForm.value;
+    const user : User = new User(this.myUser.userID,form.email, form.password, form.firstName, form.lastName, form.role);
+    this._gebruikerService.updateGebruiker(user.userID, user).subscribe();
+    console.log(JSON.stringify(user));
   }
 
 }
