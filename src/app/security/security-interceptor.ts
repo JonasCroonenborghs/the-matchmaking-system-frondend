@@ -20,7 +20,7 @@ export class SecurityInterceptor implements HttpInterceptor {
     catchError(err => {
     if (err.status === 401) {
       localStorage.removeItem("token");
-    this._router.navigate(['login-form']);
+    this._router.navigate(['/login']);
     }
     return throwError("unauthorized");
     }));

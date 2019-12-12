@@ -19,6 +19,7 @@ export class ProfielComponent implements OnInit {
 
   constructor(private _gebruikerService : GebruikerService) {
     this.registrationForm = new FormGroup({
+      role : new FormControl('', {validators: [Validators.required]}),
       firstName: new FormControl('', {validators: [Validators.required]}),
       lastName: new FormControl('', {validators: [Validators.required]}),
       email: new FormControl('', {validators: [Validators.required, Validators.email]}),
@@ -40,8 +41,10 @@ export class ProfielComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    this._gebruikerService.updateGebruiker(this.myUser.userID, this.myUser);
+    const form = this.registrationForm.value;
+    const user : User = new User(this.myUser.userID,form.email, form.password, form.firstName, form.lastName, form.role);
+    this._gebruikerService.updateGebruiker(user.userID, user).subscribe();
+    console.log(JSON.stringify(user));
   }
 
 }

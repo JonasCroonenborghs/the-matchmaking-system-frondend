@@ -7,10 +7,8 @@
           <h1>Mijn profiel:</h1>
           <div class="form-group">
             <label for="role">Statuut:</label>
-            <select class="form-control" id="role">
-              <option>Werkgever</option>
-              <option>Gebruiker</option>
-              <option>Admin</option>
+            <select class="form-control" id="role" formControlName="role">
+              <option *ngFor="let role of roles" [value]="role">{{role}}</option>
             </select>
           </div>
         </div>
