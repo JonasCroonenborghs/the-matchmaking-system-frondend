@@ -1,16 +1,14 @@
-import { Company } from "./models/company.model";
+import {Company} from './models/company.model';
 // @ts-ignore
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 // @ts-ignore
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
 // @ts-ignore
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 // @ts-ignore
-<<<<<<< Updated upstream
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './gebruiker/login/login.component';
 import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
@@ -34,33 +32,29 @@ import {ReviewsBeherenComponent} from './admin/reviews-beheren/reviews-beheren/r
 import {TagsBeherenComponent} from './admin/tags-beheren/tags-beheren/tags-beheren.component';
 import {OpdrachtenBeherenComponent} from './admin/opdrachten-beheren/opdrachten-beheren/opdrachten-beheren.component';
 import {SecurityInterceptor} from './security/security-interceptor';
+import {AuthGuard} from './helpers/auth.guard';
+import {Role} from './models/role.model';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'registreren', component: RegistrerenComponent },
-  { path: 'dashboard', component: DashboardComponent }, //opdrachten die beschikbaar zijn voor MAKER
-  { path: 'gebruiker-opdrachten', component: GebruikerOpdrachtenComponent, canActivate: [AuthGuard], data: { roles: [Role.Maker] } }, //opdrachten die lopende zijn voor MAKER
-  { path: 'bedrijf-opdrachten', component: BedrijfOpdrachtenComponent, canActivate: [AuthGuard], data: { roles: [Role.Company] } }, //opdrachten die lopende zijn voor BEDRIJF
+  {path: '', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'registreren', component: RegistrerenComponent},
+  {path: 'dashboard', component: DashboardComponent}, //opdrachten die beschikbaar zijn voor MAKER
+  {path: 'gebruiker-opdrachten', component: GebruikerOpdrachtenComponent, canActivate: [AuthGuard], data: {roles: [Role.Maker]}}, //opdrachten die lopende zijn voor MAKER
+  {path: 'bedrijf-opdrachten', component: BedrijfOpdrachtenComponent, canActivate: [AuthGuard], data: {roles: [Role.Company]}}, //opdrachten die lopende zijn voor BEDRIJF
   //(opdrachten worden ingezonden wanneer MAKER op aanvragen klikt bij opdracht)
-  { path: 'inzendingen', component: InzendingenComponent, canActivate: [AuthGuard], data: { roles: [Role.Company] } }, //ingezonden opdrachten die nog geaccepteerd moeten worden DOOR BEDRIJF
-  { path: 'profiel', component: ProfielComponent }, //eigen profiel bewerken EVERYONE
-  { path: 'bedrijf-profiel', component: BedrijfProfielComponent }, //public profiel BEDRIJF
-  { path: 'maker-profiel', component: MakerProfielComponent }, //public profiel MAKER
-  { path: 'gebruiker-review', component: GebruikerReviewComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin, Role.Maker] } }, //reviews voor MAKERS van BEDRIJVEN
-  { path: 'bedrijf-review', component: BedrijfReviewComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin, Role.Company] } }, //reviews voor BEDRIJVEN van MAKERS
-  { path: 'review', component: ReviewComponent, canActivate: [AuthGuard], data: { roles: [Role.Company, Role.Maker] } }, //review maken
+  {path: 'inzendingen', component: InzendingenComponent, canActivate: [AuthGuard], data: {roles: [Role.Company]}}, //ingezonden opdrachten die nog geaccepteerd moeten worden DOOR BEDRIJF
+  {path: 'profiel', component: ProfielComponent}, //eigen profiel bewerken EVERYONE
+  {path: 'bedrijf-profiel', component: BedrijfProfielComponent}, //public profiel BEDRIJF
+  {path: 'maker-profiel', component: MakerProfielComponent}, //public profiel MAKER
+  {path: 'gebruiker-review', component: GebruikerReviewComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin, Role.Maker]}}, //reviews voor MAKERS van BEDRIJVEN
+  {path: 'bedrijf-review', component: BedrijfReviewComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin, Role.Company]}}, //reviews voor BEDRIJVEN van MAKERS
+  {path: 'review', component: ReviewComponent, canActivate: [AuthGuard], data: {roles: [Role.Company, Role.Maker]}}, //review maken
   //paths voor admin pagina's te testen
-<<<<<<< Updated upstream
   {path: 'gebruikersBeheren', component: GebruikersBeherenComponent}, //bedrijven en makers beheren
   {path: 'tagsBeheren', component: TagsBeherenComponent}, //tags beheren
   {path: 'reviewsBeheren', component: ReviewsBeherenComponent}, //reviews beheren
   {path: 'opdrachtenBeheren', component: OpdrachtenBeherenComponent} //reviews beheren
-=======
-  { path: 'gebruikersBeheren', component: GebruikersBeherenComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } }, //bedrijven en makers beheren
-  { path: 'tag', component: TagComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } }, //tags beheren
-  { path: 'reviewsBeheren', component: ReviewsBeherenComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } }
->>>>>>> Stashed changes
 ];
 
 // @ts-ignore
@@ -75,7 +69,7 @@ const appRoutes: Routes = [
     GebruikerModule,
     ReviewsModule,
     AdminModule,
-    RouterModule.forRoot(appRoutes, { enableTracing: false, onSameUrlNavigation: 'reload' }),
+    RouterModule.forRoot(appRoutes, {enableTracing: false, onSameUrlNavigation: 'reload'}),
     AppRoutingModule
   ],
   exports: [
