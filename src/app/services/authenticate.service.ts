@@ -1,21 +1,36 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {User} from '../models/user.model';
-import {HttpClient} from '@angular/common/http';
-import {UserLogin} from '../models/user-login.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { UserLogin } from '../models/user-login.model';
+import { Role } from '../models/role.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticateService {
   isLoggedin = new BehaviorSubject(localStorage.getItem('token') ? true : false);
-  public huidigeGebruiker: Observable<User>;
-  constructor(private httpClient: HttpClient) { }
+  //hasRole = new BehaviorSubject(localStorage.getItem('role') ? true : false);
+  //public huidigeGebruiker: Observable<User>;
+  currentUserRoleSubject: BehaviorSubject<string>;
+  //currentUserRole: Observable<string>;
+
+  constructor(private httpClient: HttpClient) {
+    this.currentUserRoleSubject = new BehaviorSubject(localStorage.getItem('role'));
+    // this.currentUserRole = this.currentUserRoleSubject.asObservable();
+  }
+
+  // public get currentUserRoleValue(): Role {
+  //   return this.currentUserRoleSubject.value;
+  // }
 
   logout() {
-    // remove user from local storage and set current user to null
+    // remove user and userrole from local storage and set current user and userrole to null
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
     this.isLoggedin = new BehaviorSubject(localStorage.getItem('token') ? true : false);
+    // this.hasRole = new BehaviorSubject(localStorage.getItem('role') ? true : false);
+    this.currentUserRoleSubject.next(null);
   }
 
   authenticate(userLogin: UserLogin): Observable<User> {

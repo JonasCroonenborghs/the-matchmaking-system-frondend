@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {UserLogin} from '../../models/user-login.model';
-import {AuthenticateService} from '../../services/authenticate.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { UserLogin } from '../../models/user-login.model';
+import { AuthenticateService } from '../../services/authenticate.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +12,8 @@ export class LoginComponent implements OnInit {
   model: UserLogin = new UserLogin('', '');
   submitted: Boolean = false;
   hide = true;
-  errormessage : string = "";
-  errorBool : boolean = false;
+  errormessage: string = "";
+  errorBool: boolean = false;
 
   constructor(private router: Router, private authenticateService: AuthenticateService) {
   }
@@ -27,10 +27,12 @@ export class LoginComponent implements OnInit {
     console.log(this.model);
     this.authenticateService.authenticate(this.model).subscribe(result => {
       console.log(result);
-       this.authenticateService.isLoggedin.next(true);
-       localStorage.setItem('token', result.token);
+      this.authenticateService.isLoggedin.next(true);
+      this.authenticateService.currentUserRoleSubject.next(result.role);
+      localStorage.setItem('token', result.token);
+      localStorage.setItem('role', result.role);
       this.router.navigate(['/dashboard']);
-    },error=>{
+    }, error => {
       this.submitted = false;
       this.errorBool = true;
       //this.errormessage = JSON.stringify(error);
