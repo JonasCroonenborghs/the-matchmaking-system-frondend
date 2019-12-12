@@ -17,14 +17,12 @@ export class BedrijfProfielComponent implements OnInit {
 
   constructor(private _bedrijfService: BedrijfService) {
 
-    this._bedrijfService.getCompany(this.companyID).subscribe(result => {
-      this.bedrijf = result;
-    });
-
-    this.tags = this._bedrijfService.getTagsByCompanyID(this.companyID);
   }
 
   ngOnInit() {
+    this._bedrijfService.getCompany(this.companyID).subscribe(result => {
+      this.bedrijf = result;
+    });
   }
 
 }

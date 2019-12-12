@@ -32,6 +32,7 @@ export class AppComponent {
         case "Company":
           this.isCompany = true;
       }
+      console.log("Aangemelde rol: "+result)
     })
   }
 
