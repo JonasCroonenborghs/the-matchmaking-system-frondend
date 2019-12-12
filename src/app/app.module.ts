@@ -26,18 +26,10 @@ import {BedrijfProfielComponent} from './gebruiker/bedrijf-profiel/bedrijf-profi
 import {MakerProfielComponent} from './gebruiker/maker-profiel/maker-profiel.component';
 import {BedrijfReviewComponent} from './reviews/bedrijf-review/bedrijf-review.component';
 import {ReviewsModule} from './reviews/reviews.module';
-<<<<<<< Updated upstream
-=======
-import {GebruikersBeherenComponent} from './admin/gebruikers-beheren/gebruikers-beheren/gebruikers-beheren.component';
->>>>>>> Stashed changes
 import {AdminModule} from './admin/admin.module';
 import {GebruikersBeherenComponent} from './admin/gebruikers-beheren/gebruikers-beheren/gebruikers-beheren.component';
-import {TagsBeherenComponent} from './admin/tags-beheren/tags-beheren/tags-beheren.component';
 import {ReviewsBeherenComponent} from './admin/reviews-beheren/reviews-beheren/reviews-beheren.component';
-<<<<<<< Updated upstream
-=======
 import {TagsBeherenComponent} from './admin/tags-beheren/tags-beheren/tags-beheren.component';
->>>>>>> Stashed changes
 import {OpdrachtenBeherenComponent} from './admin/opdrachten-beheren/opdrachten-beheren/opdrachten-beheren.component';
 
 const appRoutes: Routes = [
