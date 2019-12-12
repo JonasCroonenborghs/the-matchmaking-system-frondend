@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Review} from '../../../models/review.model';
 import {ReviewService} from '../../../services/review.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-reviews-beheren',
@@ -16,6 +17,8 @@ export class ReviewsBeherenComponent implements OnInit {
   review: Review;
   reviewID: number;
 
+  reviews: Observable<Review[]>;
+
   constructor(private _reviewService: ReviewService) {
     this.reviewForm = new FormGroup({
       reviewerID: new FormControl('', {validators: [Validators.required]}),
@@ -29,6 +32,16 @@ export class ReviewsBeherenComponent implements OnInit {
     this._reviewService.getReview(this.reviewID).subscribe(result => {
       this.review = result;
     });
+
+    this.reviews = _reviewService.getReviews();
+  }
+
+  onClickBewerkReview(review: Review) {
+    this.review = review;
+  }
+
+  onCLickVerwijderReview(gekozenReviewID: number) {
+    this._reviewService.deleteReview(gekozenReviewID).subscribe();
   }
 
   onSubmit() {

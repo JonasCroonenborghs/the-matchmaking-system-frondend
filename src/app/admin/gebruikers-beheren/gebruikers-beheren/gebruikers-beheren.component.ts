@@ -81,6 +81,10 @@ export class GebruikersBeherenComponent implements OnInit {
     }
   }
 
+  onCLickVerwijderMaker(gekozenMakerID: number) {
+    this._makerService.deleteMaker(gekozenMakerID).subscribe();
+  }
+
   onCLickToevoegenBedrijf() {
     this.bedrijf = null;
   }
@@ -97,6 +101,10 @@ export class GebruikersBeherenComponent implements OnInit {
     } else {
       this._bedrijfService.updateCompany(this.companyID, this.bedrijfForm.value).subscribe();
     }
+  }
+
+  onCLickVerwijderBedrijf(gekozenBedrijfID: number) {
+    this._bedrijfService.deleteCompany(gekozenBedrijfID).subscribe();
   }
 
   ngOnInit() {

@@ -32,6 +32,10 @@ export class ReviewService {
   }
 
   updateReview(reviewID: number, review: Review) {
-    return this.http.put('https://localhost:5001/api/Reviews/' + reviewID, review);
+    return this.http.put<Review>('https://localhost:5001/api/Reviews/' + reviewID, review);
+  }
+
+  deleteReview(reviewID: number) {
+    return this.http.delete<Review>('https://localhost:5001/api/Reviews/' + reviewID);
   }
 }

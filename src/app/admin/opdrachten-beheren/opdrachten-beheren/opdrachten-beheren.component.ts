@@ -60,6 +60,10 @@ export class OpdrachtenBeherenComponent implements OnInit {
     }
   }
 
+  onCLickVerwijderOpdracht(gekozenOpdrachtID: number) {
+    this._opdrachtService.deleteAssignment(gekozenOpdrachtID).subscribe();
+  }
+
   ngOnInit() {
   }
 

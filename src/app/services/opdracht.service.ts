@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Assignment} from '../models/assignment.model';
 import {Maker} from '../models/maker.model';
+import {Review} from '../models/review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,9 @@ export class OpdrachtService {
 
   updateAssignment(assignmentID: number, assignment: Assignment) {
     return this.http.put<Assignment>('https://localhost:5001/api/Assignment/' + assignmentID, assignment);
+  }
+
+  deleteAssignment(assignmentID: number) {
+    return this.http.delete<Assignment>('https://localhost:5001/api/Assignment/' + assignmentID);
   }
 }

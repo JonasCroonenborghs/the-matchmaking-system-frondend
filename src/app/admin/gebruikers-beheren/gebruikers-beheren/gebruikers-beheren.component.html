@@ -15,8 +15,6 @@
             <th scope="col">TypeID</th>
             <th scope="col">Nickname</th>
             <th scope="col">Geboortedatum</th>
-            <!--                <th scope="col">Biografie</th>-->
-            <!--            <th scope="col">LinkedIn</th>-->
             <th scope="col">Ervaring</th>
             <th scope="col">Contact info</th>
             <th></th>
@@ -29,13 +27,14 @@
             <td>{{maker.userID}}</td>
             <td>{{maker.nickname}}</td>
             <td>{{maker.birthDate}}</td>
-            <!--                <td>{{maker.biography}}</td>-->
-            <!--            <td>{{maker.linkedIn}}</td>-->
             <td>{{maker.experience}}</td>
             <td>{{maker.contactInfo}}</td>
             <td>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#makerModal"
                       (click)="onClickBewerkMaker(maker)">Bewerk
+              </button>
+              <button type="button" class="btn btn-danger"
+                      (click)="onCLickVerwijderMaker(maker.makerID)">Verwijder
               </button>
             </td>
           </tr>
@@ -57,7 +56,6 @@
               <th scope="col">GebruikerID</th>
               <th scope="col">Naam</th>
               <th scope="col">Locatie</th>
-              <!--                <th scope="col">Biografie</th>-->
               <th></th>
             </tr>
             </thead>
@@ -67,10 +65,12 @@
               <td>{{bedrijf.userID}}</td>
               <td>{{bedrijf.name}}</td>
               <td>{{bedrijf.location}}</td>
-              <!--                <td>{{bedrijf.biography}}</td>-->
               <td>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedrijfModal"
-                        data-whatever="@mdo" (click)="onClickBewerkBedrijf(bedrijf)">Bewerk
+                        (click)="onClickBewerkBedrijf(bedrijf)">Bewerk
+                </button>
+                <button type="button" class="btn btn-danger"
+                        (click)="onCLickVerwijderBedrijf(bedrijf.companyID)">Verwijder
                 </button>
               </td>
             </tr>
