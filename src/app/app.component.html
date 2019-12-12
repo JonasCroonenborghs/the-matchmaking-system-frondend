@@ -38,6 +38,7 @@
         <li *ngIf="aangemeld" class="nav-item">
           <a class="nav-link link-1" routerLink="/review" routerLinkActive="active">Review maken</a>
         </li>
+<<<<<<< Updated upstream
 <!--        <li *ngIf="aangemeld" class="nav-item">-->
 <!--          <a class="nav-link link-1" routerLink="/gebruikersBeheren" routerLinkActive="active">ADMIN gebruikers</a>-->
 <!--        </li>-->
@@ -50,6 +51,20 @@
 <!--        <li *ngIf="aangemeld" class="nav-item">-->
 <!--          <a class="nav-link link-1" routerLink="/opdrachtenBeheren" routerLinkActive="active">ADMIN opdrachten</a>-->
 <!--        </li>-->
+=======
+        <li *ngIf="aangemeld" class="nav-item">
+          <a class="nav-link link-1" routerLink="/gebruikersBeheren" routerLinkActive="active">ADMIN gebruikers</a>
+        </li>
+        <li *ngIf="aangemeld" class="nav-item">
+          <a class="nav-link link-1" routerLink="/tagsBeheren" routerLinkActive="active">ADMIN tags</a>
+        </li>
+        <li *ngIf="aangemeld" class="nav-item">
+          <a class="nav-link link-1" routerLink="/reviewsBeheren" routerLinkActive="active">ADMIN review</a>
+        </li>
+>>>>>>> Stashed changes
+        <li *ngIf="aangemeld" class="nav-item">
+          <a class="nav-link link-1" routerLink="/opdrachtenBeheren" routerLinkActive="active">ADMIN opdrachten</a>
+        </li>
         <li *ngIf="aangemeld" class="nav-item">
           <a class="nav-link link-1" routerLink="/" routerLinkActive="active" (click)="logOut()">Uitloggen</a>
         </li>
