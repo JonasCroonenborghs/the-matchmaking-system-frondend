@@ -11,6 +11,9 @@ import { MakerProfielComponent } from './maker-profiel/maker-profiel.component';
 
 @NgModule({
   declarations: [LoginComponent, RegistrerenComponent, ProfielComponent, BedrijfProfielComponent, MakerProfielComponent],
+  exports: [
+    BedrijfProfielComponent
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,

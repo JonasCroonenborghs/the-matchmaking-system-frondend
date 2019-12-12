@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BedrijfService} from '../../services/bedrijf.service';
 import {Company} from '../../models/company.model';
 import {Observable} from 'rxjs';
@@ -10,13 +10,13 @@ import {Tag} from '../../models/tag.model';
   styleUrls: ['./bedrijf-profiel.component.scss']
 })
 export class BedrijfProfielComponent implements OnInit {
-
+  @Input() companyID: number;
   bedrijf: Company;
-  companyID: number;
+
   tags: Observable<Tag[]>;
 
   constructor(private _bedrijfService: BedrijfService) {
-    this.companyID = 1;
+
     this._bedrijfService.getCompany(this.companyID).subscribe(result => {
       this.bedrijf = result;
     });

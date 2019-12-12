@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   public opdrachten: Observable<Assignment[]>;
   searchText: string = '';
   filterOpdrachten : any;
+  selectedCompanyID : number;
 
   constructor(private _opdrachtService: OpdrachtService) {
   }
@@ -35,8 +36,8 @@ export class DashboardComponent implements OnInit {
     this.opdrachten = this._opdrachtService.getAssignments();
   }
 
-  showBedrijfInfo() {
-
+  showBedrijfInfo(companyID: number) {
+    this.selectedCompanyID = companyID;
   }
 
   assignmentAanvragen() {

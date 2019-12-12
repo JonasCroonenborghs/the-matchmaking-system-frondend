@@ -7,6 +7,7 @@ import {FormsModule} from "@angular/forms";
 import { GebruikerOpdrachtenComponent } from './gebruiker-opdrachten/gebruiker-opdrachten.component';
 import { BedrijfOpdrachtenComponent } from './bedrijf-opdrachten/bedrijf-opdrachten.component';
 import { FilterPipe } from './filter.pipe';
+import {GebruikerModule} from '../gebruiker/gebruiker.module';
 
 
 
@@ -14,7 +15,8 @@ import { FilterPipe } from './filter.pipe';
   declarations: [DashboardComponent, HomeComponent,  InzendingenComponent, GebruikerOpdrachtenComponent, BedrijfOpdrachtenComponent, FilterPipe],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    GebruikerModule
   ]
 })
 export class DashboardModule { }
