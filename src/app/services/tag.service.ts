@@ -27,7 +27,7 @@ export class TagService {
   }
 
   addTag(tag: Tag) {
-    return this.http.post('https://localhost:5001/api/Tag/', tag);
+    return this.http.post<Tag>('https://localhost:5001/api/Tag/', tag);
   }
 
   deleteTag(tagID: number) {

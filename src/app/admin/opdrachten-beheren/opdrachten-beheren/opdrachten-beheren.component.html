@@ -48,6 +48,7 @@
           </div>
           <form (ngSubmit)="onSubmit()" [formGroup]="opdrachtForm">
             <div class="modal-body">
+              <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
               <div class="form-group">
                 <label for="title" class="col-form-label">Titel:</label>
                 <input type="text" class="form-control" id="title" value="{{opdracht?.title}}"
