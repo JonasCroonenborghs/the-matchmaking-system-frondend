@@ -23,20 +23,6 @@ export class DashboardComponent implements OnInit {
   constructor(private _opdrachtService: OpdrachtService, private _gebruikerService : GebruikerService, private _tagService : TagService) {
   }
 
-  // assignCopy(){
-  //   //filterlijst maken
-  //   this.filterOpdrachten = Object.assign([], this.opdrachten);
-  // }
-  // //filteren lijst
-  // filterItem(value){
-  //   if(!value){
-  //     this.assignCopy();
-  //   } // when nothing has typed
-  //   this.filterOpdrachten = Object.assign([], this.opdrachten).filter(
-  //     item => item.Gebruikersnaam.toLowerCase().indexOf(value.toLowerCase()) > -1
-  //   )
-  // }
-
   ngOnInit() {
     this._opdrachtService.getAssignments().subscribe(res=> this.opdrachten = res);
     this.selectedCompany = false;
@@ -54,5 +40,9 @@ export class DashboardComponent implements OnInit {
     this._opdrachtService.addAssignmentRequest(opdracht.assignmentID,this.makerID).subscribe();
     console.log("ASSIGNMENT ID: "+opdracht.assignmentID + "  MAKER ID: " + this.makerID);
     window.location.reload();
+  }
+
+  logTags(tags : any){
+    console.log("TAGS: " + JSON.stringify(tags))
   }
 }

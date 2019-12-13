@@ -24,6 +24,9 @@
         <li *ngIf="aangemeld && !isMaker" class="nav-item">
           <a class="nav-link link-1" routerLink="/maker-profiel" routerLinkActive="active">Maker profiel(read)</a>
         </li>
+        <li *ngIf="aangemeld && isMaker" class="nav-item">
+          <a class="nav-link link-1" routerLink="/gebruiker-opdrachten" routerLinkActive="active">Lopende opdrachten</a>
+        </li>
         <li *ngIf="aangemeld" class="nav-item">
           <a class="nav-link link-1" routerLink="/profiel" routerLinkActive="active">Mijn profiel(edit)</a>
         </li>
