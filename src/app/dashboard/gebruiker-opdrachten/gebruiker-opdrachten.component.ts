@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OpdrachtService } from 'src/app/services/opdracht.service';
 import { GebruikerService } from 'src/app/services/gebruiker.service';
+import { Assignment } from '../../models/assignment.model';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-gebruiker-opdrachten',
@@ -12,10 +14,11 @@ export class GebruikerOpdrachtenComponent implements OnInit {
   opdrachten : any;
   currentUser : any;
   currentUID : number;
+  selectedCompanyID: number = null;
 
   constructor(private _opdrachtService: OpdrachtService, private _gebruikerService : GebruikerService) {
       
-   }
+   }  
 
   ngOnInit() {
     this.currentUID = this.getCurrentGebruiker().UserID;
@@ -24,6 +27,14 @@ export class GebruikerOpdrachtenComponent implements OnInit {
     console.log(JSON.stringify(this.opdrachten));
   }
 
+  showBedrijfInfo(opdracht: Assignment) {
+    this.selectedCompanyID = opdracht.companyID;
+    console.log(this.selectedCompanyID);
+  }
+
+  close(){
+    this.selectedCompanyID = null;
+  }
 //ingelogde gebruiker ID opvragen
 getCurrentGebruiker() {
   if (localStorage.getItem('token') != null) {

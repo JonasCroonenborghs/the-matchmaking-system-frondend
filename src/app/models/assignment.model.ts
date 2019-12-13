@@ -7,7 +7,7 @@ export class Assignment {
     public title: string,
     public description: string,
     public closeDate: Date,
-    public listTags: Tag[]
+    public listTags?: Tag[]
   ) {
   }
 }

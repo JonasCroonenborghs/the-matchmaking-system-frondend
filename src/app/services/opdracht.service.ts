@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, BehaviorSubject} from 'rxjs';
 import {Assignment} from '../models/assignment.model';
 import {Maker} from '../models/maker.model';
 import {Review} from '../models/review.model';
@@ -10,6 +10,9 @@ import {Review} from '../models/review.model';
 })
 export class OpdrachtService {
 
+  
+  selectedCompany = new BehaviorSubject(null);
+  
   constructor(private http: HttpClient) {
   }
 

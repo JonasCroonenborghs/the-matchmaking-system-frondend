@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit {
   searchText: string = '';
   filterOpdrachten: any;
   selectedCompanyID: number;
-  selectedCompany: boolean = false;
   makerID: number;
   tags: any;
   selectedTags: Tag[] = [];
@@ -31,7 +30,6 @@ export class DashboardComponent implements OnInit {
       this.filterOpdrachten = res; // de lijst waarop gefilterd kan worden
       console.log(this.opdrachten);
     });
-    this.selectedCompany = false;
     this._gebruikerService.getCurrentUser().subscribe(res => this.makerID = res.userID);
     this._tagService.getTags().subscribe(res => {
       this.tags = res
@@ -41,8 +39,11 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  close(){
+    this.selectedCompanyID = null;
+  }
+
   showBedrijfInfo(opdracht: Assignment) {
-    this.selectedCompany = true;
     this.selectedCompanyID = opdracht.companyID;
     console.log(opdracht.companyID);
   }
