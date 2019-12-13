@@ -1,17 +1,21 @@
 <div class="container mt-4">
-      <h2 class="mb-3">Opdrachten:</h2>
-      <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Opdracht Titel</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Opdracht soort (angular, html&css, react,...)</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  <div class="content">
+    <h2 class="mb-3">Opdrachten:</h2>
+    <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
 
-          <!--          if status != done -> verwijderknop enabled-->
-          <button type="button" class="btn btn-danger">Opdracht verwijderen</button>
-
-          <!--          if status = done -> reviewknop enabled-->
-          <button type="button" class="btn btn-success">Review schrijven</button>
-        </div>
+    <div class="card mt-2" *ngFor="let opdracht of opdrachten | filter: searchText;">
+      <div class="card-body">
+        <h5 class="card-title">{{opdracht.title}}</h5>
+        <!-- <h6 class="card-subtitle mb-2 text-muted"><span class="mr-3"
+            *ngFor="let tag of opdracht.listTags">{{tag.name}}</span></h6> -->
+        <p class="card-text">{{opdracht.description}}</p>
+        <button></button>
+        <span class="ml-1"><button type="button" class="btn btn-success"
+            (click)="assignmentAanvragen(opdracht)">Aanvragen</button></span>
+        <span class="ml-1"><button type="button" class="btn mybtn btn-dark" data-toggle="modal"
+            data-target="#exampleModal" (click)="showBedrijfInfo(opdracht)">Bedrijf info</button></span>
       </div>
+    </div>
+
   </div>
+</div>
