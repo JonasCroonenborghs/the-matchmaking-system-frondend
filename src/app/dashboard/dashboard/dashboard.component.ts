@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Assignment} from '../../models/assignment.model';
-import {OpdrachtService} from '../../services/opdracht.service';
-import {GebruikerService} from '../../services/gebruiker.service';
-import {TagService} from '../../services/tag.service';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Assignment } from '../../models/assignment.model';
+import { OpdrachtService } from '../../services/opdracht.service';
+import { GebruikerService } from '../../services/gebruiker.service';
+import { TagService } from '../../services/tag.service';
+import { Tag } from 'src/app/models/tag.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,35 +15,78 @@ export class DashboardComponent implements OnInit {
 
   public opdrachten: Assignment[];
   searchText: string = '';
-  filterOpdrachten : any;
-  selectedCompanyID : number;
-  selectedCompany : boolean = false;
-  makerID : number;
-  tags : any;
+  filterOpdrachten: any;
+  selectedCompanyID: number;
+  selectedCompany: boolean = false;
+  makerID: number;
+  tags: any;
+  selectedTags: Tag[] = [];
 
-  constructor(private _opdrachtService: OpdrachtService, private _gebruikerService : GebruikerService, private _tagService : TagService) {
+  constructor(private _opdrachtService: OpdrachtService, private _gebruikerService: GebruikerService, private _tagService: TagService) {
   }
 
   ngOnInit() {
-    this._opdrachtService.getAssignments().subscribe(res=> this.opdrachten = res);
+    this._opdrachtService.getAssignments().subscribe(res => {
+      this.opdrachten = res; // de volledige lijst met opdrachten die nooit overschreven/ aangepast mag worden
+      this.filterOpdrachten = res; // de lijst waarop gefilterd kan worden
+      console.log(this.opdrachten);
+    });
     this.selectedCompany = false;
-    this._gebruikerService.getCurrentUser().subscribe(res=> this.makerID = res.userID);
-    this._tagService.getTags().subscribe(res=>this.tags = res);
+    this._gebruikerService.getCurrentUser().subscribe(res => this.makerID = res.userID);
+    this._tagService.getTags().subscribe(res => {
+      this.tags = res
+      console.log(this.tags);
+    });
+
+
   }
 
-  showBedrijfInfo(opdracht : Assignment) {
+  showBedrijfInfo(opdracht: Assignment) {
     this.selectedCompany = true;
     this.selectedCompanyID = opdracht.companyID;
     console.log(opdracht.companyID);
   }
 
-  assignmentAanvragen(opdracht : Assignment) {
-    this._opdrachtService.addAssignmentRequest(opdracht.assignmentID,this.makerID).subscribe();
-    console.log("ASSIGNMENT ID: "+opdracht.assignmentID + "  MAKER ID: " + this.makerID);
+  assignmentAanvragen(opdracht: Assignment) {
+    this._opdrachtService.addAssignmentRequest(opdracht.assignmentID, this.makerID).subscribe();
+    console.log("ASSIGNMENT ID: " + opdracht.assignmentID + "  MAKER ID: " + this.makerID);
     window.location.reload();
   }
 
   logTags(tags : any){
     console.log("TAGS: " + JSON.stringify(tags))
+  }
+
+  onSelectionChangeTags(checkedTag: Tag) {
+    if (this.selectedTags.includes(checkedTag)) { // wanneer er een change event is op een reeds geselecteerde checkbox gaan we deze wissen uit de lijst van selectedTags (omdat we de checkbox uitvinken)
+      const index: number = this.selectedTags.indexOf(checkedTag);
+      if (index !== -1) {
+        this.selectedTags.splice(index, 1);
+      }
+    }
+    else { // wanneer er een change event is op een checkbox die nog niet aangevinkt was gaan we deze toevoegen aan de lijst van selectedTags
+      this.selectedTags.push(checkedTag);
+    }
+    if (this.selectedTags.length > 0) { // wanneer er items in de lijst zitten gaan we de lijst van filterOpdrachten aanpasen
+      console.log(this.selectedTags);
+      this.getUpdatedListAssignments();
+    }
+    else { // wanneer er geen checkbox aangevinkt is wordt de lijst van filterOpdrachten opgevuld met de lijst van alle opdrachten die we uit de API hadden opgehaald en bewaard
+      this.filterOpdrachten = this.opdrachten;
+    }
+  }
+
+  getUpdatedListAssignments() {
+    var tempListOpdrachten = [];
+    for (var tag of this.selectedTags) {
+      for (var opdracht of this.opdrachten) {
+        for (var item of opdracht.listTags) {
+          if (item.tagID === tag.tagID) {
+            tempListOpdrachten.push(opdracht);
+          }
+        }
+      }
+    }
+    this.filterOpdrachten = tempListOpdrachten;
   }
 }
