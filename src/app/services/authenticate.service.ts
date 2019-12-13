@@ -4,6 +4,7 @@ import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { UserLogin } from '../models/user-login.model';
 import { Role } from '../models/role.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,11 @@ export class AuthenticateService {
   //public huidigeGebruiker: Observable<User>;
   currentUserRoleSubject: BehaviorSubject<string>;
   //currentUserRole: Observable<string>;
-  isCurrentRouteAccountActivatie = new BehaviorSubject(false);
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private _router: Router) {
     this.currentUserRoleSubject = new BehaviorSubject(localStorage.getItem('role'));
     // this.currentUserRole = this.currentUserRoleSubject.asObservable();
   }
-
-  // public get currentUserRoleValue(): Role {
-  //   return this.currentUserRoleSubject.value;
-  // }
 
   logout() {
     // remove user and userrole from local storage and set current user and userrole to null

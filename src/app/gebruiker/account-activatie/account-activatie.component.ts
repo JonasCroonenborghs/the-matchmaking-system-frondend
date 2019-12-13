@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
 import { GebruikerService } from 'src/app/services/gebruiker.service';
 import { AuthenticateService } from 'src/app/services/authenticate.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-account-activatie',
@@ -11,10 +10,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AccountActivatieComponent implements OnInit {
 
-  tekstActivatieSuccesvol: string = "Uw account werd succesvol geactiveerd. U kan nu inloggen.";
-  teTonenTekst: string = "Gelieve via de link in uw mail uw registratie te bevestigen";
+  teTonenTekst: string = "";
   constructor(private activatedRoute: ActivatedRoute, private _gebruikerService: GebruikerService, private authenticateService: AuthenticateService) {
-    //authenticateService.isCurrentRouteAccountActivatie = new BehaviorSubject(true);
     activatedRoute.paramMap.subscribe(result => {
       console.log(result);
       var code = result.get('activatiecode');
@@ -30,7 +27,10 @@ export class AccountActivatieComponent implements OnInit {
     this._gebruikerService.controleerActivatieGebruiker(code).subscribe(result => {
       console.log(result);
       if (result = true) {
-        this.teTonenTekst = this.tekstActivatieSuccesvol;
+        this.teTonenTekst = "Uw account werd succesvol geactiveerd. U kan nu inloggen.";
+      }
+      else {
+        this.teTonenTekst = "Gelieve via de link in uw mail uw registratie te bevestigen";
       }
     });
   }

@@ -1,10 +1,10 @@
 // @ts-ignore
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // @ts-ignore
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {User} from '../../models/user.model';
-import {GebruikerService} from '../../services/gebruiker.service';
-import {Router} from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from '../../models/user.model';
+import { GebruikerService } from '../../services/gebruiker.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registreren',
@@ -19,15 +19,17 @@ export class RegistrerenComponent implements OnInit {
   roles: any;
   currentDate = new Date();
   user: User;
+  accountActivationMessage: string = '';
+  accountActivationBool: boolean = false;
 
   constructor(private _router: Router, private _gebruikerService: GebruikerService) {
     this.registrationForm = new FormGroup({
       Role: new FormControl(),
-      FirstName: new FormControl('', {validators: [Validators.required]}),
-      LastName: new FormControl('', {validators: [Validators.required]}),
-      Email: new FormControl('', {validators: [Validators.required, Validators.email]}),
-      Password: new FormControl('', {validators: [Validators.required, Validators.minLength(4)]}),
-      ControlPassword: new FormControl('', {validators: [Validators.required]})
+      FirstName: new FormControl('', { validators: [Validators.required] }),
+      LastName: new FormControl('', { validators: [Validators.required] }),
+      Email: new FormControl('', { validators: [Validators.required, Validators.email] }),
+      Password: new FormControl('', { validators: [Validators.required, Validators.minLength(4)] }),
+      ControlPassword: new FormControl('', { validators: [Validators.required] })
     });
   }
 
@@ -45,8 +47,10 @@ export class RegistrerenComponent implements OnInit {
     //const user = new User(0,form.firstName, form.lastName,form.email, Date.now().toLocaleString(), form.password, this.selectedRole);
     this.user = new User(0, form.Email, form.Password, form.FirstName, form.LastName, form.Role);
     this._gebruikerService.createUser(this.user).subscribe(result => {
-        this._router.navigate(['/login']);
-      },
+      //this._router.navigate(['/login']);
+      this.accountActivationBool = true;
+      this.accountActivationMessage = 'Please verify your account with the link we mailed you. (ps: check spam)';
+    },
       error => {
         this.errorBool = true;
         this.submitted = false;
