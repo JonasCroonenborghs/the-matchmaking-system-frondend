@@ -27,11 +27,18 @@ export class LoginComponent implements OnInit {
     console.log(this.model);
     this.authenticateService.authenticate(this.model).subscribe(result => {
       console.log(result);
-      this.authenticateService.isLoggedin.next(true);
-      this.authenticateService.currentUserRoleSubject.next(result.role);
-      localStorage.setItem('token', result.token);
-      localStorage.setItem('role', result.role);
-      this.router.navigate(['/dashboard']);
+      if (result.isActive == true) {
+        this.authenticateService.isLoggedin.next(true);
+        this.authenticateService.currentUserRoleSubject.next(result.role);
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('role', result.role);
+        this.router.navigate(['/dashboard']);
+      }
+      else {
+        this.errorBool = true;
+        this.errormessage = "Gelieve uw account eerst te activeren via de mail die u ontvangen heeft.";
+      }
+
     }, error => {
       this.submitted = false;
       this.errorBool = true;

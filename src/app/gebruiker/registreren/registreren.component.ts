@@ -45,11 +45,11 @@ export class RegistrerenComponent implements OnInit {
     console.log('FORM: ' + JSON.stringify(form));
 
     //const user = new User(0,form.firstName, form.lastName,form.email, Date.now().toLocaleString(), form.password, this.selectedRole);
-    this.user = new User(0, form.Email, form.Password, form.FirstName, form.LastName, form.Role);
+    this.user = new User(0, form.Email, form.Password, form.FirstName, form.LastName, form.Role, false);
     this._gebruikerService.createUser(this.user).subscribe(result => {
       //this._router.navigate(['/login']);
       this.accountActivationBool = true;
-      this.accountActivationMessage = 'Please verify your account with the link we mailed you. (ps: check spam)';
+      this.accountActivationMessage = 'We hebben uw aanvraag goed ontvangen, gelieve uw account te verifiëren met de link die we gemailed hebben. (ps: controleer ook uw spam).';
     },
       error => {
         this.errorBool = true;

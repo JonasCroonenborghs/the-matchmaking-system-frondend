@@ -6,7 +6,8 @@ export class User {
     public firstName: string,
     public lastName: string,
     public role: string,
-    public token? : string
+    public isActive: boolean,
+    public token?: string
   ) {
   }
 }
