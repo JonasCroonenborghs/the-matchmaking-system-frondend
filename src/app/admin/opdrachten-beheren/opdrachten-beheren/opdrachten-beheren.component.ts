@@ -20,6 +20,7 @@ export class OpdrachtenBeherenComponent implements OnInit {
   errorBool: boolean = false;
   submitted: boolean = false;
   errorMessage: string = '';
+  errorMessageDelete: string = '';
 
   opdrachten: Observable<Assignment[]>;
   opdracht: Assignment;
@@ -66,13 +67,6 @@ export class OpdrachtenBeherenComponent implements OnInit {
         this.errorMessage = 'Er is iets misgegaan bij het toevoegen.';
       });
     } else {
-      this.opdrachtForm.value.assignmentID = this.opdracht.assignmentID;
-      console.log(this.opdrachtForm.value);
-      //
-      // if (this.opdrachtForm.value.description != null) {
-      //   this.opdracht.description = this.opdrachtForm.value.description;
-      // }
-
       this._opdrachtService.updateAssignment(this.opdracht.assignmentID, this.opdrachtForm.value).subscribe(result => {
         this.submitted = true;
       }, error => {
@@ -85,6 +79,11 @@ export class OpdrachtenBeherenComponent implements OnInit {
 
   onCLickVerwijderOpdracht(gekozenOpdrachtID: number) {
     this._opdrachtService.deleteAssignment(gekozenOpdrachtID).subscribe();
+    // this._opdrachtService.deleteAssignment(gekozenOpdrachtID).subscribe(result => {
+    // }, error => {
+    //   this.errorBool = true;
+    //   this.errorMessageDelete = 'Deze opdracht kan niet verwijderd worden omdat er een maker is toegevoegd';
+    // });
   }
 
   ngOnInit() {

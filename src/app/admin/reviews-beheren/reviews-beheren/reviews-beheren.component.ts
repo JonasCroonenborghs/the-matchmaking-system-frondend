@@ -30,20 +30,11 @@ export class ReviewsBeherenComponent implements OnInit {
       like: new FormControl('')
     });
 
-    this.reviewID = 1;
-    this._reviewService.getReview(this.reviewID).subscribe(result => {
-      this.review = result;
-    });
-
     this.reviews = _reviewService.getReviews();
   }
 
   onClickBewerkReview(review: Review) {
     this.review = review;
-  }
-
-  onCLickVerwijderReview(gekozenReviewID: number) {
-    this._reviewService.deleteReview(gekozenReviewID).subscribe();
   }
 
   onSubmit() {
@@ -54,6 +45,10 @@ export class ReviewsBeherenComponent implements OnInit {
       this.errorBool = true;
       this.errorMessage = 'Er is iets misgegaan bij het wijzigen.';
     });
+  }
+
+  onCLickVerwijderReview(gekozenReviewID: number) {
+    this._reviewService.deleteReview(gekozenReviewID).subscribe();
   }
 
   ngOnInit() {
