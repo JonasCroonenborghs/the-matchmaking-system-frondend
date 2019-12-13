@@ -6,7 +6,7 @@
     <div class="sidebar">
       <div class="filters">
         <h2>Filters:</h2>
-        <div *ngFor="let tag of tags" class="form-check mycheckbox" (change)="onSelectionChangeTags(tag)">
+        <div *ngFor="let tag of tags" class="form-check mycheckbox ml-3" (change)="onSelectionChangeTags(tag)">
           <input class="form-check-input" type="checkbox" value="{{tag.tagID}}" id="tag">
           <label class="form-check-label" for="tag">
             {{tag.name}}
@@ -21,10 +21,10 @@
     <!--    Rechterkant van de pagina-->
     <!--    -->
     <div class="content">
-      <h2 class="mb-3">Opdrachten:</h2>
+      <h2 class="mb-3">Beschikbare opdrachten:</h2>
       <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
 
-      <div class="card mt-2" *ngFor="let opdracht of filterOpdrachten | filter: searchText;">
+      <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of filterOpdrachten | filter: searchText;">
         <div class="card-body">
           <h5 class="card-title">{{opdracht.title}}</h5>
           <h6 class="card-subtitle mb-2 text-muted"><span class="mr-3" *ngFor="let tag of opdracht.listTags">{{tag.name}}</span></h6>

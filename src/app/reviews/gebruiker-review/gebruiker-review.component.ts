@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ReviewService} from '../../services/review.service';
 import {Observable} from 'rxjs';
 import {Review} from '../../models/review.model';
+import { GebruikerService } from 'src/app/services/gebruiker.service';
 
 @Component({
   selector: 'app-gebruiker-review',
@@ -10,15 +11,27 @@ import {Review} from '../../models/review.model';
 })
 export class GebruikerReviewComponent implements OnInit {
 
-  public reviews: Observable<Review[]>;
-  public makerID: number;
+  public reviews: any;
+  public userID: number;
 
-  constructor(private _reviewService: ReviewService) {
-    this.makerID = 1;
-    this.reviews = this._reviewService.getReviewsByMakerID(this.makerID);
+  constructor(private _reviewService: ReviewService , private _gebruikerService : GebruikerService) {
+   
   }
 
   ngOnInit() {
+    this.userID = this.getCurrentGebruiker().UserID;
+    console.log("USERID: "+ this.userID)
+    this._reviewService.getReviewsByUserID(this.userID).subscribe(res=>this.reviews = res);
   }
 
+//ingelogde gebruiker ID opvragen
+getCurrentGebruiker() {
+  if (localStorage.getItem('token') != null) {
+    let jwtData = localStorage.getItem("token").split('.')[1];
+    let decodedJwt = window.atob(jwtData);
+    console.log(JSON.parse(decodedJwt));
+    return JSON.parse(decodedJwt);
+  }
+  return null;
+}
 }
