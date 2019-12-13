@@ -42,7 +42,7 @@ export class GebruikersBeherenComponent implements OnInit {
               private _gebruikerService: GebruikerService,
               private _makerTypeService: MakerTypeService) {
     this.makerForm = new FormGroup({
-      typeID: new FormControl(''),
+      makerTypeID: new FormControl(''),
       userID: new FormControl(''),
       nickname: new FormControl('', {validators: [Validators.required]}),
       birthDate: new FormControl('', {validators: [Validators.required]}),

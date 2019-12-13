@@ -1,7 +1,7 @@
 export class Maker {
   constructor(
     public makerID: number,
-    public typeID: number,
+    public makerTypeID: number,
     public userID: number,
     public nickname: string,
     public birthDate: Date,
