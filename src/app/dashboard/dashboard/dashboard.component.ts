@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
     window.location.reload();
   }
 
-  logTags(tags : any){
+  logTags(tags: any) {
     console.log("TAGS: " + JSON.stringify(tags))
   }
 
@@ -82,7 +82,9 @@ export class DashboardComponent implements OnInit {
       for (var opdracht of this.opdrachten) {
         for (var item of opdracht.listTags) {
           if (item.tagID === tag.tagID) {
-            tempListOpdrachten.push(opdracht);
+            if (!tempListOpdrachten.includes(opdracht)) {
+              tempListOpdrachten.push(opdracht);
+            }
           }
         }
       }
