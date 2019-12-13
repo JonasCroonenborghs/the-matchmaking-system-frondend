@@ -14,6 +14,7 @@ export class AuthenticateService {
   //public huidigeGebruiker: Observable<User>;
   currentUserRoleSubject: BehaviorSubject<string>;
   //currentUserRole: Observable<string>;
+  isCurrentRouteAccountActivatie = new BehaviorSubject(false);
 
   constructor(private httpClient: HttpClient) {
     this.currentUserRoleSubject = new BehaviorSubject(localStorage.getItem('role'));

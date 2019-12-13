@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticateService } from './services/authenticate.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +13,17 @@ export class AppComponent {
   isAdmin: boolean;
   isMaker: boolean;
   isCompany: boolean;
+  isCurrentRouteAccountActivatie: boolean;
 
-  constructor(private authenticateService: AuthenticateService, private _router: Router) {
+  constructor(private authenticateService: AuthenticateService, private _router: Router, private activatedRoute: ActivatedRoute) {
+    // this.authenticateService.isCurrentRouteAccountActivatie.subscribe(result => {
+    //   this.isCurrentRouteAccountActivatie = result;
+    //   console.log(result);
+    // })
     this.authenticateService.isLoggedin.subscribe(result => {
       this.aangemeld = result;
       console.log("AANGEMELD: " + result);
-      if (!this.aangemeld) {
+      if (!this.aangemeld && !this.isCurrentRouteAccountActivatie) {
         _router.navigate(['/'])
       }
     })
@@ -32,7 +37,7 @@ export class AppComponent {
         case "Company":
           this.isCompany = true;
       }
-      console.log("Aangemelde rol: "+result)
+      console.log("Aangemelde rol: " + result)
     })
   }
 
