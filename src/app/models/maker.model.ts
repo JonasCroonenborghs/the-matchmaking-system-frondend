@@ -4,7 +4,7 @@ export class Maker {
     public typeID: number,
     public userID: number,
     public nickname: string,
-    public birthDate: string,
+    public birthDate: Date,
     public biography: string,
     public linkedIn: string,
     public experience: string,

@@ -19,6 +19,8 @@ import {MakerTypeService} from '../../../services/maker-type.service';
 export class GebruikersBeherenComponent implements OnInit {
 
   submitted: boolean = false;
+  errorMessage: string = '';
+  errorBool: boolean = false;
 
   makerForm: FormGroup;
   bedrijfForm: FormGroup;
@@ -72,12 +74,25 @@ export class GebruikersBeherenComponent implements OnInit {
   }
 
   onSubmitOpslaanMaker() {
-    this.submitted = true;
-
     if (this.maker == null) {
-      this._makerService.addMaker(this.makerForm.value).subscribe();
+      // console.log(this.makerForm.value);
+      this._makerService.addMaker(this.makerForm.value).subscribe(result => {
+        this.submitted = true;
+        console.log(result);
+      }, error => {
+        console.log(error);
+        this.submitted = false;
+        this.errorBool = true;
+        this.errorMessage = 'Er is iets misgegaan bij het toevoegen.';
+      });
     } else {
-      this._makerService.updateMaker(this.makerID, this.makerForm.value).subscribe();
+      this._makerService.updateMaker(this.makerID, this.makerForm.value).subscribe(result => {
+        this.submitted = true;
+      }, error => {
+        this.submitted = false;
+        this.errorBool = true;
+        this.errorMessage = 'Er is iets misgegaan bij het wijzigen.';
+      });
     }
   }
 

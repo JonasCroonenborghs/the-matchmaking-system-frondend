@@ -29,7 +29,7 @@ export class MakerService {
   }
 
   addMaker(maker: Maker) {
-    return this.http.post('https://localhost:5001/api/Maker/', maker);
+    return this.http.post<Maker>('https://localhost:5001/api/Maker/', maker);
   }
 
   updateMaker(makerID: number, maker: Maker) {
