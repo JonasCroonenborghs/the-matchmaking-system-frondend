@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticateService } from './services/authenticate.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 import { Location } from '@angular/common';
 
 @Component({
@@ -17,7 +16,7 @@ export class AppComponent {
   isCompany: boolean;
   isCurrentRouteAccountActivatie: boolean;
 
-  constructor(private authenticateService: AuthenticateService, private _router: Router, private activatedRoute: ActivatedRoute, private location: Location) {
+  constructor(private authenticateService: AuthenticateService, private _router: Router, private location: Location) {
 
     console.log(this.location.path());
     var huidigPath = this.location.path();

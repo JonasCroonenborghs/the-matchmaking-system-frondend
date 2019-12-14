@@ -92,4 +92,8 @@ export class DashboardComponent implements OnInit {
     }
     this.filterOpdrachten = tempListOpdrachten;
   }
+
+  closeModal() {
+    this.selectedCompanyID = 0;
+  }
 }

@@ -19,12 +19,16 @@ export class OpdrachtService {
   getAssignments(): Observable<Assignment[]> {
     return this.http.get<Assignment[]>('https://localhost:5001/api/Assignment');
   }
-  getAssignmentRequests(userID : number): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>('https://localhost:5001/api/Assignment/AssignmentsRequests/'+ userID);
+  getAssignmentRequests(userID: number): Observable<Assignment[]> {
+    return this.http.get<Assignment[]>('https://localhost:5001/api/Assignment/AssignmentsRequests/' + userID);
   }
 
   getAssignment(assignmentID: number) {
     return this.http.get<Assignment>('https://localhost:5001/api/Assignment/' + assignmentID);
+  }
+
+  getUnassignedAssignmentsByCompanyID(companyID: number): Observable<Assignment[]> {
+    return this.http.get<Assignment[]>('https://localhost:5001/api/Assignment/Unassigned/' + companyID);
   }
 
   addAssignment(assignment: Assignment) {
