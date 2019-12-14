@@ -23,8 +23,8 @@ export class ReviewService {
     return this.http.get<Review>('https://localhost:5001/api/Reviews/' + reviewID);
   }
 
-  getReviewsByUserID(userID:number){
-    return this.http.get<Review[]>('https://localhost:5001/api/Reviews/byUserID/' + userID);
+  getMyReviewsAsReceiver(){
+    return this.http.get<Review[]>('https://localhost:5001/api/Reviews/byUserID');
   }
 
   getReviewsByMakerID(makerID: number) {

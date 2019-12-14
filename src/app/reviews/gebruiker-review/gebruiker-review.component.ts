@@ -25,16 +25,14 @@ export class GebruikerReviewComponent implements OnInit {
     this.selectedCompanyID = null;
     this.userID = this.getCurrentGebruiker().UserID;
     console.log("USERID: "+ this.userID)
-    this._reviewService.getReviewsByUserID(this.userID).subscribe(res=>this.reviews = res);
+    this._reviewService.getMyReviewsAsReceiver().subscribe(res=>this.reviews = res);
   }
 
   showReviewer(companyUserID : number){
-    console.log("companyUserID "+companyUserID);
+    console.log("companyUserID"+companyUserID);
 
-    this._bedrijfService.getCompanyByUserID(companyUserID).subscribe(res=>this.companyID = res.companyID);
+    this._bedrijfService.getCompanyByUserID(companyUserID).subscribe(res=> this.selectedCompanyID = res.companyID);
     console.log("companyID "+this.companyID);
-
-    this.selectedCompanyID = this.companyID;
     console.log("selectedCompanyID "+this.selectedCompanyID );
   }
 
