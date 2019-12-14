@@ -50,4 +50,8 @@ export class OpdrachtService {
   deleteAssignment(assignmentID: number) {
     return this.http.delete<Assignment>('https://localhost:5001/api/Assignment/' + assignmentID);
   }
+  
+  deleteAssignmentRequest(userID : number, assignmentID: number) {
+    return this.http.delete<Assignment>('https://localhost:5001/api/AssignmentRequest/'+ userID +'/' + assignmentID);
+  }
 }
