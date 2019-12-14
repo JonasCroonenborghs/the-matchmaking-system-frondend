@@ -51,6 +51,14 @@ export class GebruikerOpdrachtenComponent implements OnInit {
   close(){
     this.selectedCompanyID = null;
   }
+
+  isOverDated(closeDate : Date) : boolean{
+    if(new Date(closeDate) < new Date())
+      return true;
+    
+    return false;
+  }
+
 //ingelogde gebruiker ID opvragen
 getCurrentGebruiker() {
   if (localStorage.getItem('token') != null) {

@@ -5,17 +5,17 @@
 
     <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of opdrachten | filter: searchText;">
       <div class="card-body">
-        <h5 *ngIf="(opdracht.closeDate | date  : medium) < (currentDate | date  : medium)" class="text-danger">{{opdracht.title}}</h5>
-          <h5 *ngIf="(opdracht.closeDate | date  : medium) > (currentDate | date  : medium)" >{{opdracht.title}}</h5>
+        <h5 *ngIf="!isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.title}}</h5>
+          <h5 *ngIf="isOverDated(opdracht.closeDate)" >{{opdracht.title}}</h5>
         <blockquote class="blockquote mb-3">
-          <p *ngIf="(opdracht.closeDate | date  : medium) < (currentDate | date  : medium)" class="text-danger">{{opdracht.description}}</p>
-          <p *ngIf="(opdracht.closeDate | date  : medium) > (currentDate | date  : medium)" >{{opdracht.description}}</p>
-          <footer *ngIf="(opdracht.closeDate | date  : medium) > (currentDate | date  : medium)" class="blockquote-footer">Deze opdracht sluit op: {{opdracht.closeDate | date  : medium }}</footer>
-          <footer *ngIf="(opdracht.closeDate | date  : medium) < (currentDate | date  : medium)" class="blockquote-footer">Deze opdracht is gesloten</footer>
+          <p *ngIf="!isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.description}}</p>
+          <p *ngIf="isOverDated(opdracht.closeDate)" >{{opdracht.description}}</p>
+          <footer *ngIf="!isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht sluit op: {{opdracht.closeDate | date  : medium }}</footer>
+          <footer *ngIf="isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht is gesloten</footer>
         </blockquote>
         <span class="ml-1"><button type="button" class="btn mybtn btn-dark" data-toggle="modal" data-target="#exampleModal" (click)="showBedrijfInfo(opdracht)">Bedrijf info</button></span>
-        <span *ngIf="(opdracht.closeDate | date  : medium) > (currentDate | date  : medium)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Aanvraag opzeggen</button></span>
-        <span *ngIf="(opdracht.closeDate | date  : medium) < (currentDate | date  : medium)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Verwijderen</button></span>
+        <span *ngIf="!isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Aanvraag opzeggen</button></span>
+        <span *ngIf="isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Verwijderen</button></span>
       </div>
     </div>
 
