@@ -17,6 +17,14 @@ export class GebruikerService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>('https://localhost:5001/api/User/');
   }
+  
+  getAdmins(): Observable<User[]> {
+    return this.http.get<User[]>('https://localhost:5001/api/User/admins');
+  }
+
+  getUnassignedUsers(): Observable<User[]> {
+    return this.http.get<User[]>('https://localhost:5001/api/User/unassigned/');
+  }
 
   getCurrentUser() : Observable<User>{
     return this.http.get<User>('https://localhost:5001/api/User/myUser');

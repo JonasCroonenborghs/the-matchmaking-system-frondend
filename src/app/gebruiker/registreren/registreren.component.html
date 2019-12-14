@@ -8,7 +8,8 @@
 
           <div class="form-group">
             <label for="role">Statuut:</label>
-            <select class="form-control" id="role" required formControlName="Role">
+            <select class="form-control" id="role" required formControlName="Role" [(ngModel)]="selectedUserRole">
+              <option hidden value="0" selected>Kies statuut...</option>
               <option *ngFor="let role of roles" [value]="role">{{role}}</option>
             </select>
           </div>
@@ -35,7 +36,7 @@
           <input type="password" class="form-control" id="controlpassword" placeholder="Repeat password" formControlName="ControlPassword">
         </div>
 
-        <button type="submit" class="btn btn-success mt-3" [disabled]="!registrationForm.valid || submitted">Registreren</button>
+        <button type="submit" class="btn btn-success mt-3" [disabled]="!registrationForm.valid || submitted || selectedUserRole == 0">Registreren</button>
       </form>
     </div>
   </div>

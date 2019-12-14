@@ -19,6 +19,7 @@ export class RegistrerenComponent implements OnInit {
   roles: any;
   currentDate = new Date();
   user: User;
+  selectedUserRole: any = 0;
 
   constructor(private _router: Router, private _gebruikerService: GebruikerService) {
     this.registrationForm = new FormGroup({
@@ -35,6 +36,7 @@ export class RegistrerenComponent implements OnInit {
     this._gebruikerService.getUserRoles().subscribe(res => {
       this.roles = res;
     });
+    this.registrationForm.controls['Role'].setValue("0", {onlySelf: true});
   }
 
   onSubmit() {
@@ -44,6 +46,15 @@ export class RegistrerenComponent implements OnInit {
 
     //const user = new User(0,form.firstName, form.lastName,form.email, Date.now().toLocaleString(), form.password, this.selectedRole);
     this.user = new User(0, form.Email, form.Password, form.FirstName, form.LastName, form.Role);
+
+    // check password match
+    if(form.ControlPassword != this.user.password){
+      this.errorMessage = 'Wachtwoorden matchen niet.';
+      this.errorBool = true;
+      this.submitted = false;
+      return;
+    }
+
     this._gebruikerService.createUser(this.user).subscribe(result => {
         this._router.navigate(['/login']);
       },
@@ -54,8 +65,6 @@ export class RegistrerenComponent implements OnInit {
         this.errorMessage = 'Registration failed, please try again.';
       }
     );
-
-    console.log('USER: ' + JSON.stringify(this.user));
   }
 
 }

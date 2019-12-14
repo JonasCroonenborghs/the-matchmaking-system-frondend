@@ -1,34 +1,25 @@
 <div class="container justify-content-center">
   <h1>Gebruikers beheren</h1>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal"
+          (click)="onClickRegisterUser()">Gebruiker toevoegen
+  </button>
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">Makers</h5>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#makerModal"
-              (click)="onCLickToevoegenMaker()">Voeg toe
-      </button>
       <div class="card-text">
         <table class="table table-hover">
           <thead>
           <tr>
             <th scope="col">MakerID</th>
             <th scope="col">GebruikerID</th>
-            <th scope="col">TypeID</th>
             <th scope="col">Nickname</th>
-            <th scope="col">Geboortedatum</th>
-            <th scope="col">Ervaring</th>
-            <th scope="col">Contact info</th>
-            <th></th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let maker of (makers | async)">
             <td>{{maker.makerID}}</td>
-            <td>{{maker.typeID}}</td>
             <td>{{maker.userID}}</td>
             <td>{{maker.nickname}}</td>
-            <td>{{maker.birthDate}}</td>
-            <td>{{maker.experience}}</td>
-            <td>{{maker.contactInfo}}</td>
             <td>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#makerModal"
                       (click)="onClickBewerkMaker(maker)">Bewerk
@@ -42,12 +33,10 @@
         </table>
       </div>
     </div>
+
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Bedrijven</h5>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedrijfModal"
-                (click)="onCLickToevoegenBedrijf()">Voeg toe
-        </button>
         <div class="card-text">
           <table class="table table-hover">
             <thead>
@@ -55,7 +44,7 @@
               <th scope="col">CompanyID</th>
               <th scope="col">GebruikerID</th>
               <th scope="col">Naam</th>
-              <th scope="col">Locatie</th>
+              <th *ngIf="bigData" scope="col">Locatie</th>
               <th></th>
             </tr>
             </thead>
@@ -64,7 +53,6 @@
               <td>{{bedrijf.companyID}}</td>
               <td>{{bedrijf.userID}}</td>
               <td>{{bedrijf.name}}</td>
-              <td>{{bedrijf.location}}</td>
               <td>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedrijfModal"
                         (click)="onClickBewerkBedrijf(bedrijf)">Bewerk
@@ -85,7 +73,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="makerModalLabel">{{maker?.nickname}}</h5>
+            <h5 class="modal-title" id="makerModalLabel">{{title}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -95,19 +83,32 @@
               <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
               <div class="form-group">
                 <label for="inputGroupSelectMakerType" class="col-form-label">Type:</label>
-                <select class="custom-select" id="inputGroupSelectMakerType" formControlName="makerTypeID">
-                  <option selected="selected">Kies...</option>
+                <select class="custom-select" id="inputGroupSelectMakerType" formControlName="makerTypeID" [(ngModel)]="SelectMakerTypeID">
+                  <option hidden value="0" selected>Kies type...</option>
                   <option *ngFor="let makerType of (makerTypes | async)"
                           value="{{makerType.makerTypeID}}">{{makerType.name}}</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="inputGroupSelectMaker" class="col-form-label">Gebruiker:</label>
-                <select class="custom-select" id="inputGroupSelectMaker" formControlName="userID">
-                  <option selected="selected">Kies...</option>
-                  <option *ngFor="let gebruiker of (gebruikers | async)"
-                          value="{{gebruiker.userID}}">{{gebruiker.firstName}} {{gebruiker.lastName}}</option>
-                </select>
+                <div *ngIf="createMode">
+                  <select class="custom-select userPresentationSpace" id="inputGroupSelectMaker" formControlName="userID" [(ngModel)]="SelectUserID">
+                    <option hidden value="0" selected>Kies gebruiker...</option>
+                    <option *ngFor="let gebruiker of (gebruikers | async)"
+                            value="{{gebruiker.userID}}">{{gebruiker.firstName}} {{gebruiker.lastName}}</option>
+                  </select>
+                  <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal"
+                          (click)="onClickCreateUser(user)">Bewerk gebruiker
+                  </button>-->
+                </div>
+                <div class="customFlexContainer" *ngIf="!createMode">
+                  <div class="userPresentationSpace">
+                    {{maker?.user.firstName}} {{maker?.user.lastName}}
+                  </div>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal"
+                          (click)="onClickEditUser(user)">Bewerk gebruiker
+                  </button>
+                </div>
               </div>
               <div class="form-group">
                 <label for="nickname" class="col-form-label">Nickname:</label>
@@ -142,7 +143,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-              <button type="submit" class="btn btn-primary" [disabled]="!makerForm.valid || submitted">Opslaan
+              <button type="submit" class="btn btn-primary" [disabled]="!makerForm.valid || submitted || SelectMakerTypeID == 0 || SelectUserID == 0">Opslaan
               </button>
             </div>
           </form>
@@ -187,5 +188,56 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="makerModalLabel">{{title}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form (ngSubmit)="onSubmitRegisterUser()" [formGroup]="registrationForm">
+              <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
+              <div class="form-group">
+      
+                <div class="form-group">
+                  <label for="role">Statuut:</label>
+                  <select class="form-control" id="role" required formControlName="Role" [(ngModel)]="SelectUserRole">
+                    <option hidden value="0" selected>Kies statuut...</option>
+                    <option *ngFor="let role of Roles" [value]="role">{{role}}</option>
+                  </select>
+                </div>
+      
+              </div>
+              <div class="form-group">
+                <label for="firstName">Voornaam:</label>
+                <input type="text" class="form-control" id="firstName" placeholder="First name" formControlName="FirstName"/>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Familienaam:</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Last name" formControlName="LastName"/>
+              </div>
+              <div class="form-group">
+                <label for="mail">E-mail:</label>
+                <input type="email" class="form-control" id="mail" placeholder="E-mail" formControlName="Email"/>
+              </div>
+              <div class="form-group">
+                <label for="password">Wachtwoord:</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" formControlName="Password">
+              </div>
+              <div *ngIf="createMode" class="form-group">
+                <label for="controlpassword">Herhaal wachtwoord:</label>
+                <input type="password" class="form-control" id="controlpassword" placeholder="Repeat password" formControlName="ControlPassword">
+              </div>
+      
+              <button type="submit" class="btn btn-success mt-3" [disabled]="!registrationForm.valid || submitted || SelectUserRole == 0">Registreren</button>
+            </form>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
