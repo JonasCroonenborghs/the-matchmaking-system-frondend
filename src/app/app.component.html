@@ -31,13 +31,10 @@
           <a class="nav-link link-1" routerLink="/profiel" routerLinkActive="active">Mijn profiel</a>
         </li>
         <li *ngIf="aangemeld && isAdmin || isMaker" class="nav-item">
-          <a class="nav-link link-1" routerLink="/gebruiker-review" routerLinkActive="active">Gebruiker Reviews</a>
+          <a class="nav-link link-1" routerLink="/gebruiker-review" routerLinkActive="active">Reviews</a>
         </li>
         <li *ngIf="aangemeld && !isMaker" class="nav-item">
           <a class="nav-link link-1" routerLink="/bedrijf-review" routerLinkActive="active">Bedrijf Reviews</a>
-        </li>
-        <li *ngIf="aangemeld && isMaker || isCompany" class="nav-item">
-          <a class="nav-link link-1" routerLink="/review" routerLinkActive="active">Review maken</a>
         </li>
         <li *ngIf="aangemeld && isAdmin" class="nav-item">
           <a class="nav-link link-1" routerLink="/gebruikersBeheren" routerLinkActive="active">ADMIN gebruikers</a>

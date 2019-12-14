@@ -3,6 +3,7 @@ import {ReviewService} from '../../services/review.service';
 import {Observable} from 'rxjs';
 import {Review} from '../../models/review.model';
 import { GebruikerService } from 'src/app/services/gebruiker.service';
+import { BedrijfService } from 'src/app/services/bedrijf.service';
 
 @Component({
   selector: 'app-gebruiker-review',
@@ -13,15 +14,32 @@ export class GebruikerReviewComponent implements OnInit {
 
   public reviews: any;
   public userID: number;
+  selectedCompanyID : number = null;
+  companyID : number = null;
 
-  constructor(private _reviewService: ReviewService , private _gebruikerService : GebruikerService) {
+  constructor(private _reviewService: ReviewService , private _gebruikerService : GebruikerService, private _bedrijfService : BedrijfService) {
    
   }
 
   ngOnInit() {
+    this.selectedCompanyID = null;
     this.userID = this.getCurrentGebruiker().UserID;
     console.log("USERID: "+ this.userID)
     this._reviewService.getReviewsByUserID(this.userID).subscribe(res=>this.reviews = res);
+  }
+
+  showReviewer(companyUserID : number){
+    console.log("companyUserID "+companyUserID);
+
+    this._bedrijfService.getCompanyByUserID(companyUserID).subscribe(res=>this.companyID = res.companyID);
+    console.log("companyID "+this.companyID);
+
+    this.selectedCompanyID = this.companyID;
+    console.log("selectedCompanyID "+this.selectedCompanyID );
+  }
+
+  close(){
+    this.selectedCompanyID = null;
   }
 
 //ingelogde gebruiker ID opvragen

@@ -22,6 +22,10 @@ export class BedrijfService {
     return this.http.get<Company>('https://localhost:5001/api/Company/' + companyID);
   }
 
+  getCompanyByUserID(userID: number) : Observable<Company>{
+    return this.http.get<Company>('https://localhost:5001/api/Company/byUserID/' + userID);
+  }
+
   getTagsByCompanyID(bedrijfID: number) {
     return this.http.get<Tag[]>('https://localhost:5001/api/Tag/byCompanyID/' + bedrijfID);
   }

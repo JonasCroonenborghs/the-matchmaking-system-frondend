@@ -5,17 +5,42 @@
 
     <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of opdrachten | filter: searchText;">
       <div class="card-body">
-        <h5 *ngIf="!isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.title}}</h5>
-          <h5 *ngIf="isOverDated(opdracht.closeDate)" >{{opdracht.title}}</h5>
+        <h5 *ngIf="!isOverDated(opdracht.closeDate)" >{{opdracht.title}}</h5>
+          <h5 *ngIf="isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.title}}</h5>
         <blockquote class="blockquote mb-3">
-          <p *ngIf="!isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.description}}</p>
-          <p *ngIf="isOverDated(opdracht.closeDate)" >{{opdracht.description}}</p>
+          <p *ngIf="!isOverDated(opdracht.closeDate)" >{{opdracht.description}}</p>
+          <p *ngIf="isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.description}}</p>
           <footer *ngIf="!isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht sluit op: {{opdracht.closeDate | date  : medium }}</footer>
           <footer *ngIf="isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht is gesloten</footer>
         </blockquote>
         <span class="ml-1"><button type="button" class="btn mybtn btn-dark" data-toggle="modal" data-target="#exampleModal" (click)="showBedrijfInfo(opdracht)">Bedrijf info</button></span>
         <span *ngIf="!isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Aanvraag opzeggen</button></span>
         <span *ngIf="isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Verwijderen</button></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container mt-4">
+  <div class="content">
+    <h2 class="mb-3">Opdrachten:</h2>
+    <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
+
+    <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of myOpdrachten | filter: searchText;">
+      <div class="card-body">
+        <h5 *ngIf="!isOverDated(opdracht.closeDate)" >{{opdracht.title}}</h5>
+          <h5 *ngIf="isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.title}}</h5>
+        <blockquote class="blockquote mb-3">
+          <p *ngIf="!isOverDated(opdracht.closeDate)" >{{opdracht.description}}</p>
+          <p *ngIf="isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.description}}</p>
+          <footer *ngIf="!isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht sluit op: {{opdracht.closeDate | date  : medium }}</footer>
+          <footer *ngIf="isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht is gesloten</footer>
+        </blockquote>
+        <span class="ml-1"><button type="button" class="btn mybtn btn-dark" data-toggle="modal" data-target="#exampleModal" (click)="showBedrijfInfo(opdracht)">Bedrijf info</button></span>
+        <span *ngIf="!isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Uitschrijven</button></span>
+        <span *ngIf="isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Verwijderen</button></span>
+        <span *ngIf="!isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-success" data-toggle="modal" data-target="#exampleModal" (click)="showReviewModal(opdracht)">Review Schrijven</button></span>
       </div>
     </div>
 
@@ -33,11 +58,16 @@
         </button>
       </div>
       <div class="modal-body ">
+
         <app-bedrijf-profiel *ngIf="selectedCompanyID" [companyID]="selectedCompanyID"></app-bedrijf-profiel>
-        <p *ngIf="!selectedCompanyID">Bent u zeker dat u uw inschrijving voor {{selectedAssignment?.title}} wilt opzeggen?</p>
+
+        <p *ngIf="selectedAssignment">Bent u zeker dat u uw inschrijving voor {{selectedAssignment?.title}} wilt opzeggen?</p>
+
+        <app-review *ngIf="selectedReviewAssignment" [companyID]="selectedReviewAssignment.companyID" [assignmentID]="selectedReviewAssignment.assignmentID" [currentUID]="currentUID"></app-review>
+
       </div>
       <div class="modal-footer">
-        <button *ngIf="!selectedCompanyID" type="button" class="btn btn-danger" data-dismiss="modal" (click)="removeAssignmentRequest(selectedAssignment.assignmentID)">Delete</button>
+        <button *ngIf="selectedAssignmen" type="button" class="btn btn-danger" data-dismiss="modal" (click)="removeAssignmentRequest(selectedAssignment.assignmentID)">Delete</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
       </div>
     </div>

@@ -8,6 +8,7 @@ import { GebruikerOpdrachtenComponent } from './gebruiker-opdrachten/gebruiker-o
 import { BedrijfOpdrachtenComponent } from './bedrijf-opdrachten/bedrijf-opdrachten.component';
 import { FilterPipe } from './filter.pipe';
 import {GebruikerModule} from '../gebruiker/gebruiker.module';
+import { ReviewsModule } from '../reviews/reviews.module';
 
 
 
@@ -16,7 +17,9 @@ import {GebruikerModule} from '../gebruiker/gebruiker.module';
   imports: [
     CommonModule,
     FormsModule,
-    GebruikerModule
-  ]
+    GebruikerModule,
+    ReviewsModule
+  ],
+  exports:[]
 })
 export class DashboardModule { }

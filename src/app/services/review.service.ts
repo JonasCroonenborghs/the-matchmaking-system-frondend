@@ -35,6 +35,10 @@ export class ReviewService {
     return this.http.get<Review[]>('https://localhost:5001/api/Reviews/ByCompanyID/' + companyID);
   }
 
+  addReview(review :Review){
+    return this.http.post('https://localhost:5001/api/Reviews' ,review);
+  }
+
   updateReview(reviewID: number, review: Review) {
     return this.http.put<Review>('https://localhost:5001/api/Reviews/' + reviewID, review);
   }

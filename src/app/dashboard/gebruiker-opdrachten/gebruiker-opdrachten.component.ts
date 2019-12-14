@@ -14,10 +14,12 @@ import { formatDate } from '@angular/common';
 export class GebruikerOpdrachtenComponent implements OnInit {
   searchText : string = "";
   opdrachten : any;
+  myOpdrachten : any;
   currentUser : any;
   currentUID : number;
   selectedCompanyID: number = null;
   selectedAssignment : Assignment = null;
+  selectedReviewAssignment: Assignment = null;
   currentDate : Date;
 
   constructor(private _opdrachtService: OpdrachtService, private _gebruikerService : GebruikerService) {
@@ -27,10 +29,15 @@ export class GebruikerOpdrachtenComponent implements OnInit {
   ngOnInit() {
     this.currentDate = new Date();
     console.log(this.currentDate);
+
     this.currentUID = this.getCurrentGebruiker().UserID;
     console.log(this.currentUID);
+
     this._opdrachtService.getAssignmentRequests(this.currentUID).subscribe(res=> this.opdrachten = res);
-    console.log(JSON.stringify(this.opdrachten));
+    //console.log(JSON.stringify(this.opdrachten));
+
+    this._opdrachtService.getAcceptedAssignments(this.currentUID).subscribe(res=> this.myOpdrachten = res);
+    //console.log(JSON.stringify(this.myOpdrachten));
   }
 
   showBedrijfInfo(assignment: Assignment) {
@@ -42,6 +49,10 @@ export class GebruikerOpdrachtenComponent implements OnInit {
     this.selectedAssignment = assignment;
   }
 
+  showReviewModal(assignment : Assignment){
+    this.selectedReviewAssignment = assignment;
+  }
+
   removeAssignmentRequest(assignmentID : number){
     this._opdrachtService.deleteAssignmentRequest(this.currentUID,assignmentID).subscribe();
     this.selectedAssignment = null;
@@ -49,6 +60,8 @@ export class GebruikerOpdrachtenComponent implements OnInit {
   }
 
   close(){
+    this.selectedReviewAssignment = null;
+    this.selectedAssignment = null;
     this.selectedCompanyID = null;
   }
 
