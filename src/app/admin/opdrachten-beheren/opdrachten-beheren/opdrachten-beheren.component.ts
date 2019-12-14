@@ -7,6 +7,7 @@ import {Assignment} from '../../../models/assignment.model';
 import {BedrijfService} from '../../../services/bedrijf.service';
 import {Company} from '../../../models/company.model';
 import {MakerService} from '../../../services/maker.service';
+import {User} from '../../../models/user.model';
 
 @Component({
   selector: 'app-opdrachten-beheren',
@@ -19,6 +20,7 @@ export class OpdrachtenBeherenComponent implements OnInit {
   errorBool: boolean = false;
   submitted: boolean = false;
   errorMessage: string = '';
+  errorMessageDelete: string = '';
 
   opdrachten: Observable<Assignment[]>;
   opdracht: Assignment;
@@ -30,11 +32,12 @@ export class OpdrachtenBeherenComponent implements OnInit {
               private _bedrijfService: BedrijfService,
               private _makerService: MakerService) {
     this.opdrachtForm = new FormGroup({
-      companyID: new FormControl('', {validators: [Validators.required]}),
+      assignmentID: new FormControl(''),
+      companyID: new FormControl(''),
+      title: new FormControl(''),
+      closeDate: new FormControl(''),
       makerID: new FormControl(''),
-      title: new FormControl('', {validators: [Validators.required]}),
-      description: new FormControl('', {validators: [Validators.required]}),
-      closeDate: new FormControl('')
+      description: new FormControl('')
     });
 
     this.opdrachten = _opdrachtService.getAssignments();
@@ -52,16 +55,35 @@ export class OpdrachtenBeherenComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    const form = this.opdrachtForm.value;
 
     if (this.opdracht == null) {
-      this._opdrachtService.addAssignment(this.opdrachtForm.value).subscribe();
+      // this.opdracht = new Assignment(0, form.companyID, form.makerID, form.title, form.description, form.closeDate);
+      this._opdrachtService.addAssignment(this.opdrachtForm.value).subscribe(result => {
+        this.submitted = true;
+      }, error => {
+        this.submitted = false;
+        this.errorBool = true;
+        this.errorMessage = 'Er is iets misgegaan bij het toevoegen.';
+      });
     } else {
-      this._opdrachtService.updateAssignment(this.opdracht.assignmentID, this.opdrachtForm.value).subscribe();
+      this._opdrachtService.updateAssignment(this.opdracht.assignmentID, this.opdrachtForm.value).subscribe(result => {
+        this.submitted = true;
+      }, error => {
+        this.submitted = false;
+        this.errorBool = true;
+        this.errorMessage = 'Er is iets misgegaan bij het wijzigen.';
+      });
     }
   }
 
   onCLickVerwijderOpdracht(gekozenOpdrachtID: number) {
     this._opdrachtService.deleteAssignment(gekozenOpdrachtID).subscribe();
+    // this._opdrachtService.deleteAssignment(gekozenOpdrachtID).subscribe(result => {
+    // }, error => {
+    //   this.errorBool = true;
+    //   this.errorMessageDelete = 'Deze opdracht kan niet verwijderd worden omdat er een maker is toegevoegd';
+    // });
   }
 
   ngOnInit() {

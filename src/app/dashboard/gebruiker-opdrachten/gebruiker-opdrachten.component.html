@@ -1,40 +1,44 @@
-<div class="ml-3 mr-3 mt-3">
-  <div class="row">
-    <!--    -->
-    <!--    Linkerkant van de pagina-->
-    <!--    -->
-    <div>
-      <div class="col-2 filters">
-        <h2 >Filters:</h2>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            Default checkbox
-          </label>
-        </div>
+<div class="container mt-4">
+  <div class="content">
+    <h2 class="mb-3">Opdrachten:</h2>
+    <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
+
+    <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of opdrachten | filter: searchText;">
+      <div class="card-body">
+        <h5 *ngIf="(opdracht.closeDate | date  : medium) < (currentDate | date  : medium)" class="text-danger">{{opdracht.title}}</h5>
+          <h5 *ngIf="(opdracht.closeDate | date  : medium) > (currentDate | date  : medium)" >{{opdracht.title}}</h5>
+        <blockquote class="blockquote mb-3">
+          <p *ngIf="(opdracht.closeDate | date  : medium) < (currentDate | date  : medium)" class="text-danger">{{opdracht.description}}</p>
+          <p *ngIf="(opdracht.closeDate | date  : medium) > (currentDate | date  : medium)" >{{opdracht.description}}</p>
+          <footer *ngIf="(opdracht.closeDate | date  : medium) > (currentDate | date  : medium)" class="blockquote-footer">Deze opdracht sluit op: {{opdracht.closeDate | date  : medium }}</footer>
+          <footer *ngIf="(opdracht.closeDate | date  : medium) < (currentDate | date  : medium)" class="blockquote-footer">Deze opdracht is gesloten</footer>
+        </blockquote>
+        <span class="ml-1"><button type="button" class="btn mybtn btn-dark" data-toggle="modal" data-target="#exampleModal" (click)="showBedrijfInfo(opdracht)">Bedrijf info</button></span>
+        <span *ngIf="(opdracht.closeDate | date  : medium) > (currentDate | date  : medium)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Aanvraag opzeggen</button></span>
+        <span *ngIf="(opdracht.closeDate | date  : medium) < (currentDate | date  : medium)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Verwijderen</button></span>
       </div>
     </div>
 
-    <div class="border-right"></div>
+  </div>
+</div>
 
-    <!--    -->
-    <!--    Rechterkant van de pagina-->
-    <!--    -->
-    <div class="col">
-      <h2 class="mb-3">Opdrachten:</h2>
-      <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Opdracht Titel</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Opdracht soort (angular, html&css, react,...)</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-          <!--          if status != done -> verwijderknop enabled-->
-          <button type="button" class="btn btn-danger">Opdracht verwijderen</button>
-
-          <!--          if status = done -> reviewknop enabled-->
-          <button type="button" class="btn btn-success">Review schrijven</button>
-        </div>
+<!-- Modal -->
+<div class="modal fade" #exampleModal id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h5 class="modal-title " id="exampleModalLabel">Bedrijf info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <app-bedrijf-profiel *ngIf="selectedCompanyID" [companyID]="selectedCompanyID"></app-bedrijf-profiel>
+        <p *ngIf="!selectedCompanyID">Bent u zeker dat u uw inschrijving voor {{selectedAssignment?.title}} wilt opzeggen?</p>
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="!selectedCompanyID" type="button" class="btn btn-danger" data-dismiss="modal" (click)="removeAssignmentRequest(selectedAssignment.assignmentID)">Delete</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
       </div>
     </div>
   </div>

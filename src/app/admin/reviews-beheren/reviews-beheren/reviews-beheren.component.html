@@ -48,6 +48,7 @@
           </div>
           <form (ngSubmit)="onSubmit()" [formGroup]="reviewForm">
             <div class="modal-body">
+              <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
               <div class="form-group">
                 <label for="reviewerID" class="col-form-label">ReviewerID:</label>
                 <input type="text" class="form-control" id="reviewerID" value="{{review?.reviewerID}}"
@@ -69,9 +70,11 @@
                        formControlName="description">
               </div>
               <div class="form-group">
-                <label for="like" class="col-form-label">Like:</label>
-                <input type="text" class="form-control" id="like" value="{{review?.like}}"
-                       formControlName="like">
+                <label for="inputGroupSelectCompany" class="col-form-label">Like:</label>
+                <select class="custom-select" id="inputGroupSelectCompany" formControlName="like">
+                  <option value="false">Geen like</option>
+                  <option value="true">Like</option>
+                </select>
               </div>
             </div>
             <div class="modal-footer">

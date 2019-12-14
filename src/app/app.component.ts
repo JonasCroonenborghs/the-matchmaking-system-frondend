@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticateService } from './services/authenticate.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,14 @@ export class AppComponent {
   isCompany: boolean;
   isCurrentRouteAccountActivatie: boolean;
 
-  constructor(private authenticateService: AuthenticateService, private _router: Router, private activatedRoute: ActivatedRoute) {
-    // this.authenticateService.isCurrentRouteAccountActivatie.subscribe(result => {
-    //   this.isCurrentRouteAccountActivatie = result;
-    //   console.log(result);
-    // })
+  constructor(private authenticateService: AuthenticateService, private _router: Router, private location: Location) {
+
+    console.log(this.location.path());
+    var huidigPath = this.location.path();
+    if (huidigPath.includes('activeren')) {
+      this.isCurrentRouteAccountActivatie = true;
+    }
+
     this.authenticateService.isLoggedin.subscribe(result => {
       this.aangemeld = result;
       console.log("AANGEMELD: " + result);

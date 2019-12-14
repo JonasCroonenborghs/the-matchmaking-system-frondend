@@ -12,6 +12,8 @@ import {Observable} from 'rxjs';
 export class ReviewsBeherenComponent implements OnInit {
 
   submitted: boolean = false;
+  errorBool: boolean = false;
+  errorMessage: string = '';
 
   reviewForm: FormGroup;
   review: Review;
@@ -21,16 +23,11 @@ export class ReviewsBeherenComponent implements OnInit {
 
   constructor(private _reviewService: ReviewService) {
     this.reviewForm = new FormGroup({
-      reviewerID: new FormControl('', {validators: [Validators.required]}),
-      receiverID: new FormControl('', {validators: [Validators.required]}),
-      assignmentID: new FormControl('', {validators: [Validators.required]}),
-      description: new FormControl('', {validators: [Validators.required]}),
-      like: new FormControl('', {validators: [Validators.required]})
-    });
-
-    this.reviewID = 1;
-    this._reviewService.getReview(this.reviewID).subscribe(result => {
-      this.review = result;
+      reviewerID: new FormControl(''),
+      receiverID: new FormControl(''),
+      assignmentID: new FormControl(''),
+      description: new FormControl(''),
+      like: new FormControl('')
     });
 
     this.reviews = _reviewService.getReviews();
@@ -40,13 +37,18 @@ export class ReviewsBeherenComponent implements OnInit {
     this.review = review;
   }
 
-  onCLickVerwijderReview(gekozenReviewID: number) {
-    this._reviewService.deleteReview(gekozenReviewID).subscribe();
+  onSubmit() {
+    this._reviewService.updateReview(this.reviewID, this.reviewForm.value).subscribe(result => {
+      this.submitted = true;
+    }, error => {
+      this.submitted = false;
+      this.errorBool = true;
+      this.errorMessage = 'Er is iets misgegaan bij het wijzigen.';
+    });
   }
 
-  onSubmit() {
-    this.submitted = true;
-    this._reviewService.updateReview(this.reviewID, this.reviewForm.value).subscribe();
+  onCLickVerwijderReview(gekozenReviewID: number) {
+    this._reviewService.deleteReview(gekozenReviewID).subscribe();
   }
 
   ngOnInit() {

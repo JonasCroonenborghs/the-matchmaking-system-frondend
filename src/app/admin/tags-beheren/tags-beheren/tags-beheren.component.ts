@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Tag} from '../../../models/tag.model';
@@ -12,8 +12,8 @@ import {TagService} from '../../../services/tag.service';
 export class TagsBeherenComponent implements OnInit {
 
   tagForm: FormGroup;
-  errorBool: boolean = false;
   submitted: boolean = false;
+  errorBool: boolean = false;
   errorMessage: string = '';
   tags: Observable<Tag[]>;
 
@@ -27,7 +27,13 @@ export class TagsBeherenComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this._tagService.addTag(this.tagForm.value).subscribe();
+    this._tagService.addTag(this.tagForm.value).subscribe(result => {
+      this.submitted = true;
+    }, error => {
+      this.submitted = false;
+      this.errorBool = true;
+      this.errorMessage = 'Er is iets misgegaan bij het toevoegen.';
+    });
   }
 
   onClickVerwijderTag(gekozenTagID: number) {

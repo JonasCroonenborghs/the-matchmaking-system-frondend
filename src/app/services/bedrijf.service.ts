@@ -31,7 +31,7 @@ export class BedrijfService {
   }
 
   updateCompany(companyID: number, company: Company) {
-    return this.http.put('https://localhost:5001/api/Company/' + companyID, company);
+    return this.http.put<Company>('https://localhost:5001/api/Company/' + companyID, company);
   }
 
   deleteCompany(companyID: number) {

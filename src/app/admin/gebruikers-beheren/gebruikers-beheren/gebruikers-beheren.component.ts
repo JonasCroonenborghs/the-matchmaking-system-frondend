@@ -161,7 +161,7 @@ export class GebruikersBeherenComponent implements OnInit {
     console.log('FORM: ' + JSON.stringify(form));
 
     //const user = new User(0,form.firstName, form.lastName,form.email, Date.now().toLocaleString(), form.password, this.selectedRole);
-    this.user = new User(0, form.Email, form.Password, form.FirstName, form.LastName, form.Role);
+    this.user = new User(0, form.Email, form.Password, form.FirstName, form.LastName, form.Role, false);
     
     // check password match
     if(form.ControlPassword != this.user.password){
