@@ -5,11 +5,9 @@
 
     <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of myOpdrachten | filter: searchText;">
       <div class="card-body">
-        <h5 *ngIf="!isOverDated(opdracht.closeDate)" >{{opdracht.title}}</h5>
-        <h5 *ngIf="isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.title}}</h5>
+        <h5 >{{opdracht.title}}<span *ngIf="isOverDated(opdracht.closeDate)" class="badge badge-danger">Gesloten</span></h5>
         <blockquote class="blockquote mb-3">
-          <p *ngIf="!isOverDated(opdracht.closeDate)" >{{opdracht.description}}</p>
-          <p *ngIf="isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.description}}</p>
+          <p >{{opdracht.description}}</p>
           <footer *ngIf="!isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht sluit op: {{opdracht.closeDate | date  : medium }}</footer>
           <footer *ngIf="isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht is gesloten</footer>
         </blockquote>
@@ -19,22 +17,19 @@
         <span *ngIf="!isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-success" data-toggle="modal" data-target="#exampleModal" (click)="showReviewModal(opdracht)">Review Schrijven</button></span>
       </div>
     </div>
-
   </div>
 </div>
 
 <div class="container mt-4">
   <div class="content">
-    <h2 class="mb-3">Ingeschreven pdrachten</h2>
+    <h2 class="mb-3">Ingeschreven opdrachten</h2>
     <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
 
     <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of opdrachten | filter: searchText;">
       <div class="card-body">
-        <h5 *ngIf="!isOverDated(opdracht.closeDate)" >{{opdracht.title}}</h5>
-          <h5 *ngIf="isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.title}}</h5>
+        <h5>{{opdracht.title}} <span *ngIf="isOverDated(opdracht.closeDate)" class="badge badge-danger">Gesloten!</span></h5>
         <blockquote class="blockquote mb-3">
-          <p *ngIf="!isOverDated(opdracht.closeDate)" >{{opdracht.description}}</p>
-          <p *ngIf="isOverDated(opdracht.closeDate)" class="text-danger">{{opdracht.description}}</p>
+          <p>{{opdracht.description}}</p>
           <footer *ngIf="!isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht sluit op: {{opdracht.closeDate | date  : medium }}</footer>
           <footer *ngIf="isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht is gesloten</footer>
         </blockquote>
