@@ -8,7 +8,7 @@ export class Maker {
     public makerTypeID: number,
     public userID: number,
     public nickname: string,
-    public birthDate: Date,
+    public birthdate: Date,
     public biography: string,
     public linkedIn: string,
     public experience: string,

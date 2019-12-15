@@ -30,6 +30,10 @@ export class BedrijfService {
     return this.http.get<Tag[]>('https://localhost:5001/api/Tag/byCompanyID/' + bedrijfID);
   }
 
+  getMyCompany(): Observable<Company> {
+    return this.http.get<Company>('https://localhost:5001/api/Company/myCompany/');
+  }
+
   addCompany(company: Company) {
     return this.http.post('https://localhost:5001/api/Company/', company);
   }

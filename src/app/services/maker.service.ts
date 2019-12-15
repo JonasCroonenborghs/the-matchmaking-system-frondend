@@ -37,6 +37,10 @@ export class MakerService {
     return this.http.get<Maker>('https://localhost:5001/api/Maker/byUserID/' + userID);
   }
 
+  getMyMaker(): Observable<Maker> {
+    return this.http.get<Maker>('https://localhost:5001/api/Maker/myMaker');
+  }  
+
   addMaker(maker: Maker) {
     return this.http.post<Maker>('https://localhost:5001/api/Maker/', maker);
   }

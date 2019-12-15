@@ -36,7 +36,7 @@ export class ProfielComponent implements OnInit {
   maker: Maker;
   makerTypes: Observable<MakerType[]>;
   huidigeUserID: number;
-  birthday : string;
+  birthdate : string;
 
   constructor(private _gebruikerService: GebruikerService, private _authenticateService: AuthenticateService, private datePipe : DatePipe,
               private _makerService: MakerService, private _bedrijfService: BedrijfService, private _makerTypeService: MakerTypeService) {
@@ -82,38 +82,41 @@ export class ProfielComponent implements OnInit {
         this.isMaker = true;
       }
     });
-  }
-
-  ngOnInit() {
+    
     this._gebruikerService.getCurrentUser().subscribe(
-      user => this.registrationForm.patchValue(user)
-    );
-
-    this._gebruikerService.getCurrentUser().subscribe(
-      user => this.myUser = user
-    );
+      user => {
+        this.myUser = user;
+        this.registrationForm.patchValue(user);
+      });
 
     this._gebruikerService.getUserRoles().subscribe(res => {
       this.roles = res;
     });
 
-    this._bedrijfService.getCompanyByUserID(this.huidigeUserID).subscribe(res => {
-      this.company = res;
-      this.companyForm.patchValue(this.company);
-    });
+    // bedrijf
+    if(this.getCurrentGebruiker().role == "Company"){
+        this._bedrijfService.getMyCompany().subscribe(res => {
+        this.company = res;
+        this.companyForm.patchValue(this.company);
+      });
+    }
 
-    this._makerService.getMakerByUserID(this.huidigeUserID).subscribe(res => {
-      this.maker = res;
-      this.makerForm.patchValue(this.maker);
-    });
+    // maker
+    if(this.getCurrentGebruiker().role == "Maker"){
+        this._makerService.getMyMaker().subscribe(res => {
+        this.maker = res;
+        this.makerForm.patchValue(this.maker);
 
-    this.makerTypes = this._makerTypeService.getMakerTypes();
+        // set birthday
+        this.birthdate = this.datePipe.transform(this.maker.birthdate, 'yyyy-MM-dd');
+      });
 
-    // DEZE GEBRUIKER ID BLIJFT LEEG?
-    this.huidigeUserID = this.getCurrentGebruiker().UserID;
+      this.makerTypes = this._makerTypeService.getMakerTypes();
+    }
+  }
 
-    // set birthday
-    this.birthday = this.datePipe.transform(this.maker.birthDate, 'yyyy-MM-dd');
+  ngOnInit() {
+
   }
 
   getCurrentGebruiker() {
