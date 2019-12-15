@@ -32,6 +32,7 @@ export class ProfielComponent implements OnInit {
   company: Company;
   maker: Maker;
   makerTypes: Observable<MakerType[]>;
+  huidigeUserID: number;
 
   constructor(private _gebruikerService: GebruikerService, private _authenticateService: AuthenticateService,
               private _makerService: MakerService, private _bedrijfService: BedrijfService, private _makerTypeService: MakerTypeService) {
@@ -60,6 +61,13 @@ export class ProfielComponent implements OnInit {
       contactInfo: new FormControl('', {validators: [Validators.required]})
     });
 
+
+    // this._gebruikerService.getCurrentUser().subscribe(result => {
+    //   this.huidigeUserID = result.userID;
+    // });
+    //
+    // console.log(this.huidigeUserID);
+
     this._authenticateService.currentUserRoleSubject.subscribe(result => {
       console.log(result);
       if (result == 'Company') {
@@ -84,20 +92,22 @@ export class ProfielComponent implements OnInit {
       this.roles = res;
     });
 
-    // HIER MOET NOG DE USER ID INKOMEN IPV 1
-    // GetCompanyByUserID en getMakerByUserID geven 404 not found 
-    this._bedrijfService.getCompanyByUserID(1).subscribe(res => {
+    this._bedrijfService.getCompanyByUserID(this.huidigeUserID).subscribe(res => {
       this.company = res;
       this.companyForm.patchValue(this.company);
     });
 
-    // HIER MOET NOG DE USER ID INKOMEN IPV 1
-    this._makerService.getMakerByUserID(1).subscribe(res => {
+    this._makerService.getMakerByUserID(this.huidigeUserID).subscribe(res => {
       this.maker = res;
       this.makerForm.patchValue(this.maker);
     });
 
     this.makerTypes = this._makerTypeService.getMakerTypes();
+
+    // DEZE GEBRUIKER ID BLIJFT LEEG? 
+    this._gebruikerService.getCurrentUser().subscribe(result => {
+        this.huidigeUserID = result.userID;
+      });
   }
 
   onSubmit() {
@@ -109,8 +119,6 @@ export class ProfielComponent implements OnInit {
     }, error => {
       this.submitted = false;
       this.errorBool = true;
-      //this.errormessage = JSON.stringify(error);
-      //this.errormessage = error.error.message;
       this.errorMessage = 'Er ging iets mis, probeer opnieuw.';
     });
   }
@@ -118,7 +126,7 @@ export class ProfielComponent implements OnInit {
   onSubmitCompany() {
     this.submitted = true;
     const form = this.companyForm.value;
-    const company: Company = new Company(this.company.companyID, this.myUser.userID, form.companyName, form.companyLocation, form.companyBiography);
+    const company: Company = new Company(this.company.companyID, this.huidigeUserID, form.companyName, form.companyLocation, form.companyBiography);
     this._bedrijfService.updateCompany(this.company.companyID, company).subscribe(result => {
       console.log(result);
     }, error => {
@@ -131,7 +139,7 @@ export class ProfielComponent implements OnInit {
   onSubmitMaker() {
     this.submitted = true;
     const form = this.makerForm.value;
-    const maker: Maker = new Maker(this.maker.makerID, form.makerTypeID, this.myUser.userID, form.nickname, form.birthdate, form.biography, form.linkedIn, form.experience, form.contactInfo);
+    const maker: Maker = new Maker(this.maker.makerID, form.makerTypeID, this.huidigeUserID, form.nickname, form.birthdate, form.biography, form.linkedIn, form.experience, form.contactInfo);
     this._makerService.updateMaker(this.maker.makerID, maker).subscribe(result => {
       console.log(result);
     }, error => {
