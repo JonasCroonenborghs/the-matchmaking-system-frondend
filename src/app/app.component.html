@@ -18,9 +18,6 @@
         <li *ngIf="aangemeld" class="nav-item">
           <a class="nav-link link-1" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
         </li>
-        <li *ngIf="aangemeld && !isCompany" class="nav-item">
-          <a class="nav-link link-1" routerLink="/bedrijf-profiel" routerLinkActive="active">Bedrijf profiel(read)</a>
-        </li>
         <li *ngIf="aangemeld && isMaker && !isAdmin" class="nav-item">
           <a class="nav-link link-1" routerLink="/gebruiker-opdrachten" routerLinkActive="active">Mijn opdrachten</a>
         </li>

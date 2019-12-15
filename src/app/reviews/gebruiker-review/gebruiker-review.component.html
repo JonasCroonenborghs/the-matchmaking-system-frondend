@@ -6,13 +6,13 @@
     <div class="row justify-content-center">
       <h1>Feedback van bedrijven</h1>
     </div>
-    <div class="card" *ngFor="let review of (reviews | async)">
-      <div class="card-header">MakerID: {{review.reviewerID}}</div>
+    <div class="card mt-3 mb-4" *ngFor="let review of reviews ">
+      <div class="card-header bg-light" *ngIf="!review.like"><i class="far fa-heart"></i></div>
+      <div class="card-header bg-light" *ngIf="review.like"><i class="fas fa-heart"></i></div>
       <div class="card-body">
-        <blockquote class="blockquote mb-0">
+        <blockquote class="blockquote mb-1">
           <p>{{review.description}}</p>
-          <footer *ngIf="review.like == true" class="blockquote-footer">
-            <img height="5%" width="5%" src="assets/images/star.png">
+          <footer class="blockquote-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal"
                     data-target="#exampleModal" (click)="showReviewer(review.reviewerID)">Reviewer info
             </button>
