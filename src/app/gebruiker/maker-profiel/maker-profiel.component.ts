@@ -27,7 +27,7 @@ export class MakerProfielComponent implements OnInit {
       console.log("MAKERID:   "+this.makerID);
       console.log("AASIGNMENTID:  "+this.assignmentID);
     })
-    this.tags = this._makerService.getTagsByMakerID(this.makerID);
+
   }
 
   ngOnInit() {
