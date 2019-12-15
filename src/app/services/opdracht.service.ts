@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable, BehaviorSubject} from 'rxjs';
-import {Assignment} from '../models/assignment.model';
-import {Maker} from '../models/maker.model';
-import {Review} from '../models/review.model';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Assignment } from '../models/assignment.model';
+import { Maker } from '../models/maker.model';
+import { Review } from '../models/review.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OpdrachtService {
 
-  
+
   selectedCompany = new BehaviorSubject(null);
-  
+
   constructor(private http: HttpClient) {
   }
 
@@ -52,11 +52,15 @@ export class OpdrachtService {
     return this.http.put<Assignment>('https://localhost:5001/api/Assignment/' + assignmentID, assignment);
   }
 
+  updateAssignmentAndSendMails(assignmentID: number, assignment: Assignment) {
+    return this.http.put<any>('https://localhost:5001/api/Assignment/updateAndSendMails/' + assignmentID, assignment);
+  }
+
   deleteAssignment(assignmentID: number) {
     return this.http.delete<Assignment>('https://localhost:5001/api/Assignment/' + assignmentID);
   }
-  
-  deleteAssignmentRequest(userID : number, assignmentID: number) {
-    return this.http.delete<Assignment>('https://localhost:5001/api/AssignmentRequest/'+ userID +'/' + assignmentID);
+
+  deleteAssignmentRequest(userID: number, assignmentID: number) {
+    return this.http.delete<Assignment>('https://localhost:5001/api/AssignmentRequest/' + userID + '/' + assignmentID);
   }
 }

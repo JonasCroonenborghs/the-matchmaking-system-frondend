@@ -13,7 +13,7 @@ import { Tag } from '../../models/tag.model';
 export class MakerProfielComponent implements OnInit {
 
   maker: Maker;
-  makerID: number = 2;
+  makerID: number = 0;
   tags: Observable<Tag[]>;
 
   constructor(private _makerService: MakerService, private activatedRoute: ActivatedRoute) {
@@ -22,12 +22,9 @@ export class MakerProfielComponent implements OnInit {
       this.makerID = new Number(result.get('makerID')).valueOf();
       console.log(this.makerID);
     })
-    // this.makerID = 1;
     this._makerService.getMaker(this.makerID).subscribe(result => {
       this.maker = result;
     });
-
-    this.tags = this._makerService.getTagsByMakerID(this.makerID);
   }
 
   ngOnInit() {

@@ -37,8 +37,9 @@ export class InzendingenComponent implements OnInit {
 
   updateAssignment(makerID: number) {
     this.assignment.makerID = makerID;
-    this._opdrachtService.updateAssignment(this.assignmentID, this.assignment).subscribe(result => {
+    this._opdrachtService.updateAssignmentAndSendMails(this.assignmentID, this.assignment).subscribe(result => {
       console.log(result);
+      window.location.reload();
     })
   }
 }
