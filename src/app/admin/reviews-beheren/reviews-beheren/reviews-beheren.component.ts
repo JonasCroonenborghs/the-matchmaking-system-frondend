@@ -35,12 +35,18 @@ export class ReviewsBeherenComponent implements OnInit {
 
   onClickBewerkReview(gekozenReview: Review) {
     this.review = gekozenReview;
+    this.reviewForm.patchValue(gekozenReview);
+
     this.reviewForm.controls['like'].setValue(gekozenReview.like, {onlySelf: true});
   }
 
   onSubmit() {
-    this._reviewService.updateReview(this.reviewID, this.reviewForm.value).subscribe(result => {
+    const form = this.reviewForm.value;
+    this.review = new Review(this.review.reviewID, form.reviewerID, form.receiverID, form.assignmentID, form.description, form.like);
+
+    this._reviewService.updateReview(this.review.reviewID, this.review).subscribe(result => {
       this.submitted = true;
+      window.location.reload();
     }, error => {
       this.submitted = false;
       this.errorBool = true;
@@ -50,6 +56,7 @@ export class ReviewsBeherenComponent implements OnInit {
 
   onCLickVerwijderReview(gekozenReviewID: number) {
     this._reviewService.deleteReview(gekozenReviewID).subscribe();
+    window.location.reload();
   }
 
   ngOnInit() {
