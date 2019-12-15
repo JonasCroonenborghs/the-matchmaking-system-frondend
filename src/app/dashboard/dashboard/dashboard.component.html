@@ -53,10 +53,33 @@
               (click)="makersOphalen(opdracht)">Sollicitanten bekijken</button>
             <button *ngIf="isCompany && opdracht.maker != null" type="button" class="ml-2 btn btn-outline-secondary btn-sm"
               (click)="goToMakerProfile(opdracht.maker.makerID)">Profiel bekijken</button>
+             <button *ngIf="isCompany && opdracht.maker != null" type="button" class="ml-2 btn btn-outline-success btn-sm"
+                     (click)="newMakerReview(opdracht.maker.userID, opdracht)" data-toggle="modal" data-target="#reviewModal">Review schrijven</button>
           </span>
         </div>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reviewModalLabel">Review schrijven {{selectedReceiverID}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-review *ngIf="selectedReceiverID" [companyID]="selectedReceiverID" [assignmentID]="selectedReviewAssignment.assignmentID" [currentUID]="currentUID"></app-review>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
+
+      </div>
     </div>
   </div>
 </div>

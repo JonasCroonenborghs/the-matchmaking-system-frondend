@@ -39,6 +39,9 @@ export class DashboardComponent implements OnInit {
   errorBool: boolean = false;
   submitted: boolean = false;
   errorMessage: string = '';
+  selectedReceiverID : number = null;
+  selectedReviewAssignment : Assignment= null;
+  currentUID : number = null;
 
   constructor(private _opdrachtService: OpdrachtService, private _gebruikerService: GebruikerService, private _tagService: TagService,
               private _authenticateService: AuthenticateService, private _makerService: MakerService, private router: Router) {
@@ -74,10 +77,13 @@ export class DashboardComponent implements OnInit {
       this.tags = res;
       console.log(this.tags);
     });
+    this.currentUID = this.getCurrentGebruiker().UserID;
   }
 
   close() {
     this.selectedCompanyID = null;
+    this.selectedReceiverID =null;
+    this.selectedAssignmentID = null;
   }
 
   showBedrijfInfo(opdracht: Assignment) {
@@ -158,5 +164,21 @@ export class DashboardComponent implements OnInit {
       this.errorBool = true;
       this.errorMessage = 'Er is iets misgegaan bij het toevoegen. Vul alle velden in.';
     });
+  }
+
+  newMakerReview(receiverID: any, opdracht : Assignment) {
+    this.selectedReceiverID = receiverID;
+    this.selectedReviewAssignment = opdracht;
+  }
+
+
+  getCurrentGebruiker() {
+    if (localStorage.getItem('token') != null) {
+      let jwtData = localStorage.getItem("token").split('.')[1];
+      let decodedJwt = window.atob(jwtData);
+      console.log(JSON.parse(decodedJwt));
+      return JSON.parse(decodedJwt);
+    }
+    return null;
   }
 }
