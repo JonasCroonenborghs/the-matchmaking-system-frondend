@@ -33,8 +33,9 @@ export class ReviewsBeherenComponent implements OnInit {
     this.reviews = _reviewService.getReviews();
   }
 
-  onClickBewerkReview(review: Review) {
-    this.review = review;
+  onClickBewerkReview(gekozenReview: Review) {
+    this.review = gekozenReview;
+    this.reviewForm.controls['like'].setValue(gekozenReview.like, {onlySelf: true});
   }
 
   onSubmit() {

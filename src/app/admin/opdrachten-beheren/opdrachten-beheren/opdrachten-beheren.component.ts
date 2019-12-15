@@ -32,11 +32,9 @@ export class OpdrachtenBeherenComponent implements OnInit {
               private _bedrijfService: BedrijfService,
               private _makerService: MakerService) {
     this.opdrachtForm = new FormGroup({
-      assignmentID: new FormControl(''),
       companyID: new FormControl(''),
       title: new FormControl(''),
       closeDate: new FormControl(''),
-      makerID: new FormControl(''),
       description: new FormControl('')
     });
 
@@ -46,19 +44,18 @@ export class OpdrachtenBeherenComponent implements OnInit {
   }
 
   onCLickToevoegenOpdracht() {
+    this.clearOpdrachtForm();
     this.opdracht = null;
   }
 
   onClickBewerkOpdracht(gekozenOpdracht: Assignment) {
     this.opdracht = gekozenOpdracht;
+    this.opdrachtForm.controls['companyID'].setValue(gekozenOpdracht.companyID, {onlySelf: true});
+    this.opdrachtForm.controls['closeDate'].setValue(new Date(new Date(gekozenOpdracht.closeDate).getDate()));
   }
 
   onSubmit() {
-    this.submitted = true;
-    const form = this.opdrachtForm.value;
-
     if (this.opdracht == null) {
-      // this.opdracht = new Assignment(0, form.companyID, form.makerID, form.title, form.description, form.closeDate);
       this._opdrachtService.addAssignment(this.opdrachtForm.value).subscribe(result => {
         this.submitted = true;
       }, error => {
@@ -68,6 +65,7 @@ export class OpdrachtenBeherenComponent implements OnInit {
       });
     } else {
       this._opdrachtService.updateAssignment(this.opdracht.assignmentID, this.opdrachtForm.value).subscribe(result => {
+        this.clearOpdrachtForm();
         this.submitted = true;
       }, error => {
         this.submitted = false;
@@ -79,11 +77,14 @@ export class OpdrachtenBeherenComponent implements OnInit {
 
   onCLickVerwijderOpdracht(gekozenOpdrachtID: number) {
     this._opdrachtService.deleteAssignment(gekozenOpdrachtID).subscribe();
-    // this._opdrachtService.deleteAssignment(gekozenOpdrachtID).subscribe(result => {
-    // }, error => {
-    //   this.errorBool = true;
-    //   this.errorMessageDelete = 'Deze opdracht kan niet verwijderd worden omdat er een maker is toegevoegd';
-    // });
+  }
+
+  clearOpdrachtForm() {
+    this.opdrachtForm.controls['title'].setValue('', {onlySelf: true});
+    this.opdrachtForm.controls['companyID'].setValue('0', {onlySelf: true});
+    this.opdrachtForm.controls['description'].setValue('', {onlySelf: true});
+    this.opdrachtForm.controls['closeDate'].setValue('', {onlySelf: true});
+    this.errorBool = false;
   }
 
   ngOnInit() {

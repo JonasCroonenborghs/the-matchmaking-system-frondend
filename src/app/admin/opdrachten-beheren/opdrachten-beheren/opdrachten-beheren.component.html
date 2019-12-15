@@ -64,14 +64,6 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="inputGroupSelectMaker" class="col-form-label">Maker:</label>
-                <select class="custom-select" id="inputGroupSelectMaker" formControlName="makerID">
-                  <option selected="selected">Kies...</option>
-                  <option *ngFor="let maker of (makers | async)"
-                          value="{{maker.makerID}}">{{maker.nickname}}</option>
-                </select>
-              </div>
-              <div class="form-group">
                 <label for="description" class="col-form-label">Beschrijving:</label>
                 <input type="text" class="form-control" id="description" value="{{opdracht?.description}}"
                        formControlName="description">
