@@ -31,7 +31,7 @@
       <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of filterOpdrachten | filter: searchText;">
         <div class="card-body">
           <h5 class="card-title">{{opdracht.title}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted"><span class="mr-3"
+          <h6 class="card-subtitle mb-2 text-muted"><span class="mr-3 badge badge-info"
                                                           *ngFor="let tag of opdracht.listTags">{{tag.name}}</span></h6>
           <p class="card-text">{{opdracht.description}}</p>
           <span class="ml-1">

@@ -29,6 +29,7 @@ export class TagsBeherenComponent implements OnInit {
     this.submitted = true;
     this._tagService.addTag(this.tagForm.value).subscribe(result => {
       this.submitted = true;
+      window.location.reload();
     }, error => {
       this.submitted = false;
       this.errorBool = true;
@@ -38,6 +39,7 @@ export class TagsBeherenComponent implements OnInit {
 
   onClickVerwijderTag(gekozenTagID: number) {
     this._tagService.deleteTag(gekozenTagID).subscribe();
+    window.location.reload();
   }
 
   ngOnInit() {

@@ -27,9 +27,9 @@ export class OpdrachtenBeherenComponent implements OnInit {
 
   opdrachten: Observable<Assignment[]>;
   opdracht: Assignment;
-
   bedrijven: Observable<Company[]>;
   makers: Observable<Maker[]>;
+  datum: Date;
 
   constructor(private _opdrachtService: OpdrachtService,
               private _bedrijfService: BedrijfService,
@@ -65,6 +65,7 @@ export class OpdrachtenBeherenComponent implements OnInit {
     if (this.opdracht == null) {
       this._opdrachtService.addAssignment(this.opdrachtForm.value).subscribe(result => {
         this.submitted = true;
+        window.location.reload();
       }, error => {
         this.submitted = false;
         this.errorBool = true;
@@ -72,7 +73,7 @@ export class OpdrachtenBeherenComponent implements OnInit {
       });
     } else {
       const form = this.opdrachtForm.value;
-      this.opdracht = new Assignment(this.opdracht.assignmentID, form.companyID, form.title, form.description, this.opdracht.closeDate);
+      this.opdracht = new Assignment(this.opdracht.assignmentID, form.companyID, form.title, form.description, form.closeDate);
 
       this._opdrachtService.updateAssignment(this.opdracht.assignmentID, this.opdracht).subscribe(result => {
         this.submitted = true;
@@ -81,7 +82,7 @@ export class OpdrachtenBeherenComponent implements OnInit {
       }, error => {
         this.submitted = false;
         this.errorBool = true;
-        this.errorMessage = 'Er is iets misgegaan bij het wijzigen.';
+        this.errorMessage = 'Er is iets misgegaan bij het wijzigen. Vul alle velden in.';
       });
     }
   }

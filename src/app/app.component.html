@@ -21,13 +21,13 @@
         <li *ngIf="aangemeld && !isCompany" class="nav-item">
           <a class="nav-link link-1" routerLink="/bedrijf-profiel" routerLinkActive="active">Bedrijf profiel(read)</a>
         </li>
-        <li *ngIf="aangemeld && isMaker" class="nav-item">
+        <li *ngIf="aangemeld && isMaker && !isAdmin" class="nav-item">
           <a class="nav-link link-1" routerLink="/gebruiker-opdrachten" routerLinkActive="active">Mijn opdrachten</a>
         </li>
         <li *ngIf="aangemeld" class="nav-item">
           <a class="nav-link link-1" routerLink="/profiel" routerLinkActive="active">Mijn profiel</a>
         </li>
-        <li *ngIf="aangemeld && isAdmin || isMaker" class="nav-item">
+        <li *ngIf="aangemeld && !isAdmin && isMaker" class="nav-item">
           <a class="nav-link link-1" routerLink="/gebruiker-review" routerLinkActive="active">Reviews</a>
         </li>
         <li *ngIf="aangemeld && !isMaker" class="nav-item">

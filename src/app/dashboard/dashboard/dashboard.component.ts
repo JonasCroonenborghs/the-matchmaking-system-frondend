@@ -60,9 +60,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (localStorage.getItem("reload")){
+    if (localStorage.getItem('reload')) {
       window.location.reload();
-      localStorage.removeItem("reload");
+      localStorage.removeItem('reload');
     }
     this._opdrachtService.getAssignments().subscribe(res => {
       this.opdrachten = res; // de volledige lijst met opdrachten die nooit overschreven/ aangepast mag worden
@@ -139,7 +139,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToMakerProfile(makerID: number) {
-    this.router.navigate(['/maker-profiel', makerID, ""]);
+    this.router.navigate(['/maker-profiel', makerID, '']);
   }
 
   closeMakersModal() {
@@ -152,6 +152,7 @@ export class DashboardComponent implements OnInit {
 
     this._opdrachtService.addAssignment(this.opdracht).subscribe(result => {
       this.submitted = true;
+      window.location.reload();
     }, error => {
       this.submitted = false;
       this.errorBool = true;
