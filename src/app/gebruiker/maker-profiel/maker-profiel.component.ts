@@ -5,6 +5,7 @@ import { MakerService } from '../../services/maker.service';
 import { Observable } from 'rxjs';
 import { Tag } from '../../models/tag.model';
 import {OpdrachtService} from '../../services/opdracht.service';
+import {Assignment} from '../../models/assignment.model';
 
 @Component({
   selector: 'app-maker-profiel',
@@ -17,7 +18,7 @@ export class MakerProfielComponent implements OnInit {
   tags: Observable<Tag[]>;
   temp:any;
   assignmentID : number = null;
-  assignment:any;
+  assignment: Assignment =null;
 
   constructor(private _makerService: MakerService, private activatedRoute: ActivatedRoute, private _opdrachtService:OpdrachtService) {
     activatedRoute.paramMap.subscribe(result => {
@@ -27,7 +28,7 @@ export class MakerProfielComponent implements OnInit {
       console.log("MAKERID:   "+this.makerID);
       console.log("AASIGNMENTID:  "+this.assignmentID);
     })
-
+    //this.tags = this._makerService.getTagsByMakerID(this.makerID);
   }
 
   ngOnInit() {
@@ -39,8 +40,7 @@ export class MakerProfielComponent implements OnInit {
 
   updateAssignment() {
     this._opdrachtService.getAssignment(this.assignmentID).subscribe(res=>{
-      res.makerID = this.makerID;
-      this.assignment = res;
+      this.assignment = new Assignment(this.assignmentID, res.companyID, res.title, res.description,res.closeDate,res.listTags, this.makerID);
     });
     console.log(this.assignment);
     //this.assignment.makerID = this.makerID;
