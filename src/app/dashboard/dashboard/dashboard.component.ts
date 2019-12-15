@@ -135,7 +135,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToMakerProfile(makerID: number) {
-    this.router.navigate(['/maker-profiel', makerID]);
+    this.router.navigate(['/maker-profiel', makerID, ""]);
   }
 
   closeMakersModal() {

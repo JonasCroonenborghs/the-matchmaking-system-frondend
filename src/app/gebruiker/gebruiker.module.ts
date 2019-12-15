@@ -13,7 +13,8 @@ import { AccountActivatieComponent } from './account-activatie/account-activatie
 @NgModule({
   declarations: [LoginComponent, RegistrerenComponent, ProfielComponent, BedrijfProfielComponent, MakerProfielComponent, AccountActivatieComponent],
   exports: [
-    BedrijfProfielComponent
+    BedrijfProfielComponent,
+    MakerProfielComponent
   ],
   imports: [
     FormsModule,
