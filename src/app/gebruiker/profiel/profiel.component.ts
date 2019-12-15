@@ -19,6 +19,7 @@ export class ProfielComponent implements OnInit {
   roles: any;
   isCompany : boolean;
   isMaker : boolean;
+  display = 'none';
 
   constructor(private _gebruikerService: GebruikerService,  private _authenticateService: AuthenticateService) {
     this.registrationForm = new FormGroup({
@@ -26,7 +27,7 @@ export class ProfielComponent implements OnInit {
       firstName: new FormControl('', { validators: [Validators.required] }),
       lastName: new FormControl('', { validators: [Validators.required] }),
       email: new FormControl('', { validators: [Validators.required, Validators.email] }),
-      password: new FormControl('', { validators: [Validators.required, Validators.minLength(4)] }),
+      password: new FormControl('', { validators: [] }),
       oldPassword: new FormControl('', { validators: [Validators.required, Validators.minLength(4)] })
     });
     this._authenticateService.currentUserRoleSubject.subscribe(result => {
@@ -57,7 +58,10 @@ export class ProfielComponent implements OnInit {
     const form = this.registrationForm.value;
     const user: User = new User(this.myUser.userID, form.email, form.password, form.firstName, form.lastName, form.role, true);
     this._gebruikerService.updateGebruiker(form.oldPassword, user).subscribe(result => {
-      console.log(result);
+      this.errorMessage = "";
+      this.registrationForm.controls['password'].setValue("", {onlySelf: true});
+      this.registrationForm.controls['oldPassword'].setValue("", {onlySelf: true});
+      this.display = 'block';
     }, error => {
       this.submitted = false;
       this.errorBool = true;
@@ -66,5 +70,8 @@ export class ProfielComponent implements OnInit {
       this.errorMessage = "Er ging iets mis, probeer opnieuw.";
     });
   }
-
+  onClosedHandled(){
+    this.display='none';
+    this.submitted = false;
+  }
 }

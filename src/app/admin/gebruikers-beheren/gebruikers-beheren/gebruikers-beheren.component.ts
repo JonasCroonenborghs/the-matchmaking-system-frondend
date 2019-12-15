@@ -10,8 +10,7 @@ import {GebruikerService} from '../../../services/gebruiker.service';
 import {User} from '../../../models/user.model';
 import {MakerType} from '../../../models/makerType';
 import {MakerTypeService} from '../../../services/maker-type.service';
-import { Role } from 'src/app/models/role.model';
-import { $ } from 'protractor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gebruikers-beheren',
@@ -54,7 +53,8 @@ export class GebruikersBeherenComponent implements OnInit {
   constructor(private _makerService: MakerService,
               private _bedrijfService: BedrijfService,
               private _gebruikerService: GebruikerService,
-              private _makerTypeService: MakerTypeService) {
+              private _makerTypeService: MakerTypeService,
+              private router: Router) {
     this.makerForm = new FormGroup({
       makerTypeID: new FormControl('', {validators: [Validators.required]}),
       userID: new FormControl('', {validators: [Validators.required]}),
@@ -183,6 +183,11 @@ export class GebruikersBeherenComponent implements OnInit {
         this.errorMessage = 'Registration failed, please try again.';
       }
     );
+    
+    //window.location.reload();
+    this.router.navigateByUrl('/gebruikersBeheren', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['gebruikersBeheren']);
+    }); 
   }
 
   clearUserForm(){
