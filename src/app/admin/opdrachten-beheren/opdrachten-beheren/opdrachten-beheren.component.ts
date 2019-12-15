@@ -54,12 +54,14 @@ export class OpdrachtenBeherenComponent implements OnInit {
 
     this.opdrachtForm.controls['companyID'].setValue(gekozenOpdracht.companyID, {onlySelf: true});
     this.opdrachtForm.controls['closeDate'].setValue(gekozenOpdracht.closeDate);
+    console.log(gekozenOpdracht.closeDate);
   }
 
   onSubmit() {
     if (this.opdracht == null) {
       this._opdrachtService.addAssignment(this.opdrachtForm.value).subscribe(result => {
         this.submitted = true;
+        window.location.reload();
       }, error => {
         this.submitted = false;
         this.errorBool = true;
@@ -76,7 +78,7 @@ export class OpdrachtenBeherenComponent implements OnInit {
       }, error => {
         this.submitted = false;
         this.errorBool = true;
-        this.errorMessage = 'Er is iets misgegaan bij het wijzigen.';
+        this.errorMessage = 'Er is iets misgegaan bij het wijzigen. Vul alle velden in.';
       });
     }
   }
