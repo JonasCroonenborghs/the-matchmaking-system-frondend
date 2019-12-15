@@ -1,40 +1,52 @@
-<div class="card myCard shadow-sm col-lg-4 col-sm-10 col-m-10 mt-5 myCard container justify-content-center">
-  <div class="card-body">
-    <div class=" pt-5">
-      <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
-        <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
-        <div class="form-group">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="card myCard shadow-sm mt-3 mb-5">
+      <div class="card-body">
+        <div class="pt-3 row justify-content-center">
+          <img style="width: 20%; height:20%;" src="assets/images/interview.png">
+        </div>
+        <div class="pt-3 row justify-content-center">
           <h1>Mijn profiel:</h1>
-          <div class="form-group">
-            <label for="role">Statuut:</label>
-            <select class="form-control" id="role" formControlName="role">
-              <option *ngFor="let role of roles" [value]="role">{{role}}</option>
-            </select>
-          </div>
         </div>
-        <div class="form-group">
-          <label for="firstName">Voornaam:</label>
-          <input type="text" class="form-control" id="firstName" placeholder="First name" formControlName="firstName"/>
-        </div>
-        <div class="form-group">
-          <label for="lastName">Familienaam:</label>
-          <input type="text" class="form-control" id="lastName" placeholder="Last name" formControlName="lastName"/>
-        </div>
-        <div class="form-group">
-          <label for="mail">E-mail:</label>
-          <input type="email" class="form-control" id="mail" placeholder="E-mail" formControlName="email"/>
-        </div>
-        <div class="form-group">
-          <label for="password">Oud wachtwoord:</label>
-          <input type="password" class="form-control" id="oldPassword" placeholder="Oud password" formControlName="oldPassword" >
-        </div>
-        <div class="form-group">
-          <label for="password">Nieuw wachtwoord:</label>
-          <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" >
-        </div>
+        <div class=" pt-3">
+          <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
+            <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
 
-        <button type="submit" class="btn btn-success mt-3" [disabled]="!registrationForm.valid || submitted">Bewerken</button>
-      </form>
+            <div class="form-group">
+
+              <div class="form-group">
+                <label for="role">Statuut:</label>
+                <select class="form-control" id="role" formControlName="role">
+                  <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="firstName">Voornaam:</label>
+              <input type="text" class="form-control" id="firstName" placeholder="First name" formControlName="firstName"/>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Familienaam:</label>
+              <input type="text" class="form-control" id="lastName" placeholder="Last name" formControlName="lastName"/>
+            </div>
+            <div class="form-group">
+              <label for="mail">E-mail:</label>
+              <input type="email" class="form-control" id="mail" placeholder="E-mail" formControlName="email"/>
+            </div>
+            <div class="form-group">
+              <label for="password">Oud wachtwoord:</label>
+              <input type="password" class="form-control" id="oldPassword" placeholder="Oud password" formControlName="oldPassword" >
+            </div>
+            <div class="form-group">
+              <label for="password">Nieuw wachtwoord:</label>
+              <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" >
+            </div>
+
+            <button type="submit" class="btn btn-success mt-3" [disabled]="!registrationForm.valid || submitted">Bewerken</button>
+          </form>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>

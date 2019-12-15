@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { GebruikerService } from '../../services/gebruiker.service';
 import { Observable } from 'rxjs';
+import {AuthenticateService} from '../../services/authenticate.service';
 
 @Component({
   selector: 'app-profiel',
@@ -16,8 +17,10 @@ export class ProfielComponent implements OnInit {
   submitted: boolean = false;
   myUser: User;
   roles: any;
+  isCompany : boolean;
+  isMaker : boolean;
 
-  constructor(private _gebruikerService: GebruikerService) {
+  constructor(private _gebruikerService: GebruikerService,  private _authenticateService: AuthenticateService) {
     this.registrationForm = new FormGroup({
       role: new FormControl('', { validators: [Validators.required] }),
       firstName: new FormControl('', { validators: [Validators.required] }),
@@ -26,6 +29,15 @@ export class ProfielComponent implements OnInit {
       password: new FormControl('', { validators: [Validators.required, Validators.minLength(4)] }),
       oldPassword: new FormControl('', { validators: [Validators.required, Validators.minLength(4)] })
     });
+    this._authenticateService.currentUserRoleSubject.subscribe(result => {
+      console.log(result);
+      if (result == 'Company') {
+        this.isCompany = true;
+      }
+      if (result == 'Maker') {
+        this.isMaker = true;
+      }
+    })
   }
 
   ngOnInit() {
