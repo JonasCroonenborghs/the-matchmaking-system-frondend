@@ -1,6 +1,14 @@
 <div class="container mt-4">
-  <div class="content">
-    <h2 class="mb-3">Lopende opdrachten</h2>
+
+  <div class="mb-3">
+    <h2 >Lopende opdrachten <button class="btn" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+      <i class="fas fa-minus-square"></i>
+    </button>
+    </h2>
+
+  </div>
+  <div class="content collapse show" id="collapseExample">
+
     <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
 
     <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of myOpdrachten | filter: searchText;">
@@ -21,8 +29,13 @@
 </div>
 
 <div class="container mt-4">
-  <div class="content">
-    <h2 class="mb-3">Ingeschreven opdrachten</h2>
+  <h2 >Ingeschreven opdrachten <button class="btn" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="true" aria-controls="collapseExample2">
+    <i class="fas fa-minus-square"></i>
+  </button>
+  </h2>
+  <div class="content collapse show" id="collapseExample2">
+    <div class="mb-3 mt-3">
+
     <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
 
     <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of opdrachten | filter: searchText;">
