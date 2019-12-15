@@ -1,12 +1,13 @@
 // @ts-ignore
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 // @ts-ignore
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Assignment } from '../models/assignment.model';
-import { Maker } from '../models/maker.model';
-import { Tag } from '../models/tag.model';
-import { Review } from '../models/review.model';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Assignment} from '../models/assignment.model';
+import {Maker} from '../models/maker.model';
+import {Tag} from '../models/tag.model';
+import {Review} from '../models/review.model';
+import {Company} from '../models/company.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class MakerService {
 
   getInterestedMakersByAssignmentID(assignmentID: number): Observable<Maker[]> {
     return this.http.get<Maker[]>('https://localhost:5001/api/Maker/InterestedMakersByAssignmentID/' + assignmentID);
+  }
+
+  getMakerByUserID(userID: number): Observable<Maker> {
+    return this.http.get<Maker>('https://localhost:5001/api/Maker/byUserID/' + userID);
   }
 
   addMaker(maker: Maker) {

@@ -53,7 +53,7 @@ export class OpdrachtenBeherenComponent implements OnInit {
     this.opdrachtForm.patchValue(gekozenOpdracht);
 
     this.opdrachtForm.controls['companyID'].setValue(gekozenOpdracht.companyID, {onlySelf: true});
-    this.opdrachtForm.controls['closeDate'].setValue(gekozenOpdracht.closeDate, {onlySelf: true});
+    this.opdrachtForm.controls['closeDate'].setValue(gekozenOpdracht.closeDate);
   }
 
   onSubmit() {
