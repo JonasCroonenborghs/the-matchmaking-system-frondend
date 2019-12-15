@@ -10,11 +10,13 @@ import {Company} from '../../models/company.model';
 import {Maker} from '../../models/maker.model';
 import {MakerType} from '../../models/makerType';
 import {MakerTypeService} from '../../services/maker-type.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profiel',
   templateUrl: './profiel.component.html',
-  styleUrls: ['./profiel.component.scss']
+  styleUrls: ['./profiel.component.scss'],
+  providers:[DatePipe]
 })
 export class ProfielComponent implements OnInit {
   registrationForm: FormGroup;
@@ -34,8 +36,9 @@ export class ProfielComponent implements OnInit {
   maker: Maker;
   makerTypes: Observable<MakerType[]>;
   huidigeUserID: number;
+  birthday : string;
 
-  constructor(private _gebruikerService: GebruikerService, private _authenticateService: AuthenticateService,
+  constructor(private _gebruikerService: GebruikerService, private _authenticateService: AuthenticateService, private datePipe : DatePipe,
               private _makerService: MakerService, private _bedrijfService: BedrijfService, private _makerTypeService: MakerTypeService) {
     this.registrationForm = new FormGroup({
       role: new FormControl('', {validators: [Validators.required]}),
@@ -60,6 +63,7 @@ export class ProfielComponent implements OnInit {
       linkedIn: new FormControl('', {validators: [Validators.required]}),
       experience: new FormControl('', {validators: [Validators.required]}),
       contactInfo: new FormControl('', {validators: [Validators.required]})
+      
     });
 
 
@@ -107,6 +111,9 @@ export class ProfielComponent implements OnInit {
 
     // DEZE GEBRUIKER ID BLIJFT LEEG?
     this.huidigeUserID = this.getCurrentGebruiker().UserID;
+
+    // set birthday
+    this.birthday = this.datePipe.transform(this.maker.birthDate, 'yyyy-MM-dd');
   }
 
   getCurrentGebruiker() {

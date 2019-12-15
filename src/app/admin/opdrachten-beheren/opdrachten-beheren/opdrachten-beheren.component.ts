@@ -8,11 +8,13 @@ import {BedrijfService} from '../../../services/bedrijf.service';
 import {Company} from '../../../models/company.model';
 import {MakerService} from '../../../services/maker.service';
 import {User} from '../../../models/user.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-opdrachten-beheren',
   templateUrl: './opdrachten-beheren.component.html',
-  styleUrls: ['./opdrachten-beheren.component.scss']
+  styleUrls: ['./opdrachten-beheren.component.scss'],
+  providers:[DatePipe]
 })
 export class OpdrachtenBeherenComponent implements OnInit {
 
@@ -21,6 +23,7 @@ export class OpdrachtenBeherenComponent implements OnInit {
   submitted: boolean = false;
   errorMessage: string = '';
   errorMessageDelete: string = '';
+  closeDate : string;
 
   opdrachten: Observable<Assignment[]>;
   opdracht: Assignment;
@@ -30,7 +33,8 @@ export class OpdrachtenBeherenComponent implements OnInit {
 
   constructor(private _opdrachtService: OpdrachtService,
               private _bedrijfService: BedrijfService,
-              private _makerService: MakerService) {
+              private _makerService: MakerService,
+              private datePipe: DatePipe) {
     this.opdrachtForm = new FormGroup({
       companyID: new FormControl(''),
       title: new FormControl(''),
@@ -53,7 +57,8 @@ export class OpdrachtenBeherenComponent implements OnInit {
     this.opdrachtForm.patchValue(gekozenOpdracht);
 
     this.opdrachtForm.controls['companyID'].setValue(gekozenOpdracht.companyID, {onlySelf: true});
-    this.opdrachtForm.controls['closeDate'].setValue(gekozenOpdracht.closeDate);
+    this.closeDate = this.datePipe.transform(gekozenOpdracht.closeDate, 'yyyy-MM-dd');
+    //this.opdrachtForm.controls['closeDate'].setValue(this.datePipe.transform(gekozenOpdracht.closeDate, 'yyyy-MM-dd'));
   }
 
   onSubmit() {
