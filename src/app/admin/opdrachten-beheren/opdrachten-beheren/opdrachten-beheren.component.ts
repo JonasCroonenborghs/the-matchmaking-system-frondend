@@ -50,8 +50,10 @@ export class OpdrachtenBeherenComponent implements OnInit {
 
   onClickBewerkOpdracht(gekozenOpdracht: Assignment) {
     this.opdracht = gekozenOpdracht;
+    this.opdrachtForm.patchValue(gekozenOpdracht);
+
     this.opdrachtForm.controls['companyID'].setValue(gekozenOpdracht.companyID, {onlySelf: true});
-    this.opdrachtForm.controls['closeDate'].setValue(new Date(new Date(gekozenOpdracht.closeDate).getDate()));
+    this.opdrachtForm.controls['closeDate'].setValue(gekozenOpdracht.closeDate, {onlySelf: true});
   }
 
   onSubmit() {
@@ -64,9 +66,13 @@ export class OpdrachtenBeherenComponent implements OnInit {
         this.errorMessage = 'Er is iets misgegaan bij het toevoegen.';
       });
     } else {
-      this._opdrachtService.updateAssignment(this.opdracht.assignmentID, this.opdrachtForm.value).subscribe(result => {
-        this.clearOpdrachtForm();
+      const form = this.opdrachtForm.value;
+      this.opdracht = new Assignment(this.opdracht.assignmentID, form.companyID, form.title, form.description, this.opdracht.closeDate);
+
+      this._opdrachtService.updateAssignment(this.opdracht.assignmentID, this.opdracht).subscribe(result => {
         this.submitted = true;
+        window.location.reload();
+        this.clearOpdrachtForm();
       }, error => {
         this.submitted = false;
         this.errorBool = true;
@@ -77,6 +83,7 @@ export class OpdrachtenBeherenComponent implements OnInit {
 
   onCLickVerwijderOpdracht(gekozenOpdrachtID: number) {
     this._opdrachtService.deleteAssignment(gekozenOpdrachtID).subscribe();
+    window.location.reload();
   }
 
   clearOpdrachtForm() {

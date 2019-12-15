@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {OpdrachtService} from '../../services/opdracht.service';
 
 @Component({
   selector: 'app-opdracht',
@@ -13,7 +14,7 @@ export class OpdrachtComponent implements OnInit {
   submitted: boolean = false;
   errorMessage: string = '';
 
-  constructor() {
+  constructor(private _opdrachtService: OpdrachtService) {
     this.opdrachtForm = new FormGroup({
       companyID: new FormControl('', {validators: [Validators.required]}),
       title: new FormControl('', {validators: [Validators.required]}),
@@ -27,7 +28,13 @@ export class OpdrachtComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
+    this._opdrachtService.addAssignment(this.opdrachtForm.value).subscribe(result => {
+      this.submitted = true;
+    }, error => {
+      this.submitted = false;
+      this.errorBool = true;
+      this.errorMessage = 'Er is iets misgegaan bij het toevoegen.';
+    });
   }
 
 }
