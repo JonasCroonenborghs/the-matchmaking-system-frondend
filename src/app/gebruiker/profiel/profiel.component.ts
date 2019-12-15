@@ -104,10 +104,18 @@ export class ProfielComponent implements OnInit {
 
     this.makerTypes = this._makerTypeService.getMakerTypes();
 
-    // DEZE GEBRUIKER ID BLIJFT LEEG? 
-    this._gebruikerService.getCurrentUser().subscribe(result => {
-        this.huidigeUserID = result.userID;
-      });
+    // DEZE GEBRUIKER ID BLIJFT LEEG?
+    this.huidigeUserID = this.getCurrentGebruiker().UserID;
+  }
+
+  getCurrentGebruiker() {
+    if (localStorage.getItem('token') != null) {
+      let jwtData = localStorage.getItem("token").split('.')[1];
+      let decodedJwt = window.atob(jwtData);
+      console.log(JSON.parse(decodedJwt));
+      return JSON.parse(decodedJwt);
+    }
+    return null;
   }
 
   onSubmit() {
