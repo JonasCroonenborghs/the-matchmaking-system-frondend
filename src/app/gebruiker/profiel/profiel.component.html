@@ -1,14 +1,15 @@
 <div class="container">
-  <div class="row justify-content-center">
+  <div class="">
     <div class="card myCard shadow-sm mt-3 mb-5">
       <div class="card-body">
         <div class="pt-3 row justify-content-center">
-          <img style="width: 20%; height:20%;" src="assets/images/interview.png">
+          <img style="width:17%; height:17%;" src="assets/images/interview.png">
         </div>
         <div class="pt-3 row justify-content-center">
           <h1>Mijn profiel</h1>
         </div>
-        <div class=" pt-3">
+        <div class="row">
+          <div class="col">
           <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
             <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
             <div class="form-group">
@@ -47,8 +48,9 @@
               Bewerken
             </button>
           </form>
-
-          <form *ngIf="isCompany" (ngSubmit)="onSubmitCompany()" [formGroup]="companyForm">
+          </div>
+          <div *ngIf="isCompany" class="col">
+          <form  (ngSubmit)="onSubmitCompany()" [formGroup]="companyForm">
             <div class="form-group">
               <label for="companyName">Bedrijfsnaam:</label>
               <input type="text" class="form-control" id="companyName" placeholder="Bedrijfsnaam"
@@ -69,11 +71,12 @@
               Bewerken
             </button>
           </form>
-
-          <form *ngIf="isMaker" (ngSubmit)="onSubmitMaker()" [formGroup]="makerForm">
+          </div>
+          <div *ngIf="isMaker" class="col">
+          <form (ngSubmit)="onSubmitMaker()" [formGroup]="makerForm">
             <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
             <div class="form-group">
-              <label for="inputGroupSelectMakerType" class="col-form-label">Type:</label>
+              <label for="inputGroupSelectMakerType">Type:</label>
               <select class="custom-select" id="inputGroupSelectMakerType" formControlName="makerTypeID">
                 <option hidden value="0" selected>Kies type...</option>
                 <option *ngFor="let makerType of (makerTypes | async)"
@@ -81,32 +84,32 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="nickname" class="col-form-label">Nickname:</label>
+              <label for="nickname">Nickname:</label>
               <input type="text" class="form-control" id="nickname"
                      formControlName="nickname">
             </div>
             <div class="form-group">
-              <label for="birthDate" class="col-form-label">Geboortedatum:</label>
+              <label for="birthDate">Geboortedatum:</label>
               <input type="date" class="form-control" id="birthDate"
                      formControlName="birthDate" name="birthDate" [(ngModel)]="birthdate">
             </div>
             <div class="form-group">
-              <label for="biography" class="col-form-label">Biografie:</label>
+              <label for="biography">Biografie:</label>
               <input type="text" class="form-control" id="biography"
                      formControlName="biography">
             </div>
             <div class="form-group">
-              <label for="linkedIn" class="col-form-label">LinkedIn:</label>
+              <label for="linkedIn">LinkedIn:</label>
               <input type="text" class="form-control" id="linkedIn"
                      formControlName="linkedIn">
             </div>
             <div class="form-group">
-              <label for="experience" class="col-form-label">Ervaring:</label>
+              <label for="experience">Ervaring:</label>
               <input type="text" class="form-control" id="experience"
                      formControlName="experience">
             </div>
             <div class="form-group">
-              <label for="contactInfo" class="col-form-label">Contact info:</label>
+              <label for="contactInfo">Contact info:</label>
               <input type="text" class="form-control" id="contactInfo"
                      formControlName="contactInfo">
             </div>
@@ -115,6 +118,7 @@
               Bewerken
             </button>
           </form>
+</div>
         </div>
       </div>
     </div>
