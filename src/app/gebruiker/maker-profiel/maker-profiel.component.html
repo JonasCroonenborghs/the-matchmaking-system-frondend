@@ -11,9 +11,9 @@
         <div class="mt-3"><strong>Ervaring:</strong> {{maker?.experience}}<br/></div>
         <div class="mt-3"><strong>LinkedIn:</strong> {{maker?.linkedIn}}<br/></div>
         <div class="mt-3">
-        <span *ngFor="let tag of maker.tags" class="badge badge-pill badge-primary">{{tag.name}}</span>
         </div>
       </div>
     </div>
+    <button *ngIf="assignmentID" type="btn" class="btn-outline-success btn mt-3" (click)="updateAssignment()">Assignment toewijzen</button>
   </div>
 </div>

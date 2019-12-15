@@ -47,7 +47,7 @@ const appRoutes: Routes = [
   { path: 'inzendingen', component: InzendingenComponent, canActivate: [AuthGuard], data: { roles: [Role.Company] } }, //ingezonden opdrachten die nog geaccepteerd moeten worden DOOR BEDRIJF
   { path: 'profiel', component: ProfielComponent }, //eigen profiel bewerken EVERYONE
   { path: 'bedrijf-profiel', component: BedrijfProfielComponent }, //public profiel BEDRIJF
-  { path: 'maker-profiel', component: MakerProfielComponent }, //public profiel MAKER
+  { path: 'maker-profiel/:id1/:id2', component: MakerProfielComponent }, //public profiel MAKER
   { path: 'gebruiker-review', component: GebruikerReviewComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin, Role.Maker] } }, //reviews voor MAKERS van BEDRIJVEN
   { path: 'bedrijf-review', component: BedrijfReviewComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin, Role.Company] } }, //reviews voor BEDRIJVEN van MAKERS
   { path: 'review', component: ReviewComponent, canActivate: [AuthGuard], data: { roles: [Role.Company, Role.Maker] } }, //review maken

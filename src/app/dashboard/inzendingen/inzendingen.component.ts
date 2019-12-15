@@ -32,7 +32,7 @@ export class InzendingenComponent implements OnInit {
   }
 
   goToMakerProfile(makerID: number) {
-    this.router.navigate(['/maker-profiel', makerID]);
+    this.router.navigate(['/maker-profiel', makerID, this.assignmentID]);
   }
 
   updateAssignment(makerID: number) {

@@ -13,8 +13,8 @@ export class Maker {
     public linkedIn: string,
     public experience: string,
     public contactInfo: string,
-    public makerType: MakerType,
-    public user: User,
+    public makerType?: MakerType,
+    public user?: User,
     public tags?: Tag[]
   ) {
   }
