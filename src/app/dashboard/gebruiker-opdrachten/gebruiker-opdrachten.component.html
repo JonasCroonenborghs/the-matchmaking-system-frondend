@@ -20,9 +20,9 @@
           <footer *ngIf="isOverDated(opdracht.closeDate)" class="blockquote-footer">Deze opdracht is gesloten</footer>
         </blockquote>
         <span class="ml-1"><button type="button" class="btn mybtn btn-dark" data-toggle="modal" data-target="#exampleModal" (click)="showBedrijfInfo(opdracht)">Bedrijf info</button></span>
-        <span *ngIf="!isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Uitschrijven</button></span>
+        <span *ngIf="!isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Samenwerking stoppen</button></span>
         <span *ngIf="isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="showDeleteAlert(opdracht)">Verwijderen</button></span>
-        <span *ngIf="!isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-success" data-toggle="modal" data-target="#exampleModal" (click)="showReviewModal(opdracht)">Review Schrijven</button></span>
+        <span *ngIf="isOverDated(opdracht.closeDate)" class="ml-1"><button type="button" class="btn mybtn btn-success" data-toggle="modal" data-target="#exampleModal" (click)="showReviewModal(opdracht)">Review Schrijven</button></span>
       </div>
     </div>
   </div>
@@ -62,7 +62,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header ">
-        <h5 class="modal-title " id="exampleModalLabel">Bedrijf info</h5>
+        <h5 *ngIf="selectedCompanyID" class="modal-title " >Bedrijf info</h5>
+        <h5 *ngIf="selectedAssignment" class="modal-title " >Opdracht opzeggen</h5>
+        <h5 *ngIf="selectedReviewAssignment" class="modal-title " >Review</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -77,7 +79,7 @@
 
       </div>
       <div class="modal-footer">
-        <button *ngIf="selectedAssignmen" type="button" class="btn btn-danger" data-dismiss="modal" (click)="removeAssignmentRequest(selectedAssignment.assignmentID)">Delete</button>
+        <button *ngIf="selectedAssignment" type="button" class="btn btn-danger" data-dismiss="modal" (click)="removeAssignmentRequest(selectedAssignment.assignmentID)">Delete</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
       </div>
     </div>
