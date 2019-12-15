@@ -92,7 +92,7 @@ export class GebruikersBeherenComponent implements OnInit {
     this.makerTypes = this._makerTypeService.getMakerTypes();
     this.title = "Maker bewerken";
     this.makerForm.controls['makerTypeID'].setValue(gekozenMaker.makerTypeID, {onlySelf: true});
-    this.makerForm.controls['birthDate'].setValue(new Date(new Date(gekozenMaker.birthDate).getDate()));
+    this.makerForm.controls['birthDate'].setValue(new Date(new Date(gekozenMaker.birthdate).getDate()));
 
   }
 

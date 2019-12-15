@@ -51,8 +51,8 @@ export class ProfielComponent implements OnInit {
 
     this.companyForm = new FormGroup({
       companyName: new FormControl('', {validators: [Validators.required]}),
-      companyLocation: new FormControl('', {validators: [Validators.required]}),
-      companyBiography: new FormControl('', {validators: [Validators.required]})
+      location: new FormControl('', {validators: [Validators.required]}),
+      biography: new FormControl('', {validators: [Validators.required]})
     });
 
     this.makerForm = new FormGroup({
@@ -148,8 +148,10 @@ export class ProfielComponent implements OnInit {
   onSubmitCompany() {
     this.submitted = true;
     const form = this.companyForm.value;
-    const company: Company = new Company(this.company.companyID, this.huidigeUserID, form.companyName, form.companyLocation, form.companyBiography);
+    const company: Company = new Company(this.company.companyID, this.myUser.userID, form.companyName, form.location, form.biography);
     this._bedrijfService.updateCompany(this.company.companyID, company).subscribe(result => {
+      this.errorMessage = "";
+      this.display = 'block';
       console.log(result);
     }, error => {
       this.submitted = false;
@@ -161,9 +163,11 @@ export class ProfielComponent implements OnInit {
   onSubmitMaker() {
     this.submitted = true;
     const form = this.makerForm.value;
-    const maker: Maker = new Maker(this.maker.makerID, form.makerTypeID, this.huidigeUserID, form.nickname, form.birthdate, form.biography, form.linkedIn, form.experience, form.contactInfo);
+    const maker: Maker = new Maker(this.maker.makerID, form.makerTypeID, this.myUser.userID, form.nickname, new Date(this.birthdate), form.biography, form.linkedIn, form.experience, form.contactInfo);
     this._makerService.updateMaker(this.maker.makerID, maker).subscribe(result => {
       console.log(result);
+      this.errorMessage = "";
+      this.display = 'block';
     }, error => {
       this.submitted = false;
       this.errorBool = true;
