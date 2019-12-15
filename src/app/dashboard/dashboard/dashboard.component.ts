@@ -60,6 +60,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (localStorage.getItem("reload")){
+      window.location.reload();
+      localStorage.removeItem("reload");
+    }
     this._opdrachtService.getAssignments().subscribe(res => {
       this.opdrachten = res; // de volledige lijst met opdrachten die nooit overschreven/ aangepast mag worden
       this.filterOpdrachten = res; // de lijst waarop gefilterd kan worden
