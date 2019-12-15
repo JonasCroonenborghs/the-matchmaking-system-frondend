@@ -21,8 +21,8 @@
     <!--    Rechterkant van de pagina-->
     <!--    -->
     <div class="content">
-      <h2 class="mb-3"  *ngIf="!isCompany">Beschikbare opdrachten:</h2>
-      <h2 class="mb-3" *ngIf="isCompany">Onze opdrachten:</h2>
+      <h2 class="mb-3"  *ngIf="!isCompany">Beschikbare opdrachten</h2>
+      <h2 class="mb-3" *ngIf="isCompany">Onze opdrachten</h2>
       <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Zoeken...">
 
       <div class="card myCard mt-4 shadow-sm" *ngFor="let opdracht of filterOpdrachten | filter: searchText;">

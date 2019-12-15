@@ -63,7 +63,7 @@ export class ProfielComponent implements OnInit {
       this.errorBool = true;
       //this.errormessage = JSON.stringify(error);
       //this.errormessage = error.error.message;
-      this.errorMessage = "Verkeerd wachtwoord, probeer opnieuw.";
+      this.errorMessage = "Er ging iets mis, probeer opnieuw.";
     });
   }
 
