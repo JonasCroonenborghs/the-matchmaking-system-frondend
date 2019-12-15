@@ -30,10 +30,26 @@
           <h6 class="card-subtitle mb-2 text-muted"><span class="mr-3"
               *ngFor="let tag of opdracht.listTags">{{tag.name}}</span></h6>
           <p class="card-text">{{opdracht.description}}</p>
-          <span class="ml-1"><button type="button" class="btn btn-success"
-              (click)="assignmentAanvragen(opdracht)">Aanvragen</button></span>
-          <span class="ml-1"><button type="button" class="btn mybtn btn-dark" data-toggle="modal"
-              data-target="#exampleModal" (click)="showBedrijfInfo(opdracht)">Bedrijf info</button></span>
+          <span class="ml-1">
+            <button *ngIf="isMaker" type="button" class="btn btn-success"
+              (click)="assignmentAanvragen(opdracht)">Aanvragen</button>
+            <label
+              *ngIf="isCompany && opdracht.maker == null && opdracht.listAssignmentRequests.length > 0">{{opdracht.listAssignmentRequests.length}}
+              sollicitant(en)</label>
+            <label *ngIf="isCompany && opdracht.maker != null">Opdracht toegekend aan {{opdracht.maker.user.firstName}}
+              {{opdracht.maker.user.lastName}}
+            </label>
+          </span>
+
+          <span class="ml-1">
+            <button *ngIf="isMaker" type="button" class="btn mybtn btn-dark" data-toggle="modal"
+              data-target="#exampleModal" (click)="showBedrijfInfo(opdracht)">Bedrijf info</button>
+            <button *ngIf="isCompany && opdracht.maker == null && opdracht.listAssignmentRequests.length > 0"
+              type="button" data-toggle="modal" data-target="#makersModal" class="btn btn-success"
+              (click)="makersOphalen(opdracht)">Sollicitanten ophalen</button>
+            <button *ngIf="isCompany && opdracht.maker != null" type="button" class="btn btn-success"
+              (click)="goToMakerProfile(opdracht.maker.makerID)">Profiel bekijken</button>
+          </span>
         </div>
       </div>
 
@@ -42,7 +58,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -57,6 +74,29 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
 
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal makers-->
+<div class="modal fade" id="#makersModal" tabindex="-1" role="dialog" aria-labelledby="#makersModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="#makersModalLabel">Overzicht makers</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeMakersModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-inzendingen *ngIf="selectedAssignmentID" [assignment]="selectedAssignment"
+          [assignmentID]="selectedAssignmentID"></app-inzendingen>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeMakersModal()">Close</button>
       </div>
     </div>
   </div>

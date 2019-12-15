@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Maker} from '../../models/maker.model';
-import {MakerService} from '../../services/maker.service';
-import {Observable} from 'rxjs';
-import {Tag} from '../../models/tag.model';
+import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Maker } from '../../models/maker.model';
+import { MakerService } from '../../services/maker.service';
+import { Observable } from 'rxjs';
+import { Tag } from '../../models/tag.model';
 
 @Component({
   selector: 'app-maker-profiel',
@@ -12,11 +13,16 @@ import {Tag} from '../../models/tag.model';
 export class MakerProfielComponent implements OnInit {
 
   maker: Maker;
-  makerID: number;
+  makerID: number = 2;
   tags: Observable<Tag[]>;
 
-  constructor(private _makerService: MakerService) {
-    this.makerID = 1;
+  constructor(private _makerService: MakerService, private activatedRoute: ActivatedRoute) {
+    activatedRoute.paramMap.subscribe(result => {
+      console.log(result);
+      this.makerID = new Number(result.get('makerID')).valueOf();
+      console.log(this.makerID);
+    })
+    // this.makerID = 1;
     this._makerService.getMaker(this.makerID).subscribe(result => {
       this.maker = result;
     });

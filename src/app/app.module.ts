@@ -57,7 +57,8 @@ const appRoutes: Routes = [
   { path: 'reviewsBeheren', component: ReviewsBeherenComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } }, //reviews beheren
   { path: 'opdrachtenBeheren', component: OpdrachtenBeherenComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } }, //reviews beheren
 
-  { path: 'activeren/:activatiecode', component: AccountActivatieComponent }
+  { path: 'activeren/:activatiecode', component: AccountActivatieComponent },
+  { path: 'maker-profiel/:makerID', component: MakerProfielComponent }, //public profiel MAKER
 ];
 
 // @ts-ignore

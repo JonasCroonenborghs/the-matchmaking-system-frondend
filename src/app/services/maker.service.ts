@@ -29,7 +29,7 @@ export class MakerService {
   }
 
   getInterestedMakersByAssignmentID(assignmentID: number): Observable<Maker[]> {
-    return this.http.get<Maker[]>('https://localhost:5001/api/Maker/"InterestedMakersByAssignmentID/' + assignmentID);
+    return this.http.get<Maker[]>('https://localhost:5001/api/Maker/InterestedMakersByAssignmentID/' + assignmentID);
   }
 
   addMaker(maker: Maker) {

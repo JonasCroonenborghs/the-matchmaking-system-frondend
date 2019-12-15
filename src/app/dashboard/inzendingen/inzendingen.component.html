@@ -1,1 +1,28 @@
-<p>inzendingen works!</p>
+<div class="container ">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nickname</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let maker of makers">
+                <td>
+                    {{maker.nickname}}
+                </td>
+                <td>
+                    {{maker.makerType.name}}
+                </td>
+
+                <td>
+                    <a class="btn btn-info" (click)="goToMakerProfile(maker.makerID)">
+                        Profiel bekijken</a>
+                    <a class="btn btn-sucess" (click)="updateAssignment(maker.makerID)">
+                        Opdracht toewijzen</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

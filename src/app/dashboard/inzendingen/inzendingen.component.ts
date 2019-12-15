@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { OpdrachtService } from 'src/app/services/opdracht.service';
 import { Assignment } from 'src/app/models/assignment.model';
+import { MakerService } from 'src/app/services/maker.service';
+import { Maker } from 'src/app/models/maker.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inzendingen',
@@ -8,20 +11,34 @@ import { Assignment } from 'src/app/models/assignment.model';
   styleUrls: ['./inzendingen.component.scss']
 })
 export class InzendingenComponent implements OnInit {
-  opdrachten: Assignment[];
+  @Input() assignmentID: number;
+  @Input() assignment: Assignment;
+  temp: number;
+  makers: Maker[] = [];
 
-  constructor(private opdrachtService: OpdrachtService) {
-    this.getAllUnassignedAssignments();
+  constructor(private _makerService: MakerService, private router: Router, private _opdrachtService: OpdrachtService) {
   }
 
   ngOnInit() {
+    this.temp = this.assignmentID;
+    this.getInterestedMakersByAssignmentID(this.temp);
   }
 
-  getAllUnassignedAssignments() {
-    this.opdrachtService.getUnassignedAssignmentsByCompanyID(1).subscribe(result => {
+  getInterestedMakersByAssignmentID(assignmentID: number) {
+    this._makerService.getInterestedMakersByAssignmentID(assignmentID).subscribe(result => {
       console.log(result);
-      this.opdrachten = result;
-    });
+      this.makers = result;
+    })
   }
 
+  goToMakerProfile(makerID: number) {
+    this.router.navigate(['/maker-profiel', makerID]);
+  }
+
+  updateAssignment(makerID: number) {
+    this.assignment.makerID = makerID;
+    this._opdrachtService.updateAssignment(this.assignmentID, this.assignment).subscribe(result => {
+      console.log(result);
+    })
+  }
 }

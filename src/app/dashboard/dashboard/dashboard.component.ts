@@ -1,3 +1,5 @@
+import { MakerService } from "./../../services/maker.service";
+import { AuthenticateService } from "./../../services/authenticate.service";
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Assignment } from '../../models/assignment.model';
@@ -5,6 +7,7 @@ import { OpdrachtService } from '../../services/opdracht.service';
 import { GebruikerService } from '../../services/gebruiker.service';
 import { TagService } from '../../services/tag.service';
 import { Tag } from 'src/app/models/tag.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,8 +23,24 @@ export class DashboardComponent implements OnInit {
   makerID: number;
   tags: any;
   selectedTags: Tag[] = [];
+  isMaker: boolean;
+  isCompany: boolean;
+  //companyID: number = 0;
+  //unassignedAssignments: Assignment[];
+  selectedAssignmentID: number;
+  selectedAssignment: Assignment;
 
-  constructor(private _opdrachtService: OpdrachtService, private _gebruikerService: GebruikerService, private _tagService: TagService) {
+  constructor(private _opdrachtService: OpdrachtService, private _gebruikerService: GebruikerService, private _tagService: TagService,
+    private _authenticateService: AuthenticateService, private _makerService: MakerService, private router: Router) {
+    this._authenticateService.currentUserRoleSubject.subscribe(result => {
+      console.log(result);
+      if (result == 'Company') {
+        this.isCompany = true;
+      }
+      if (result == 'Maker') {
+        this.isMaker = true;
+      }
+    })
   }
 
   ngOnInit() {
@@ -35,11 +54,9 @@ export class DashboardComponent implements OnInit {
       this.tags = res
       console.log(this.tags);
     });
-
-
   }
 
-  close(){
+  close() {
     this.selectedCompanyID = null;
   }
 
@@ -95,5 +112,19 @@ export class DashboardComponent implements OnInit {
 
   closeModal() {
     this.selectedCompanyID = 0;
+  }
+
+  makersOphalen(assignment: Assignment) {
+    this.selectedAssignment = assignment;
+    this.selectedAssignmentID = assignment.assignmentID;
+    console.log(this.selectedAssignmentID);
+  }
+
+  goToMakerProfile(makerID: number) {
+    this.router.navigate(['/maker-profiel', makerID]);
+  }
+
+  closeMakersModal() {
+    this.selectedAssignmentID = null;
   }
 }
