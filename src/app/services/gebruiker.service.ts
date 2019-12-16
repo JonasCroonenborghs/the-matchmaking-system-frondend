@@ -42,6 +42,10 @@ export class GebruikerService {
     return this.http.put<User>("https://localhost:5001/api/User/", { oldPassword : oldPassword, user : user});
   }
 
+  deleteUser(userID: number){
+    return this.http.delete("https://localhost:5001/api/User/" + userID);
+  }
+
   //ingelogde gebruiker ID opvragen
   getCurrentGebruiker() {
     if (localStorage.getItem('token') != null) {
